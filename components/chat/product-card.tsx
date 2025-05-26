@@ -5,14 +5,18 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Star, Leaf, ShoppingCart, Heart, Info } from "lucide-react"
 import type { Product } from "@/types/runash-chat"
+import { useCart } from "@/contexts/cart-context"
 
 interface ProductCardProps {
   product: Product
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const { addToCart } = useCart()
+
   const handleAddToCart = () => {
-    // Add to cart logic
+    addToCart(product, 1)
+    // Show success toast
     console.log("Added to cart:", product.name)
   }
 
