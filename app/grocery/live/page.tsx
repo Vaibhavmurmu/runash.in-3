@@ -19,6 +19,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Play,
+  MessageSquare,
 } from "lucide-react"
 import { CurrencyProvider } from "@/contexts/currency-context"
 import LiveStreamPlayer from "@/components/grocery/live-shopping/live-stream-player"
@@ -299,6 +300,11 @@ function LiveShoppingPage() {
             </Button>
 
             <div className="flex items-center space-x-4">
+              <Button variant="outline" onClick={() => router.push("/chat")} className="flex items-center space-x-2">
+                <MessageSquare className="h-4 w-4" />
+                <span>AI Chat</span>
+              </Button>
+
               <Badge
                 variant="outline"
                 className="flex items-center space-x-1 bg-red-50 text-red-600 border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800"
