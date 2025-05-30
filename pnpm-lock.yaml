@@ -5871,7 +5871,7 @@ snapshots:
     dependencies:
       '@react-aria/ssr': 3.9.8(react@19.0.0)
       '@react-stately/utils': 3.10.6(react@19.0.0)
-      '@react-types/shared': 3.26.0(react@19.0.0)
+      '@react-types/shared': 3.29.1(react@19.0.0)
       '@swc/helpers': 0.5.17
       clsx: 2.1.1
       react: 19.0.0
@@ -6098,9 +6098,9 @@ snapshots:
 
   '@react-stately/toggle@3.8.0(react@19.0.0)':
     dependencies:
-      '@react-stately/utils': 3.10.5(react@19.0.0)
+      '@react-stately/utils': 3.10.6(react@19.0.0)
       '@react-types/checkbox': 3.9.4(react@19.0.0)
-      '@react-types/shared': 3.29.1(react@19.0.0)
+      '@react-types/shared': 3.26.0(react@19.0.0)
       '@swc/helpers': 0.5.17
       react: 19.0.0
 
