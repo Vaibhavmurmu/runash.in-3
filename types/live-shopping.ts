@@ -59,3 +59,95 @@ export interface RecordingControls {
   saveToCloud: boolean
   createHighlights: boolean
 }
+
+export interface Poll {
+  id: string
+  streamId: string
+  question: string
+  options: PollOption[]
+  status: "draft" | "active" | "ended"
+  createdAt: Date
+  activatedAt?: Date
+  endedAt?: Date
+  duration?: number // in seconds, optional for polls that don't auto-close
+  allowMultipleChoices: boolean
+  isAnonymous: boolean
+  totalVotes: number
+  highlightedInStream: boolean
+}
+
+export interface PollOption {
+  id: string
+  text: string
+  votes: number
+  color?: string
+}
+
+export interface Quiz {
+  id: string
+  streamId: string
+  title: string
+  questions: QuizQuestion[]
+  status: "draft" | "active" | "ended"
+  createdAt: Date
+  activatedAt?: Date
+  endedAt?: Date
+  timePerQuestion: number // in seconds
+  currentQuestionIndex?: number
+  isAnonymous: boolean
+  showCorrectAnswers: boolean
+  showLeaderboard: boolean
+  totalParticipants: number
+  highlightedInStream: boolean
+}
+
+export interface QuizQuestion {
+  id: string
+  text: string
+  options: QuizOption[]
+  correctOptionId?: string
+  timeLimit?: number // in seconds, overrides quiz default if set
+  image?: string
+  explanation?: string
+}
+
+export interface QuizOption {
+  id: string
+  text: string
+  votes: number
+  color?: string
+}
+
+export interface UserPollResponse {
+  userId: string
+  pollId: string
+  selectedOptionIds: string[]
+  submittedAt: Date
+}
+
+export interface UserQuizResponse {
+  userId: string
+  quizId: string
+  answers: {
+    questionId: string
+    selectedOptionId: string
+    isCorrect?: boolean
+    timeToAnswer: number // in seconds
+  }[]
+  score: number
+  completedAt?: Date
+}
+
+export interface QuizLeaderboard {
+  quizId: string
+  entries: QuizLeaderboardEntry[]
+}
+
+export interface QuizLeaderboardEntry {
+  userId: string
+  username: string
+  userAvatar?: string
+  score: number
+  timeToComplete?: number // in seconds
+  rank: number
+}
