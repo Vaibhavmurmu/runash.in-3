@@ -1,5 +1,8 @@
 export interface WebRTCConfig {
   iceServers: RTCIceServer[]
+  iceTransportPolicy?: RTCIceTransportPolicy
+  iceCandidatePoolSize?: number
+  turnServerRotation?: boolean
   maxBitrate?: number
   videoConstraints?: MediaTrackConstraints
   audioConstraints?: MediaTrackConstraints
@@ -15,6 +18,32 @@ export interface PeerConnectionData {
   isInitiator: boolean
   connectionState: RTCPeerConnectionState
   iceConnectionState: RTCIceConnectionState
+  candidateStats?: {
+    host: number
+    srflx: number
+    relay: number
+    prflx: number
+  }
+  selectedCandidatePair?: {
+    local: {
+      type: string
+      protocol: string
+      address: string
+      port: number
+    }
+    remote: {
+      type: string
+      protocol: string
+      address: string
+      port: number
+    }
+    stats: {
+      bytesSent: number
+      bytesReceived: number
+      totalRoundTripTime: number
+      currentRoundTripTime: number
+    }
+  }
 }
 
 export class WebRTCService {
@@ -31,10 +60,26 @@ export class WebRTCService {
       iceServers: [
         { urls: "stun:stun.l.google.com:19302" },
         { urls: "stun:stun1.l.google.com:19302" },
-        { urls: "stun:stun2.l.google.com:19302" },
-        // In production, you'd also include TURN servers
-        // { urls: "turn:your-turn-server.com", username: "user", credential: "pass" }
+        {
+          urls: [
+            "turn:global.turn.twilio.com:3478?transport=udp",
+            "turn:global.turn.twilio.com:3478?transport=tcp",
+            "turn:global.turn.twilio.com:443?transport=tcp",
+          ],
+          username: "example_username", // Will be replaced with dynamic credentials
+          credential: "example_password", // Will be replaced with dynamic credentials
+          credentialType: "password",
+        },
+        {
+          urls: ["turns:global.turn.twilio.com:443?transport=tcp"],
+          username: "example_username", // Will be replaced with dynamic credentials
+          credential: "example_password", // Will be replaced with dynamic credentials
+          credentialType: "password",
+        },
       ],
+      iceTransportPolicy: "all", // Can be set to "relay" to force TURN usage
+      iceCandidatePoolSize: 10,
+      turnServerRotation: true,
       maxBitrate: 2500000, // 2.5 Mbps
       videoConstraints: {
         width: { ideal: 1280, max: 1920 },
@@ -83,7 +128,8 @@ export class WebRTCService {
 
     const peerConnection = new RTCPeerConnection({
       iceServers: this.config.iceServers,
-      iceCandidatePoolSize: 10,
+      iceTransportPolicy: this.config.iceTransportPolicy || "all",
+      iceCandidatePoolSize: this.config.iceCandidatePoolSize || 10,
     })
 
     const peerData: PeerConnectionData = {
@@ -131,21 +177,18 @@ export class WebRTCService {
       this.notifyStreamListeners(hostId, event.streams[0])
     }
 
-    // Handle ICE candidates
-    connection.onicecandidate = (event) => {
-      if (event.candidate) {
-        // In a real app, send this candidate to the remote peer via signaling server
-        this.sendSignalingMessage(hostId, {
-          type: "ice-candidate",
-          candidate: event.candidate,
-        })
-      }
-    }
+    // Handle ICE candidates with monitoring
+    this.monitorIceCandidates(peerData)
 
     // Handle connection state changes
     connection.onconnectionstatechange = () => {
       peerData.connectionState = connection.connectionState
       console.log(`Connection state changed for ${hostId}:`, connection.connectionState)
+
+      if (connection.connectionState === "connected") {
+        // Update selected candidate pair when connected
+        this.updateSelectedCandidatePair(hostId)
+      }
 
       if (connection.connectionState === "failed" || connection.connectionState === "disconnected") {
         this.handleConnectionFailure(peerData.id)
@@ -539,5 +582,169 @@ export class WebRTCService {
   public getRemoteStream(hostId: string): MediaStream | null {
     const peerData = this.getPeerConnectionByHostId(hostId)
     return peerData?.remoteStream || null
+  }
+
+  // Add a method to update ICE servers
+  public updateIceServers(iceServers: RTCIceServer[]): void {
+    // Ensure we keep at least one STUN server
+    const hasStun = iceServers.some(server => {
+      const urls = Array.isArray(server.urls) ? server.urls : [server.urls];
+      return urls.some(url => url.startsWith('stun:'));
+    });
+    
+    if (!hasStun) {
+      iceServers.unshift({ urls: "stun:stun.l.google.com:19302" });
+    }
+    
+    this.config.iceServers = iceServers;
+    console.log("ICE servers updated:", this.config.iceServers);
+    
+    // Close and recreate any active connections to use new servers
+    if (this.peerConnections.size > 0) {
+      console.log("Updating ICE servers for active connections");
+      // Store current connections to recreate them
+      const activeConnections = Array.from(this.peerConnections.values())
+        .map(conn => ({
+          hostId: conn.hostId,
+          isInitiator: conn.isInitiator
+        }));
+    
+    // Close all connections
+    this.closeAllConnections();
+    
+    // Recreate connections with new servers
+    for (const conn of activeConnections) {
+      this.createPeerConnection(conn.hostId, conn.isInitiator);
+    }
+  }
+
+  // Add a method to update ICE servers with fresh credentials\
+  async updateTurnCredentials(username: string, credential: string): Promise<void> 
+    // Update all TURN server entries with the new credentials
+    this.config.iceServers = this.config.iceServers.map((server) => {
+      if (
+        server.urls &&
+        ((typeof server.urls === "string" && server.urls.startsWith("turn")) ||
+          (Array.isArray(server.urls) && server.urls.some((url) => url.startsWith("turn"))))
+      ) {
+        return {
+          ...server,
+          username,
+          credential,
+          credentialType: "password",
+        }
+      }
+      return server
+    })
+
+    // Close and recreate any active connections to use new credentials
+    if (this.peerConnections.size > 0) {
+      console.log("Updating TURN credentials for active connections")
+      // Store current connections to recreate them
+      const activeConnections = Array.from(this.peerConnections.values()).map((conn) => ({
+        hostId: conn.hostId,
+        isInitiator: conn.isInitiator,
+      }))
+
+      // Close all connections
+      this.closeAllConnections()
+
+      // Recreate connections with new credentials
+      for (const conn of activeConnections) {
+        await this.createPeerConnection(conn.hostId, conn.isInitiator)
+      }
+    }
+
+  // Add a method to force TURN usage
+  public forceTurnServer(force: boolean): void 
+    this.config.iceTransportPolicy = force ? "relay" : "all"
+    console.log(`TURN server usage ${force ? "forced" : "automatic"}`)
+
+  // Add a method to monitor ICE candidate types
+  private monitorIceCandidates(peerData: PeerConnectionData): void {
+    const { connection, hostId } = peerData
+
+    connection.onicecandidate = (event) => {
+      if (event.candidate) {
+        // Log candidate type for monitoring
+        const candidateType = event.candidate.type // 'host', 'srflx' (STUN), or 'relay' (TURN)
+        console.log(`ICE candidate for ${hostId}: ${candidateType}`, event.candidate)
+
+        // Track candidate types for analytics
+        if (!peerData.candidateStats) {
+          peerData.candidateStats = { host: 0, srflx: 0, relay: 0, prflx: 0 }
+        }
+
+        if (candidateType) {
+          peerData.candidateStats[candidateType]++
+        }
+
+        // In a real app, send this candidate to the remote peer via signaling server
+        this.sendSignalingMessage(hostId, {
+          type: "ice-candidate",
+          candidate: event.candidate,
+        })
+      }
+    }
+  }
+
+  // Add a method to get TURN server usage statistics
+  public getTurnServerUsage(): hostId: string; usingTurn: boolean; candidateStats: any [] 
+    return Array.from(this.peerConnections.values()).map((peerData) => {
+      const usingTurn =
+        peerData.selectedCandidatePair?.remote?.type === "relay" ||
+        peerData.selectedCandidatePair?.local?.type === "relay"
+
+      return {
+        hostId: peerData.hostId,
+        usingTurn,
+        candidateStats: peerData.candidateStats || { host: 0, srflx: 0, relay: 0, prflx: 0 },
+      }
+    })
+
+  // Add a method to get the selected candidate pair
+  public async updateSelectedCandidatePair(hostId: string): Promise<void> {
+    const peerData = this.getPeerConnectionByHostId(hostId)
+    if (!peerData) return
+
+    try {
+      const stats = await peerData.connection.getStats()
+      stats.forEach((report) => {
+        if (report.type === "candidate-pair" && report.selected) {
+          // Find local candidate
+          stats.forEach((localReport) => {
+            if (localReport.id === report.localCandidateId) {
+              // Find remote candidate
+              stats.forEach((remoteReport) => {
+                if (remoteReport.id === report.remoteCandidateId) {
+                  peerData.selectedCandidatePair = {
+                    local: {
+                      type: localReport.candidateType,
+                      protocol: localReport.protocol,
+                      address: localReport.address,
+                      port: remoteReport.port,
+                    },
+                    remote: {
+                      type: remoteReport.candidateType,
+                      protocol: remoteReport.protocol,
+                      address: remoteReport.address,
+                      port: remoteReport.port,
+                    },
+                    stats: {
+                      bytesSent: report.bytesSent,
+                      bytesReceived: report.bytesReceived,
+                      totalRoundTripTime: report.totalRoundTripTime,
+                      currentRoundTripTime: report.currentRoundTripTime,
+                    },
+                  }
+                }
+              })
+            }
+          })
+        }
+      })
+    } catch (error) {
+      console.error("Failed to get selected candidate pair:", error)
+    }
   }
 }
