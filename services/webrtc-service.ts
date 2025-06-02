@@ -587,39 +587,39 @@ export class WebRTCService {
   // Add a method to update ICE servers
   public updateIceServers(iceServers: RTCIceServer[]): void {
     // Ensure we keep at least one STUN server
-    const hasStun = iceServers.some(server => {
-      const urls = Array.isArray(server.urls) ? server.urls : [server.urls];
-      return urls.some(url => url.startsWith('stun:'));
-    });
-    
+    const hasStun = iceServers.some((server) => {
+      const urls = Array.isArray(server.urls) ? server.urls : [server.urls]
+      return urls.some((url) => url.startsWith("stun:"))
+    })
+
     if (!hasStun) {
-      iceServers.unshift({ urls: "stun:stun.l.google.com:19302" });
+      iceServers.unshift({ urls: "stun:stun.l.google.com:19302" })
     }
-    
-    this.config.iceServers = iceServers;
-    console.log("ICE servers updated:", this.config.iceServers);
-    
+
+    this.config.iceServers = iceServers
+    console.log("ICE servers updated:", this.config.iceServers)
+
     // Close and recreate any active connections to use new servers
     if (this.peerConnections.size > 0) {
-      console.log("Updating ICE servers for active connections");
+      console.log("Updating ICE servers for active connections")
       // Store current connections to recreate them
-      const activeConnections = Array.from(this.peerConnections.values())
-        .map(conn => ({
-          hostId: conn.hostId,
-          isInitiator: conn.isInitiator
-        }));
-    
-    // Close all connections
-    this.closeAllConnections();
-    
-    // Recreate connections with new servers
-    for (const conn of activeConnections) {
-      this.createPeerConnection(conn.hostId, conn.isInitiator);
+      const activeConnections = Array.from(this.peerConnections.values()).map((conn) => ({
+        hostId: conn.hostId,
+        isInitiator: conn.isInitiator,
+      }))
+
+      // Close all connections
+      this.closeAllConnections()
+
+      // Recreate connections with new servers
+      for (const conn of activeConnections) {
+        this.createPeerConnection(conn.hostId, conn.isInitiator)
+      }
     }
   }
 
-  // Add a method to update ICE servers with fresh credentials\
-  async updateTurnCredentials(username: string, credential: string): Promise<void> 
+  // Add a method to update ICE servers with fresh credentials
+  public async updateTurnCredentials(username: string, credential: string): Promise<void> {
     // Update all TURN server entries with the new credentials
     this.config.iceServers = this.config.iceServers.map((server) => {
       if (
@@ -654,11 +654,13 @@ export class WebRTCService {
         await this.createPeerConnection(conn.hostId, conn.isInitiator)
       }
     }
+  }
 
   // Add a method to force TURN usage
-  public forceTurnServer(force: boolean): void 
+  public forceTurnServer(force: boolean): void {
     this.config.iceTransportPolicy = force ? "relay" : "all"
     console.log(`TURN server usage ${force ? "forced" : "automatic"}`)
+  }
 
   // Add a method to monitor ICE candidate types
   private monitorIceCandidates(peerData: PeerConnectionData): void {
@@ -689,7 +691,7 @@ export class WebRTCService {
   }
 
   // Add a method to get TURN server usage statistics
-  public getTurnServerUsage(): hostId: string; usingTurn: boolean; candidateStats: any [] 
+  public getTurnServerUsage(): { hostId: string; usingTurn: boolean; candidateStats: any }[] {
     return Array.from(this.peerConnections.values()).map((peerData) => {
       const usingTurn =
         peerData.selectedCandidatePair?.remote?.type === "relay" ||
@@ -701,6 +703,7 @@ export class WebRTCService {
         candidateStats: peerData.candidateStats || { host: 0, srflx: 0, relay: 0, prflx: 0 },
       }
     })
+  }
 
   // Add a method to get the selected candidate pair
   public async updateSelectedCandidatePair(hostId: string): Promise<void> {
