@@ -1,5 +1,5 @@
 import { neon } from "@neondatabase/serverless"
-import { hash } from "bcrypt"
+import { hash } from "bcryptjs"
 import { randomBytes } from "crypto"
 
 const sql = neon(process.env.DATABASE_URL!)

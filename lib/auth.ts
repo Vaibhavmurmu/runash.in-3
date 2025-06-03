@@ -3,7 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google"
 import GitHubProvider from "next-auth/providers/github"
 import { neon } from "@neondatabase/serverless"
-import { compare } from "bcrypt"
+import { compare } from "bcryptjs"
 
 // Initialize the SQL client
 const sql = neon(process.env.DATABASE_URL!)

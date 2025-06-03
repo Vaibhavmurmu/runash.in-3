@@ -26,23 +26,46 @@ export default withAuth(
   {
     callbacks: {
       authorized: ({ token, req }) => {
+        // Define which routes require authentication
         const { pathname } = req.nextUrl
 
-        // Allow access to public routes
-        if (
-          pathname === "/" ||
-          pathname.startsWith("/api/auth") ||
-          pathname.startsWith("/auth") ||
-          pathname === "/login" ||
-          pathname === "/get-started" ||
-          pathname === "/forgot-password" ||
-          pathname.startsWith("/status") ||
-          pathname.startsWith("/_next")
-        ) {
+        // Public routes that don't require authentication
+        const publicRoutes = [
+          "/",
+          "/login",
+          "/get-started",
+          "/forgot-password",
+          "/reset-password",
+          "/about",
+          "/features",
+          "/pricing",
+          "/contact",
+          "/blog",
+          "/careers",
+          "/press",
+          "/support",
+          "/tutorials",
+          "/integrations",
+          "/privacy",
+          "/terms",
+          "/cookies",
+          "/roadmap",
+        ]
+
+        // API routes that don't require authentication
+        const publicApiRoutes = ["/api/auth", "/api/turn-credentials"]
+
+        // Check if the route is public
+        if (publicRoutes.some((route) => pathname.startsWith(route))) {
           return true
         }
 
-        // Require authentication for protected routes
+        // Check if the API route is public
+        if (publicApiRoutes.some((route) => pathname.startsWith(route))) {
+          return true
+        }
+
+        // For protected routes, require authentication
         return !!token
       },
     },
@@ -50,5 +73,14 @@ export default withAuth(
 )
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - public folder
+     */
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+  ],
 }
