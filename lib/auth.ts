@@ -53,15 +53,18 @@ export const authOptions: NextAuthOptions = {
           }
 
           // Check if password matches
-          const passwordMatch = await compare(credentials.password, user.password_)
+          const passwordMatch = await compare(credentials.password, user.password_hash)
 
           if (!passwordMatch) {
             return null
           }
 
           return {
+            id: user.id,
             email: user.email,
             name: user.name,
+            image: user.avatar_url,
+            role: user.role,
           }
         } catch (error) {
           console.error("Error during authorization:", error)
@@ -70,4 +73,47 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user, account }) {
+      if (user) {
+        token.role = user.role
+        token.id = user.id
+      }
+
+      // Handle OAuth providers
+      if (account?.provider === "google" || account?.provider === "github") {
+        try {
+          // Check if user exists in database
+          const [existingUser] = await sql`
+            SELECT * FROM users WHERE email = ${user.email}
+          `
+
+          if (!existingUser) {
+            // Create new user
+            const [newUser] = await sql`
+              INSERT INTO users (email, name, avatar_url, provider, provider_id, role)
+              VALUES (${user.email}, ${user.name}, ${user.image}, ${account.provider}, ${account.providerAccountId}, 'user')
+              RETURNING *
+            `
+            token.role = newUser.role
+            token.id = newUser.id
+          } else {
+            token.role = existingUser.role
+            token.id = existingUser.id
+          }
+        } catch (error) {
+          console.error("Error handling OAuth user:", error)
+        }
+      }
+
+      return token
+    },
+    async session({ session, token }) {
+      if (token) {
+        session.user.id = token.id as string
+        session.user.role = token.role as string
+      }
+      return session
+    },
+  },
 }
