@@ -343,7 +343,7 @@ export default function AboutPage() {
                 className="flex items-center justify-center p-6 bg-white dark:bg-gray-900 border border-orange-200 dark:border-orange-800/30 rounded-xl hover:border-orange-500/50 dark:hover:border-orange-500/50 transition-all duration-300"
               >
                 <div className="w-full h-12 bg-gradient-to-r from-orange-500/10 via-yellow-500/10 to-orange-500/10 dark:from-orange-500/20 dark:via-yellow-500/20 dark:to-orange-500/20 rounded-md flex items-center justify-center">
-                  <span className="text-gray-600 dark:text-gray-400 font-semibold">Partner {i}</span>
+                  <span className="text-gray-600 dark:text-gray-400 font-semibold">Open Stack {i}</span>
                 </div>
               </div>
             ))}
