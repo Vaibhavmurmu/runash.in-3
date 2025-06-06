@@ -38,14 +38,14 @@ export default function Home() {
         <div className="container relative z-10 mx-auto px-4 text-center">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
             <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">
-              Next Generation AI Streaming
+              Introducing 
             </span>
           </div>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
-            Elevate Your Live Streams with AI
+            RunAsh AI Live Streaming Platform 
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
-            The most advanced AI-powered end-to-end live streaming platform for creators, sellers, and businesses
+            The next generation of AI-powered live streaming for creators, sellers, and businesses
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -65,14 +65,25 @@ export default function Home() {
           </div>     
          {/* Tech badges */}
           <div className="mt-12 flex flex-wrap justify-center gap-3">
-            <TechBadge label="Real-time AI" />
-            <TechBadge label="4K Quality" />
-            <TechBadge label="Low Latency" />
-            <TechBadge label="Multi-platform" />
+            <TechBadge label="Buy" />
+            <TechBadge label="Sell" />
+            <TechBadge label="Watch" />
+            <TechBadge label="Chat" />
           </div>
         </div>
         <div className="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
           <ChevronRight className="h-8 w-8 transform rotate-90 text-orange-500 dark:text-orange-400" />
+        </div>
+      </section>
+      {/* Stats Section */}
+      <section className="py-16 bg-white dark:bg-gray-900 border-y border-orange-100 dark:border-orange-900/20">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <StatCounter value={1000+} label="Organic Products" />
+            <StatCounter value={1000+} label="Organic Farm" suffix="+" />
+            <StatCounter value={99.9} label="Sustainability" suffix="%" />
+            <StatCounter value={100+} label="Organic Recipe s" suffix="+" />
+          </div>
         </div>
       </section>
 
@@ -302,101 +313,7 @@ export default function Home() {
           </ScrollArea>
         </div>
       </section>
-
-      {/* Pricing */}
-      {/* <section className="py-24 bg-orange-50 dark:bg-gray-950 border-y border-orange-100 dark:border-orange-900/20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
-              <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">Flexible Plans</span>
-            </div>
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
-              Choose Your Plan
-            </h2>
-            <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-8">
-              Select the perfect plan for your streaming needs with no hidden fees
-            </p> 
-
-            {/* Currency Selector */}
-          {/* <div className="flex justify-center mb-8">
-              <div className="flex items-center gap-2 bg-white dark:bg-gray-800 rounded-lg p-1 border border-gray-200 dark:border-gray-700">
-                <button
-                  onClick={() => setCurrency("USD")}
-                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                    currency === "USD"
-                      ? "bg-orange-500 text-white"
-                      : "text-gray-600 dark:text-gray-400 hover:text-orange-500"
-                  }`}
-                >
-                  🇺🇸 USD
-                </button>
-                <button
-                  onClick={() => setCurrency("INR")}
-                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                    currency === "INR"
-                      ? "bg-orange-500 text-white"
-                      : "text-gray-600 dark:text-gray-400 hover:text-orange-500"
-                  }`}
-                >
-                  🇮🇳 INR
-                </button>
-              </div>
-            </div>
-    
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <PricingCard
-              title="Starter"
-              price={formatPrice(19)}
-              features={[
-                "720p AI Enhancement",
-                "Basic Chat Moderation",
-                "5 Hours Monthly Streaming",
-                "Standard Support",
-                "Single Platform Streaming",
-              ]}
-              buttonText="Get Started"
-              popular={false}
-              onButtonClick={() => router.push("/checkout?plan=starter")}
-            />
-            <PricingCard
-              title="Professional"
-              price={formatPrice(49)}
-              features={[
-                "1080p AI Enhancement",
-                "Advanced Chat Moderation",
-                "50 Hours Monthly Streaming",
-                "Priority Support",
-                "Custom Overlays",
-                "Multi-platform Streaming (2)",
-                "Analytics Dashboard",
-              ]}
-              buttonText="Choose Pro"
-              popular={true}
-              onButtonClick={() => router.push("/checkout?plan=professional")}
-            />
-            <PricingCard
-              title="Enterprise"
-              price={formatPrice(99)}
-              features={[
-                "4K AI Enhancement",
-                "Premium Chat Moderation",
-                "Unlimited Streaming",
-                "24/7 Support",
-                "Custom Branding",
-                "Multi-platform Streaming (unlimited)",
-                "Advanced Analytics",
-                "API Access",
-                "Dedicated Account Manager",
-              ]}
-              buttonText="Contact Sales"
-              popular={false}
-              onButtonClick={() => router.push("/contact?plan=enterprise")}
-            />
-          </div>
-        </div>
-      </section> */}
-
+      
       {/* Pricing */}
       <section className="py-24 bg-orange-50 dark:bg-gray-950 border-y border-orange-100 dark:border-orange-900/20">
         <div className="container mx-auto px-4">
@@ -410,39 +327,12 @@ export default function Home() {
             <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
               Select the perfect plan for your streaming needs with no hidden fees
             </p>
-             
-          {/* Currency Selector */}
-            {/* <div className="flex justify-center mb-8">
-              <div className="flex items-center gap-2 bg-white dark:bg-gray-800 rounded-lg p-1 border border-gray-200 dark:border-gray-700">
-                <button
-                  onClick={() => setCurrency("USD")}
-                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                    currency === "USD"
-                      ? "bg-orange-500 text-white"
-                      : "text-gray-600 dark:text-gray-400 hover:text-orange-500"
-                  }`}
-                >
-                  🇺🇸 USD
-                </button>
-                <button
-                  onClick={() => setCurrency("INR")}
-                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                    currency === "INR"
-                      ? "bg-orange-500 text-white"
-                      : "text-gray-600 dark:text-gray-400 hover:text-orange-500"
-                  }`}
-                >
-                  🇮🇳 INR
-                </button>
-              </div>
-            </div> */}
-    
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <PricingCard
               title="Starter"
-              price="₹1500"
+              price="$19"
               features={[
                 "720p AI Enhancement",
                 "Basic Chat Moderation",
@@ -452,11 +342,10 @@ export default function Home() {
               ]}
               buttonText="Get Started"
               popular={false}
-              onButtonClick={() => router.push("/checkout?plan=starter")}
             />
             <PricingCard
               title="Professional"
-              price="₹3000"
+              price="$49"
               features={[
                 "1080p AI Enhancement",
                 "Advanced Chat Moderation",
@@ -468,11 +357,10 @@ export default function Home() {
               ]}
               buttonText="Choose Pro"
               popular={true}
-              onButtonClick={() => router.push("/checkout?plan=professional")}
             />
             <PricingCard
               title="Enterprise"
-              price="₹6999"
+              price="$99"
               features={[
                 "4K AI Enhancement",
                 "Premium Chat Moderation",
@@ -486,12 +374,11 @@ export default function Home() {
               ]}
               buttonText="Contact Sales"
               popular={false}
-              onButtonClick={() => router.push("/checkout?plan=enterprise")}
             />
           </div>
         </div>
       </section>
-
+    
       {/* CTA */}
       <section className="py-24 bg-gradient-to-r from-orange-600 to-yellow-500 dark:from-orange-700 dark:to-yellow-600">
         <div className="container mx-auto px-4 text-center">
