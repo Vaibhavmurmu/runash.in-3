@@ -82,14 +82,14 @@ export default function ContactPage() {
                   icon={<Mail className="h-6 w-6 text-white" />}
                   title="Email Us"
                   description="Our team typically responds within 24 hours."
-                  contact="support@runash.ai"
+                  contact="admin@runash.in"
                   gradient="from-orange-500 to-yellow-500 dark:from-orange-400 dark:to-yellow-400"
                 />
                 <ContactMethod
                   icon={<Phone className="h-6 w-6 text-white" />}
                   title="Call Us"
                   description="Available Monday-Friday, 9am-5pm PST."
-                  contact="+1 (555) 123-4567"
+                  contact="+91 (06542) 253096"
                   gradient="from-yellow-500 to-orange-500 dark:from-yellow-400 dark:to-orange-400"
                 />
                 <ContactMethod
@@ -134,35 +134,35 @@ export default function ContactPage() {
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
-              Our Offices
+              Our Remote Offices
             </h2>
             <p className="text-gray-700 dark:text-gray-300 text-lg">
-              Visit us at one of our global locations or schedule a virtual meeting.
+              Visit us at one of our global remote locations or schedule a virtual meeting.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <OfficeLocation
-              city="San Francisco"
-              address="123 Tech Avenue, San Francisco, CA 94107"
-              phone="+1 (555) 123-4567"
-              email="sf@runash.ai"
+              city="Bharat (India)"
+              address="310 RunAsh Tech Avenue, Bokaro, JH 827014"
+              phone="+91 (06542) 253096"
+              email="admin@runash.in"
               image="/placeholder.svg?height=200&width=400"
               hours="Mon-Fri: 9am-5pm PST"
             />
             <OfficeLocation
-              city="London"
-              address="456 Innovation Street, London, UK EC2A 4BQ"
-              phone="+44 20 1234 5678"
-              email="london@runash.ai"
+              city="Bharat (India)"
+              address=" Ranchi Tech Avenue, Ranchi, JH 820004"
+              phone="+91 8987724121"
+              email="admin@runash.in"
               image="/placeholder.svg?height=200&width=400"
               hours="Mon-Fri: 9am-5pm GMT"
             />
             <OfficeLocation
-              city="Tokyo"
-              address="789 Future Building, Shibuya, Tokyo 150-0002"
-              phone="+81 3 1234 5678"
-              email="tokyo@runash.ai"
+              city="San Francisco"
+              address="Stripe Tech Avenue Dalawar San Francisco, CA 94107"
+              phone="+1 (555) "
+              email="admin@runash.in"
               image="/placeholder.svg?height=200&width=400"
               hours="Mon-Fri: 9am-5pm JST"
             />
@@ -176,28 +176,28 @@ export default function ContactPage() {
                 <div className="w-full h-full max-w-4xl">
                   {/* World map visualization - simplified for this example */}
                   <div className="relative w-full h-full">
-                    {/* San Francisco marker */}
+                    {/* Bharat (India) marker */}
                     <div className="absolute left-[20%] top-[40%]">
                       <div className="w-4 h-4 rounded-full bg-gradient-to-r from-orange-500 to-yellow-500 dark:from-orange-400 dark:to-yellow-400 animate-ping absolute"></div>
                       <div className="w-4 h-4 rounded-full bg-gradient-to-r from-orange-500 to-yellow-500 dark:from-orange-400 dark:to-yellow-400 relative"></div>
                       <div className="absolute top-6 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
-                        <span className="text-sm font-medium text-orange-600 dark:text-orange-400">San Francisco</span>
+                        <span className="text-sm font-medium text-orange-600 dark:text-orange-400">Bharat</span>
                       </div>
                     </div>
-                    {/* London marker */}
+                    {/* Bharat (India)marker */}
                     <div className="absolute left-[45%] top-[35%]">
                       <div className="w-4 h-4 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 dark:from-yellow-400 dark:to-orange-400 animate-ping absolute"></div>
                       <div className="w-4 h-4 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 dark:from-yellow-400 dark:to-orange-400 relative"></div>
                       <div className="absolute top-6 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
-                        <span className="text-sm font-medium text-yellow-600 dark:text-yellow-400">London</span>
+                        <span className="text-sm font-medium text-yellow-600 dark:text-yellow-400">Ranchi</span>
                       </div>
                     </div>
-                    {/* Tokyo marker */}
+                    {/* San Francisco marker */}
                     <div className="absolute left-[80%] top-[40%]">
                       <div className="w-4 h-4 rounded-full bg-gradient-to-r from-orange-500 to-yellow-500 dark:from-orange-400 dark:to-yellow-400 animate-ping absolute"></div>
                       <div className="w-4 h-4 rounded-full bg-gradient-to-r from-orange-500 to-yellow-500 dark:from-orange-400 dark:to-yellow-400 relative"></div>
                       <div className="absolute top-6 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
-                        <span className="text-sm font-medium text-orange-600 dark:text-orange-400">Tokyo</span>
+                        <span className="text-sm font-medium text-orange-600 dark:text-orange-400">San Francisco</span>
                       </div>
                     </div>
                   </div>
