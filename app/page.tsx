@@ -333,9 +333,9 @@ export default function Home() {
                 </button>
               </div>
             </div>
-          </div>
+    
 
-          {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+         {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <PricingCard
               title="Starter"
               price={formatPrice(19)}
