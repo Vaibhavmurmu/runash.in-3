@@ -38,7 +38,7 @@ export default function Home() {
         <div className="container relative z-10 mx-auto px-4 text-center">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
             <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">
-              Next Generation AI Streaming
+              Introducing 
             </span>
           </div>
         <div className="container relative z-10 mx-auto px-4 text-center">
@@ -46,7 +46,7 @@ export default function Home() {
             RunAsh AI Live Streaming Platform
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-200">
-            The next generation of AI-powered live streaming for creators, gamers, and businesses
+            The next generation of AI-powered live streaming for creators, sellers, and businesses
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -79,7 +79,7 @@ export default function Home() {
             Elevate Your Live Streams with AI
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
-            The most advanced AI-powered live streaming platform for creators, gamers, and businesses
+            The most advanced AI-powered end-to-end live streaming platform for creators, sellers, and businesses
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -295,7 +295,7 @@ export default function Home() {
       </section>
 
       {/* Pricing */}
-      <section className="py-24 bg-orange-50 dark:bg-gray-950 border-y border-orange-100 dark:border-orange-900/20">
+      {/* <section className="py-24 bg-orange-50 dark:bg-gray-950 border-y border-orange-100 dark:border-orange-900/20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
@@ -306,7 +306,7 @@ export default function Home() {
             </h2>
             <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-8">
               Select the perfect plan for your streaming needs with no hidden fees
-            </p>
+            </p> */}
 
             {/* Currency Selector */}
             <div className="flex justify-center mb-8">
@@ -335,7 +335,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <PricingCard
               title="Starter"
               price={formatPrice(19)}
@@ -383,6 +383,74 @@ export default function Home() {
               buttonText="Contact Sales"
               popular={false}
               onButtonClick={() => router.push("/contact?plan=enterprise")}
+            />
+          </div>
+        </div>
+      </section> */}
+
+      {/* Pricing */}
+      <section className="py-24 bg-orange-50 dark:bg-gray-950 border-y border-orange-100 dark:border-orange-900/20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
+              <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">Flexible Plans</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
+              Choose Your Plan
+            </h2>
+            <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
+              Select the perfect plan for your streaming needs with no hidden fees
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <PricingCard
+              title="Starter"
+              price="{formatPrice(19)}"
+              features={[
+                "720p AI Enhancement",
+                "Basic Chat Moderation",
+                "5 Hours Monthly Streaming",
+                "Standard Support",
+                "Single Platform Streaming",
+              ]}
+              buttonText="Get Started"
+              popular={false}
+              onButtonClick={() => router.push("/checkout?plan=starter")}
+            />
+            <PricingCard
+              title="Professional"
+              price="{formatPrice(49)}"
+              features={[
+                "1080p AI Enhancement",
+                "Advanced Chat Moderation",
+                "50 Hours Monthly Streaming",
+                "Priority Support",
+                "Custom Overlays",
+                "Multi-platform Streaming (2)",
+                "Analytics Dashboard",
+              ]}
+              buttonText="Choose Pro"
+              popular={true}
+              onButtonClick={() => router.push("/checkout?plan=professional")}
+            />
+            <PricingCard
+              title="Enterprise"
+              price="{formatPrive(99)}"
+              features={[
+                "4K AI Enhancement",
+                "Premium Chat Moderation",
+                "Unlimited Streaming",
+                "24/7 Support",
+                "Custom Branding",
+                "Multi-platform Streaming (unlimited)",
+                "Advanced Analytics",
+                "API Access",
+                "Dedicated Account Manager",
+              ]}
+              buttonText="Contact Sales"
+              popular={false}
+              onButtonClick={() => router.push("/checkout?plan=enterprise")}
             />
           </div>
         </div>
