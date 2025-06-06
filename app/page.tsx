@@ -67,10 +67,10 @@ export default function Home() {
           <ArrowRight className="h-8 w-8 transform rotate-90 text-orange-400" />
         </div>
         </div>
-      </section>
+  {/* </section> */}
       
       {/* Hero Section with Video Background */}
-      <section className="relative h-80 flex items-center justify-center overflow-hidden">
+      {/* <section className="relative h-80 flex items-center justify-center overflow-hidden"> */}
         <VideoBackground />
         <div className="container relative z-10 mx-auto px-4 text-center">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
@@ -498,7 +498,7 @@ export default function Home() {
             <Button size="lg" className="bg-white text-orange-600 hover:bg-gray-100 shadow-lg shadow-orange-700/20">
               Start Your Free Trial <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-orange-600 hover:bg-orange-700/20">
+            <Button size="lg" variant="outline" className="border-white text-orange-600 hover:bg-orange-600/20">
               Schedule a Demo
             </Button>
           </div>
