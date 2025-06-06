@@ -102,6 +102,7 @@ export default function ContactPage() {
                     <Button
                       size="sm"
                       className="bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-700 hover:to-yellow-700 dark:from-orange-500 dark:to-yellow-500 dark:hover:from-orange-600 dark:hover:to-yellow-600 text-white"
+                    onClick={() => router.push("/chat")}
                     >
                       Start Chat
                     </Button>
@@ -115,7 +116,7 @@ export default function ContactPage() {
                   {["twitter", "instagram", "youtube", "discord"].map((platform) => (
                     <a
                       key={platform}
-                      href={`https://${platform}.com/runash`}
+                      href={`https://${platform}.in/runash`}
                       className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-100 to-yellow-100 dark:from-orange-900/50 dark:to-yellow-900/50 border border-orange-200 dark:border-orange-800/30 flex items-center justify-center hover:border-orange-500/70 dark:hover:border-orange-500/70 transition-colors"
                     >
                       <span className="text-orange-600 dark:text-orange-400 capitalize">{platform.charAt(0)}</span>
@@ -134,10 +135,10 @@ export default function ContactPage() {
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
-              Our Remote Offices
+              Our Offices
             </h2>
             <p className="text-gray-700 dark:text-gray-300 text-lg">
-              Visit us at one of our global remote locations or schedule a virtual meeting.
+              We are a remote-first company, that's working in different location.Visit us at one of our global virtual locations or schedule a virtual meeting.
             </p>
           </div>
 
@@ -152,15 +153,15 @@ export default function ContactPage() {
             />
             <OfficeLocation
               city="Bharat (India)"
-              address=" Ranchi Tech Avenue, Ranchi, JH 820004"
+              address=" RunAsh Tech Avenue, Ranchi, JH 834001"
               phone="+91 8987724121"
               email="admin@runash.in"
               image="/placeholder.svg?height=200&width=400"
               hours="Mon-Fri: 9am-5pm GMT"
             />
             <OfficeLocation
-              city="San Francisco"
-              address="Stripe Tech Avenue Dalawar San Francisco, CA 94107"
+              city="San Francisco (Remote)"
+              address="Stripe Atlas, Dalaware San Francisco, CA 19706"
               phone="+1 (555) "
               email="admin@runash.in"
               image="/placeholder.svg?height=200&width=400"
@@ -197,7 +198,7 @@ export default function ContactPage() {
                       <div className="w-4 h-4 rounded-full bg-gradient-to-r from-orange-500 to-yellow-500 dark:from-orange-400 dark:to-yellow-400 animate-ping absolute"></div>
                       <div className="w-4 h-4 rounded-full bg-gradient-to-r from-orange-500 to-yellow-500 dark:from-orange-400 dark:to-yellow-400 relative"></div>
                       <div className="absolute top-6 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
-                        <span className="text-sm font-medium text-orange-600 dark:text-orange-400">San Francisco</span>
+                        <span className="text-sm font-medium text-orange-600 dark:text-orange-400">San Francisco </span>
                       </div>
                     </div>
                   </div>
@@ -275,6 +276,7 @@ export default function ContactPage() {
                 <Button
                   variant="outline"
                   className="border-orange-500 text-orange-600 hover:bg-orange-50 dark:text-orange-400 dark:hover:bg-orange-950/50 w-full"
+                 onClick={() => router.push("/help")}
                 >
                   Visit Help Center <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -294,6 +296,7 @@ export default function ContactPage() {
                 <Button
                   variant="outline"
                   className="border-yellow-500 text-yellow-600 hover:bg-yellow-50 dark:text-yellow-400 dark:hover:bg-yellow-950/50 w-full"
+                 onClick={() => router.push("/community")}
                 >
                   Join Community <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -310,7 +313,9 @@ export default function ContactPage() {
                 <p className="text-gray-600 dark:text-gray-400 mb-6">
                   Get dedicated support with faster response times and personalized assistance.
                 </p>
-                <Button className="bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-700 hover:to-yellow-700 dark:from-orange-500 dark:to-yellow-500 dark:hover:from-orange-600 dark:hover:to-yellow-600 text-white w-full">
+                <Button className="bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-700 hover:to-yellow-700 dark:from-orange-500 dark:to-yellow-500 dark:hover:from-orange-600 dark:hover:to-yellow-600 text-white w-full"
+                onClick={() => router.push("/upgrade")}
+                >
                   Upgrade Now <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
@@ -340,6 +345,7 @@ export default function ContactPage() {
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-700 hover:to-yellow-700 dark:from-orange-500 dark:to-yellow-500 dark:hover:from-orange-600 dark:hover:to-yellow-600 text-white"
+                onClick={() => router.push("/stream")}
               >
                 Start Streaming Now <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -347,6 +353,7 @@ export default function ContactPage() {
                 size="lg"
                 variant="outline"
                 className="border-orange-500 text-orange-600 hover:bg-orange-50 dark:text-orange-400 dark:hover:bg-orange-950/50"
+                onClick={() => router.push("/schedule")}
               >
                 Schedule a Demo
               </Button>
