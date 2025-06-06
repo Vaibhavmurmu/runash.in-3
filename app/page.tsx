@@ -33,7 +33,7 @@ export default function Home() {
       <Navbar />
       
       {/* Hero Section with Video Background */}
-      <section className="relative bg-black h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <VideoBackground />
         <div className="container relative z-10 mx-auto px-4 text-center">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
@@ -51,12 +51,12 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-yello-700"
+              className="bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-400 hover:to-yello-700"
               onClick={() => router.push("/stream")}
             >
               Start Streaming <Play className="ml-2 h-4 w-4" />
             </Button>
-            <Button size="lg" variant="outline" className="border-orange-500 text-orange-400 hover:bg-orange-950"
+            <Button size="lg" variant="outline" className="border-orange-500 text-orange-400 hover:bg-orange-700"
               onClick={() => router.push("/demo")}
               >
               Watch Demo <ArrowRight className="ml-2 h-4 w-4" />
@@ -70,7 +70,7 @@ export default function Home() {
       </section>
       
       {/* Hero Section with Video Background */}
-      <section className="relative h-20 flex items-center justify-center overflow-hidden">
+      <section className="relative h-80 flex items-center justify-center overflow-hidden">
         <VideoBackground />
         <div className="container relative z-10 mx-auto px-4 text-center">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
@@ -406,7 +406,7 @@ export default function Home() {
             </p>
              
           {/* Currency Selector */}
-            <div className="flex justify-center mb-8">
+            {/* <div className="flex justify-center mb-8">
               <div className="flex items-center gap-2 bg-white dark:bg-gray-800 rounded-lg p-1 border border-gray-200 dark:border-gray-700">
                 <button
                   onClick={() => setCurrency("USD")}
@@ -429,14 +429,14 @@ export default function Home() {
                   🇮🇳 INR
                 </button>
               </div>
-            </div>
+            </div> */}
     
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <PricingCard
               title="Starter"
-              price="{formatPrice(19)}"
+              price="₹1500"
               features={[
                 "720p AI Enhancement",
                 "Basic Chat Moderation",
@@ -450,7 +450,7 @@ export default function Home() {
             />
             <PricingCard
               title="Professional"
-              price="{formatPrice(49)}"
+              price="₹3000"
               features={[
                 "1080p AI Enhancement",
                 "Advanced Chat Moderation",
@@ -466,7 +466,7 @@ export default function Home() {
             />
             <PricingCard
               title="Enterprise"
-              price="{formatPrive(99)}"
+              price="₹6999"
               features={[
                 "4K AI Enhancement",
                 "Premium Chat Moderation",
