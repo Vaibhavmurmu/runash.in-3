@@ -31,7 +31,39 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-orange-50 dark:from-gray-950 dark:to-gray-900 text-gray-900 dark:text-white">
       <Navbar />
-
+          {/* Hero Section with Video Background */}
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        <VideoBackground />
+        <div className="container relative z-10 mx-auto px-4 text-center">
+          <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
+            <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">
+              Next Generation AI Streaming
+            </span>
+          </div>
+        <div className="container relative z-10 mx-auto px-4 text-center">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-orange-600 to--500 text-transparent bg-clip-text">
+            RunAsh AI Live Streaming Platform
+          </h1>
+          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-200">
+            The next generation of AI-powered live streaming for creators, gamers, and businesses
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-yello-700"
+            >
+              Start Streaming <Play className="ml-2 h-4 w-4" />
+            </Button>
+            <Button size="lg" variant="outline" className="border-purple-500 text-purple-400 hover:bg-purple-950">
+              Watch Demo <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+        <div className="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
+          <ArrowRight className="h-8 w-8 transform rotate-90 text-purple-400" />
+        </div>
+      </section>
+      
       {/* Hero Section with Video Background */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <VideoBackground />
@@ -81,10 +113,10 @@ export default function Home() {
       <section className="py-16 bg-white dark:bg-gray-900 border-y border-orange-100 dark:border-orange-900/20">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <StatCounter value={5000} label="Active Streamers" />
-            <StatCounter value={1500000} label="Monthly Viewers" suffix="+" />
+            <StatCounter value={1000} label="Active Streamers" />
+            <StatCounter value={1000} label="Monthly Viewers" suffix="+" />
             <StatCounter value={99.9} label="Uptime Percentage" suffix="%" />
-            <StatCounter value={120} label="Countries Reached" suffix="+" />
+            <StatCounter value={2} label="Countries Reached" suffix="+" />
           </div>
         </div>
       </section>
