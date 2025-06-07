@@ -96,25 +96,25 @@ export default function AIHero() {
                 <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500/20 to-yellow-500/20 mb-2">
                   <FileText className="h-6 w-6 text-orange-600 dark:text-orange-400" />
                 </div>
-                <span className="text-sm text-gray-700 dark:text-gray-300">25+ Research Papers</span>
+                <span className="text-sm text-gray-700 dark:text-gray-300">5+ Research Papers</span>
               </div>
               <div className="flex flex-col items-center text-center">
                 <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500/20 to-yellow-500/20 mb-2">
                   <Users className="h-6 w-6 text-orange-600 dark:text-orange-400" />
                 </div>
-                <span className="text-sm text-gray-700 dark:text-gray-300">15 AI Researchers</span>
+                <span className="text-sm text-gray-700 dark:text-gray-300">3+ AI Researchers</span>
               </div>
               <div className="flex flex-col items-center text-center">
                 <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500/20 to-yellow-500/20 mb-2">
                   <Award className="h-6 w-6 text-orange-600 dark:text-orange-400" />
                 </div>
-                <span className="text-sm text-gray-700 dark:text-gray-300">8 Industry Awards</span>
+                <span className="text-sm text-gray-700 dark:text-gray-300"> Industry Awards</span>
               </div>
               <div className="flex flex-col items-center text-center">
                 <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500/20 to-yellow-500/20 mb-2">
                   <Code className="h-6 w-6 text-orange-600 dark:text-orange-400" />
                 </div>
-                <span className="text-sm text-gray-700 dark:text-gray-300">12 Open Source Projects</span>
+                <span className="text-sm text-gray-700 dark:text-gray-300">5+ Open Source Projects</span>
               </div>
             </motion.div>
           </motion.div>
