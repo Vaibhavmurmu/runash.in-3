@@ -33,7 +33,7 @@ export default function Home() {
       <Navbar />
       
       {/* Hero Section with Video Background */}
-        <section className="relative h-screen flex items-center justify-center overflow-hidden"> 
+        <section className="relative h-screen b-border flex items-center justify-center overflow-hidden"> 
         <VideoBackground />
         <div className="container relative z-10 mx-auto px-4 text-center">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
@@ -41,10 +41,10 @@ export default function Home() {
               Introducing 
             </span>
           </div>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
             RunAsh AI Live Streaming Platform 
           </h1>
-          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
+          <p className="text-xl md:text-2xl mt-2 mb-8 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
             The next generation of AI-powered live streaming for creators, sellers, and businesses
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -327,6 +327,31 @@ export default function Home() {
             <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
               Select the perfect plan for your streaming needs with no hidden fees
             </p>
+            {/* Currency Selector */}
+            <div className="flex justify-center mb-8">
+              <div className="flex items-center gap-2 bg-white dark:bg-gray-800 rounded-lg p-1 border border-gray-200 dark:border-gray-700">
+                <button
+                  onClick={() => setCurrency("USD")}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                    currency === "USD"
+                      ? "bg-orange-500 text-white"
+                      : "text-gray-600 dark:text-gray-400 hover:text-orange-500"
+                  }`}
+                >
+                 🇮🇳 INR
+                </button>
+                <button
+                  onClick={() => setCurrency("INR")}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                    currency === "INR"
+                      ? "bg-orange-500 text-white"
+                      : "text-gray-600 dark:text-gray-400 hover:text-orange-500"
+                  }`}
+                >
+                  🇺🇸 USD
+                </button>
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
