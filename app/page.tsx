@@ -33,7 +33,7 @@ export default function Home() {
       <Navbar />
       
       {/* Hero Section with Video Background */}
-        <section className="relative h-screen b-border flex items-center justify-center overflow-hidden"> 
+        <section className="relative h-screen flex items-center justify-center overflow-hidden"> 
         <VideoBackground />
         <div className="container relative z-10 mx-auto px-4 text-center">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
@@ -41,10 +41,10 @@ export default function Home() {
               Introducing 
             </span>
           </div>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
             RunAsh AI Live Streaming Platform 
           </h1>
-          <p className="text-xl md:text-2xl mt-2 mb-8 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
+          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
             The next generation of AI-powered live streaming for creators, sellers, and businesses
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -65,27 +65,27 @@ export default function Home() {
           </div>     
          {/* Tech badges */}
           <div className="mt-12 flex flex-wrap justify-center gap-3">
-            <TechBadge label="Buy" />
-            <TechBadge label="Sell" />
-            <TechBadge label="Watch" />
-            <TechBadge label="Chat" />
+            <TechBadge label="Live Buy" />
+            <TechBadge label="Live Sell" />
+            <TechBadge label="Live Watch" />
+            <TechBadge label="Live Chat" />
           </div>
         </div>
         <div className="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
           <ChevronRight className="h-8 w-8 transform rotate-90 text-orange-500 dark:text-orange-400" />
         </div>
       </section>
-      {/* Stats Section */}
-  {/* <section className="py-16 bg-white dark:bg-gray-900 border-y border-orange-100 dark:border-orange-900/20">
+     {/* Stats Section */}
+     { <section className="py-16 bg-white dark:bg-gray-900 border-y border-orange-100 dark:border-orange-900/20">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <StatCounter value={1000+} label="Organic Products" />
             <StatCounter value={1000+} label="Organic Farm" suffix="+" />
-            <StatCounter value={99.9} label="Sustainability" suffix="%" />
-            <StatCounter value={100+} label="Organic Recipe s" suffix="+" />
+            <StatCounter value={99.9} label="Sustainable" suffix="%" />
+            <StatCounter value={100+} label="Organic Recipe" suffix="+" />
           </div>
         </div>
-      </section> */}
+      </section> 
 
        {/* Hero Section with Video Background */}
         <section className="relative h-screen flex items-center justify-center overflow-hidden"> 
@@ -328,7 +328,7 @@ export default function Home() {
               Select the perfect plan for your streaming needs with no hidden fees
             </p>
             {/* Currency Selector */}
-            <div className="flex justify-center mb-8">
+            <div className="flex justify-center mt-4 mb-8">
               <div className="flex items-center gap-2 bg-white dark:bg-gray-800 rounded-lg p-1 border border-gray-200 dark:border-gray-700">
                 <button
                   onClick={() => setCurrency("USD")}
@@ -367,6 +367,7 @@ export default function Home() {
               ]}
               buttonText="Get Started"
               popular={false}
+              onButtonClick={() => router.push("/checkout?plan=starter")}
             />
             <PricingCard
               title="Professional"
@@ -382,6 +383,7 @@ export default function Home() {
               ]}
               buttonText="Choose Pro"
               popular={true}
+              onButtonClick={() => router.push("/checkout?plan=professional")}
             />
             <PricingCard
               title="Enterprise"
@@ -399,6 +401,7 @@ export default function Home() {
               ]}
               buttonText="Contact Sales"
               popular={false}
+             onButtonClick={() => router.push("/checkout?plan=enterprise")}
             />
           </div>
         </div>
