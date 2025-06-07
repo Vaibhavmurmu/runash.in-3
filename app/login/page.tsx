@@ -99,7 +99,7 @@ export default function LoginPage() {
           {/* Left Side - Welcome Message */}
           <div className="space-y-8">
             <div className="space-y-4">
-              <h1 className="text-4xl lg:text-5xl font-bold leading-tight">
+              <h1 className="text-2xl lg:text-4xl font-bold leading-tight">
                 Welcome back to{" "}
                 <span className="bg-gradient-to-r from-orange-600 to-amber-600 text-transparent bg-clip-text">
                   RunAsh AI
@@ -109,6 +109,8 @@ export default function LoginPage() {
                 Sign in to continue your AI-powered streaming journey and unlock powerful features
               </p>
             </div>
+          
+        
 
             {/* Feature Highlights */}
             <div className="space-y-4">
@@ -132,9 +134,9 @@ export default function LoginPage() {
                     Stream to multiple platforms simultaneously
                   </p>
                 </div>
-              </div>
+              </div> 
             </div>
-          </div>
+          </div> 
 
           {/* Right Side - Login Form */}
           <div className="flex justify-center lg:justify-end">
