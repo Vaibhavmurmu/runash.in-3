@@ -1,4 +1,4 @@
-# RunAsh AI Landing Page
+# RunAsh AI Landing PagePage
 
 *Automatically synced with your [v0.dev](https://v0.dev) deployments*
 
