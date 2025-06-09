@@ -53,7 +53,7 @@ export default function Home() {
               className="bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white shadow-lg shadow-orange-500/20 dark:shadow-orange-500/10"
               onClick={() => router.push("/stream")}
             >
-               Get Start Free  <Play className="ml-2 h-4 w-4" />
+               Get Started  <Play className="ml-2 h-4 w-4" />
             </Button>
             <Button
               size="lg"
