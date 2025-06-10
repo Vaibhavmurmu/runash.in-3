@@ -44,7 +44,7 @@ export default function Home() {
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
             RunAsh AI Live Streaming Platform 
           </h1>
-          <p className="mt-2 text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
+          <p className=" text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
             The next generation of AI-powered live streaming for creators, sellers, and businesses
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -434,7 +434,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 mb-8">
             {/* Company Info */}
             <div className="lg:col-span-2">
-              <h3 className="font-bold text-xl mb-4 text-gray-900 dark:text-white">RunAsh AI</h3>
+              <h3 className="font-bold text-xl mb-4 text-gray-900 dark:text-white">RunAsh</h3>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
                 The most advanced AI-powered live streaming platform for creators, sellers, and businesses.
               </p>
@@ -756,27 +756,37 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/Documentation"
+                      href="/pricing"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      Docs
+                     Pricing 
                     </a>
                   </li>
                   <li>
                     <a
-                      href="/learn"
+                      href="/business"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      Learn
+                      Business 
                     </a>
                   </li>
                   <li>
                     <a
-                      href="/tutorials"
+                      href="/start-up"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      Tutorial 
+                     Start-up 
                     </a>
+
+                  </li>
+                  <li>
+                    <a
+                      href="/press"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                     Press
+                    </a>
+
                   </li>
                 </ul>
               </div>
@@ -815,33 +825,42 @@ export default function Home() {
                       GDPR
                     </a>
                   </li>
+                  <li>
+                    <a
+                      href="/ai-policy"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                     AI Policy 
+                    </a>
+
+                  </li>
                 </ul>
               </div>
               <div>
-                <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">Changelog</h4>
+                <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">Social</h4>
                 <ul className="space-y-1 text-sm">
                   <li>
                     <a
-                      href="/careers"
+                      href="/sellers"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      Careers
+                      Sellers 
                     </a>
                   </li>
                   <li>
                     <a
-                      href="/press"
+                      href="/buyers"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      Press
+                      Buyers
                     </a>
                   </li>
                   <li>
                     <a
-                      href="/contact"
+                      href="/creater"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      Contact
+                     Creaters 
                     </a>
                   </li>
                   <li>
