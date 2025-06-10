@@ -227,7 +227,126 @@ export default function AIPage() {
           <ResearchTimeline />
         </div>
       </section>
+      {/* Research Overview */}
+      <section className="py-20 bg-gradient-to-b from-white to-orange-50 dark:from-gray-900 dark:to-gray-900">
+        <div className="container px-4 mx-auto">
+          <div className="flex flex-col items-center text-center mb-16">
+            <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4">
+              <Microscope className="h-6 w-6 text-white" />
+            </div>
+            <h2 className="text-4xl font-bold bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text mb-4">
+              Custom RunAsh AI Model 
+            </h2>
+            <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl">
+              Our custom RunAsh AI Model is built using the latest deep learning architectures and is optimized for performance and scalability.
+                For Advanced Video Classification for Live Streaming.
+            </p>
+          </div>
 
+          {/* Research Areas */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-orange-100 dark:border-orange-900/20">
+              <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
+                <Brain className="h-6 w-6 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Live Streaming Action Recognition </h3>
+              <p className="text-gray-700 dark:text-gray-300">
+                Real-time analysis of live stream for action detection 
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-orange-100 dark:border-orange-900/20">
+              <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
+                <Lightbulb className="h-6 w-6 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Activity Recognition </h3>
+              <p className="text-gray-700 dark:text-gray-300">
+                Identify and classify various activities in video content 
+                
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-orange-100 dark:border-orange-900/20">
+              <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
+                <Share2 className="h-6 w-6 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Object Detection </h3>
+              <p className="text-gray-700 dark:text-gray-300">
+                Accurate detection and classification of objects within videos 
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-orange-100 dark:border-orange-900/20">
+              <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
+                <Share2 className="h-6 w-6 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white"></h3>
+              <p className="text-gray-700 dark:text-gray-300">
+                
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-orange-100 dark:border-orange-900/20">
+              <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
+                <Share2 className="h-6 w-6 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Video-Text-to-Text</h3>
+              <p className="text-gray-700 dark:text-gray-300">
+                This feature allows you to analyze live streams and extract relevant text information in real-time.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-orange-100 dark:border-orange-900/20">
+              <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
+                <Share2 className="h-6 w-6 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Text-to-Video</h3>
+              <p className="text-gray-700 dark:text-gray-300">
+                This feature enables you to generate live streams from text inputs, allowing for automated content creation.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-orange-100 dark:border-orange-900/20">
+              <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
+                <Share2 className="h-6 w-6 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Image-to-Video</h3>
+              <p className="text-gray-700 dark:text-gray-300">
+                This feature enables you to generate live streams from image inputs, allowing for automated content creation.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-orange-100 dark:border-orange-900/20">
+              <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
+                <Share2 className="h-6 w-6 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Translation</h3>
+              <p className="text-gray-700 dark:text-gray-300">
+                 Our model supports real-time translation capabilities, allowing you to reach a global audience.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-orange-100 dark:border-orange-900/20">
+              <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
+                <Share2 className="h-6 w-6 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Automatic Speech Recognition (ASR)</h3>
+              <p className="text-gray-700 dark:text-gray-300">
+                Our model supports TTS capabilities, allowing you to generate spoken language from text inputs in real-time.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-orange-100 dark:border-orange-900/20">
+              <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
+                <Share2 className="h-6 w-6 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Text-toSpeech (TTS)</h3>
+              <p className="text-gray-700 dark:text-gray-300">
+                
+              </p>
+            </div>
+            
+          </div>
+
+          {/* Research Timeline */}
+          <ResearchTimeline />
+        </div>
+      </section>
+
+
+
+      
       {/* Technical Papers */}
       <section className="py-20 bg-white dark:bg-gray-900">
         <div className="container px-4 mx-auto">
