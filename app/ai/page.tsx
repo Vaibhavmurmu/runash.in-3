@@ -16,7 +16,6 @@ import {
   Server,
   Speech,
   Film,
-  clapperboard,
   Cpu,
   Focus,
   Loader,
