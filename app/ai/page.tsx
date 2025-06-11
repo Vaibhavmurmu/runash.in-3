@@ -266,6 +266,14 @@ export default function AIPage() {
               <p className="text-gray-700 dark:text-gray-300">
                 Real-time analysis of live stream for action detection 
               </p>
+           <div className="flex justify-center mt-12">
+            <Button
+              variant="outline"
+              className="border-orange-500 text-orange-600 hover:bg-orange-50 dark:border-orange-400 dark:text-orange-400 dark:hover:bg-orange-950"
+            >
+              Learn More <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow border border-orange-100 dark:border-orange-900/20">
               <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
@@ -276,6 +284,14 @@ export default function AIPage() {
                 Identify and classify various activities in video content 
                 
               </p>
+              <div className="flex justify-center mt-12">
+            <Button
+              variant="outline"
+              className="border-orange-500 text-orange-600 hover:bg-orange-50 dark:border-orange-400 dark:text-orange-400 dark:hover:bg-orange-950"
+            >
+              Learn More <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow border border-orange-100 dark:border-orange-900/20">
               <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
@@ -285,6 +301,14 @@ export default function AIPage() {
               <p className="text-gray-700 dark:text-gray-300">
                 Accurate detection and classification of objects within videos 
               </p>
+              <div className="flex justify-center mt-12">
+            <Button
+              variant="outline"
+              className="border-orange-500 text-orange-600 hover:bg-orange-50 dark:border-orange-400 dark:text-orange-400 dark:hover:bg-orange-950"
+            >
+              Learn More <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow border border-orange-100 dark:border-orange-900/20">
               <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
@@ -294,6 +318,14 @@ export default function AIPage() {
               <p className="text-gray-700 dark:text-gray-300">
                 Video-Text-to-Text model take in a video chat and text prompt and output text.These model are call video language models.
               </p>
+              <div className="flex justify-center mt-12">
+            <Button
+              variant="outline"
+              className="border-orange-500 text-orange-600 hover:bg-orange-50 dark:border-orange-400 dark:text-orange-400 dark:hover:bg-orange-950"
+            >
+              Learn More <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow border border-orange-100 dark:border-orange-900/20">
               <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
@@ -303,6 +335,14 @@ export default function AIPage() {
               <p className="text-gray-700 dark:text-gray-300">
                 This feature allows to analyze live streams and extract relevant text information in real-time.
               </p>
+              <div className="flex justify-center mt-12">
+            <Button
+              variant="outline"
+              className="border-orange-500 text-orange-600 hover:bg-orange-50 dark:border-orange-400 dark:text-orange-400 dark:hover:bg-orange-950"
+            >
+              Learn more <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow border border-orange-100 dark:border-orange-900/20">
               <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
@@ -312,6 +352,14 @@ export default function AIPage() {
               <p className="text-gray-700 dark:text-gray-300">
                 This feature enables to generate live streams from text inputs, allowing for automated content creation.
               </p>
+              <div className="flex justify-center mt-12">
+            <Button
+              variant="outline"
+              className="border-orange-500 text-orange-600 hover:bg-orange-50 dark:border-orange-400 dark:text-orange-400 dark:hover:bg-orange-950"
+            >
+              Learn More <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow border border-orange-100 dark:border-orange-900/20">
               <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
@@ -321,6 +369,14 @@ export default function AIPage() {
               <p className="text-gray-700 dark:text-gray-300">
                 This feature enables you to generate live streams from image inputs, allowing for automated content creation.
               </p>
+              <div className="flex justify-center mt-12">
+            <Button
+              variant="outline"
+              className="border-orange-500 text-orange-600 hover:bg-orange-50 dark:border-orange-400 dark:text-orange-400 dark:hover:bg-orange-950"
+            >
+              Learn More <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow border border-orange-100 dark:border-orange-900/20">
               <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
@@ -330,6 +386,14 @@ export default function AIPage() {
               <p className="text-gray-700 dark:text-gray-300">
                  Our model supports real-time translation capabilities, allowing you to reach a global audience.
               </p>
+              <div className="flex justify-center mt-12">
+            <Button
+              variant="outline"
+              className="border-orange-500 text-orange-600 hover:bg-orange-50 dark:border-orange-400 dark:text-orange-400 dark:hover:bg-orange-950"
+            >
+              Learn More <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow border border-orange-100 dark:border-orange-900/20">
               <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
@@ -339,6 +403,14 @@ export default function AIPage() {
               <p className="text-gray-700 dark:text-gray-300">
                 Our model supports TTS capabilities, allowing you to generate spoken language from text inputs in real-time.
               </p>
+              <div className="flex justify-center mt-12">
+            <Button
+              variant="outline"
+              className="border-orange-500 text-orange-600 hover:bg-orange-50 dark:border-orange-400 dark:text-orange-400 dark:hover:bg-orange-950"
+            >
+              Learn More <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow border border-orange-100 dark:border-orange-900/20">
               <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4 inline-block">
@@ -348,6 +420,14 @@ export default function AIPage() {
               <p className="text-gray-700 dark:text-gray-300">
                 This model supports TTS capabilities, allowing  to generate spoken language from text inputs in real-time.
               </p>
+              <div className="flex justify-center mt-12">
+            <Button
+              variant="outline"
+              className="border-orange-500 text-orange-600 hover:bg-orange-50 dark:border-orange-400 dark:text-orange-400 dark:hover:bg-orange-950"
+            >
+              Learn More <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
             </div>
             
           </div>
