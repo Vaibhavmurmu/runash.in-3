@@ -45,7 +45,7 @@ export default function Home() {
             RunAsh AI Live Streaming Platform 
           </h1>
           <p className=" text-xl md:text-2xl mb-6 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
-            The next generation of AI-powered live streaming for creators, sellers, and businesses
+            The next generation of AI live retail streaming platform where the retailers build custom AI-powered live streaming 
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
