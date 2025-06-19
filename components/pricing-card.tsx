@@ -9,12 +9,9 @@ interface PricingCardProps {
   price: string
   yearlyPrice: string
   description: string
-
-
   buttonText: string
   popular?: boolean
-  isYearly?: boolean
-
+  isYearly?: boolea
   features: string[]
   buttonText: string
   popular?: boolen
@@ -65,7 +62,7 @@ export default function PricingCard({ title, price, yearlyPrice, description, bt
         ))}
       </ul>
       <Button className="bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white w-full
-       bg-white dark:bg-gray-900 border border-orange-500 text-orange-600 dark:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20 w-full"
+       bg-white dark:bg-gray-900 border border-orange-500 text-orange-600 dark:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20 w-full
          " variant={popular ? "default" : "outline"} onClick={onButtonClick}>
         {buttonText}
       </Button>
@@ -83,40 +80,3 @@ export default function PricingCard({ title, price, yearlyPrice, description, bt
   )
 }
 
-{/* "use client"
-import { Button } from "@/components/ui/button" 
-
-interface PricingCardProps {
-  title: string
-  price: string
-  features: string[]
-  buttonText: string
-  popular?: boolean
-  onButtonClick?: () => void
-}
-
-export default function PricingCard({
-  title,
-  price,
-  features,
-  buttonText,
-  popular = false,
-  onButtonClick,
-}: PricingCardProps) {
-  return (
-    <div className="border rounded-lg p-6 shadow-md">
-      <h3 className="text-2xl font-semibold mb-4">{title}</h3>
-      <div className="text-4xl font-bold mb-4">{price}</div>
-      <ul className="mb-6">
-        {features.map((feature, index) => (
-          <li key={index} className="mb-2">
-            {feature}
-          </li>
-        ))}
-      </ul>
-      <Button className="w-full" variant={popular ? "default" : "outline"} onClick={onButtonClick}>
-        {buttonText}
-      </Button>
-    </div>
-  )
-}  */}
