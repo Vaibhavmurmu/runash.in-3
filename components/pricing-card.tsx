@@ -21,10 +21,7 @@ interface PricingCardProps {
 
 
 export default function PricingCard({ title, price, yearlyPrice, description, features, buttonText, onButtonClick, isYearly, popular = false }: PricingCardProps) {
-  const currentPrice = isYearly ? yearlyPrice : price
-  const savings = isYearly && title !== "Starter" ? "Save 20%" : null
-
-
+  
   return (
     <div
       className={`
