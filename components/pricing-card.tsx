@@ -4,13 +4,18 @@ import { Check } from "lucide-react"
 interface PricingCardProps {
   title: string
   price: string
+  yearlyPrice: string
+  description: string
+  buttonText: string
+  popular?: boolean
+  isYearly?: boolean
   features: string[]
   buttonText: string
   popular?: boolean
   onButtonClick?: () => void
 }
 
-export default function PricingCard({ title, price, features, buttonText, onButtonClick, popular = false }: PricingCardProps) {
+export default function PricingCard({ title, price, yearlyPrice, description, bttonText, isYearly, features, buttonText, onButtonClick, popular = false }: PricingCardProps) {
   return (
     <div
       className={`
