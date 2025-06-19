@@ -25,8 +25,6 @@ export default function PricingCard({ title, price, yearlyPrice, description, fe
   const savings = isYearly && title !== "Starter" ? "Save 20%" : null
 
 
-export default function PricingCard({ title, price, yearlyPrice, description, bttonText, isYearly, features, buttonText, onButtonClick, popular = false }: PricingCardProps) {
-
   return (
     <div
       className={`
