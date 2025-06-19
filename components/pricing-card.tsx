@@ -46,7 +46,11 @@ export default function PricingCard({ title, price, features, buttonText, onButt
         ))}
       </ul>
 
-      <Button
+      <Button className="w-full" variant={popular ? "default" : "outline"} onClick={onButtonClick}>
+        {buttonText}
+      </Button>
+      
+      {/*    <Button
         className={
           popular
             ? "bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white w-full"
@@ -54,7 +58,7 @@ export default function PricingCard({ title, price, features, buttonText, onButt
          }           
       >
         {buttonText}
-      </Button>
+      </Button> */}
     </div>
   )
 }
