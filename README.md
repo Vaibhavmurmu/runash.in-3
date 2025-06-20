@@ -1,7 +1,7 @@
 <div align="center">
   <p align="center">
     <a href="https://www.runash.in">
-      <img src="runashlogo.jpg" width="260" height="160" />
+      <img src="public/runashlogo.jpg" width="100" height="100" />
     </a>
     </p>
   <strong>
@@ -87,8 +87,8 @@ The RunAsh AI live streaming platform is licensed under the MIT License.
 
 We would like to thank the following individuals and organizations for their contributions to the RunAsh AI live streaming platform:
 
-* [Ram Murmu]
-* [Runash Digital Innovation Technologies Private Limited]
+* Ram Murmu
+* Runash Digital Innovation Technologies Private Limited
 
 ## Contact
 
