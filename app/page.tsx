@@ -17,6 +17,7 @@ import { CountrySelector } from "@/components/country-selector"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { LiveStreams } from "@/components/live-streams"
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 
 export default function Home() {
   const router = useRouter()
@@ -249,7 +250,6 @@ export default function Home() {
             <TechBadge label="Low Latency" />
             <TechBadge label="Multi-platform" />
           </div>
-          <LiveStreams />
         </div>
         <div className="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
           <ChevronRight className="h-8 w-8 transform rotate-90 text-orange-500 dark:text-orange-400" />
@@ -272,7 +272,7 @@ export default function Home() {
       <section className="py-24 bg-gradient-to-b from-white to-orange-50 dark:from-gray-900 dark:to-gray-950">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
+            <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 backdrop-blur-sm border border-orage-200 dark:border-orange-800/50">
               <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">Powerful Features</span>
             </div>
             <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
@@ -437,6 +437,9 @@ export default function Home() {
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
         </div>
+      </section>
+      <section>
+        <LiveStreams />
       </section>
       
       {/* Pricing */}
