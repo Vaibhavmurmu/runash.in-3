@@ -160,7 +160,7 @@ export default function ContactPage() {
               hours="Mon-Fri: 9am-5pm GMT"
             />
             <OfficeLocation
-              city="Sngapore (Remote) upcoming"
+              city="Sngapore (Remote)"
               address="New ton Road 307987"
               phone="+91 8987724121 "
               email="admin@runash.in"
@@ -168,7 +168,7 @@ export default function ContactPage() {
               hours="Mon-Fri: 9am-5pm JST"
             />
             <OfficeLocation
-              city="San Francisco (Remote) upcoming"
+              city="San Francisco (Remote)"
               address="Stripe Atlas, Dalaware San Francisco, CA "
               phone="+91 8987724121 "
               email="admin@runash.in"
