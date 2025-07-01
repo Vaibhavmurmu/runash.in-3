@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Play, Upload, Settings, Users, BarChart3, Calendar, Zap, Mic, Camera, Bell } from "lucide-react"
+import { GoLiveDialog } from "./go-live-dialog"
 
 interface QuickAction {
   id: string
@@ -20,16 +21,6 @@ interface QuickAction {
 
 export function QuickActions() {
   const actions: QuickAction[] = [
-    {
-      id: "go-live",
-      title: "Go Live",
-      description: "Start streaming instantly",
-      icon: Play,
-      action: () => console.log("Starting stream..."),
-      variant: "default",
-      badge: "Popular",
-      color: "bg-red-500 hover:bg-red-600",
-    },
     {
       id: "schedule-stream",
       title: "Schedule Stream",
@@ -112,6 +103,24 @@ export function QuickActions() {
         </CardHeader>
         <CardContent>
           <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+            <GoLiveDialog>
+              <Button
+                variant="default"
+                className="h-auto p-4 flex flex-col items-start space-y-2 relative bg-red-500 hover:bg-red-600"
+              >
+                <Badge
+                  variant="secondary"
+                  className="absolute -top-1 -right-1 text-xs px-1.5 py-0.5 bg-orange-500 text-white border-0"
+                >
+                  Popular
+                </Badge>
+                <div className="flex items-center space-x-2 w-full">
+                  <Play className="h-5 w-5" />
+                  <span className="font-medium">Go Live</span>
+                </div>
+                <span className="text-xs text-muted-foreground text-left">Start streaming instantly</span>
+              </Button>
+            </GoLiveDialog>
             {actions.map((action) => (
               <Button
                 key={action.id}
