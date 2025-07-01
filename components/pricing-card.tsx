@@ -74,4 +74,3 @@ export default function PricingCard({ title, price, yearlyPrice, description, fe
     </div>
   )
 }
-
