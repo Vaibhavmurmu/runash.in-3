@@ -1,18 +1,11 @@
 "use client"
 
 import { useState, useCallback } from "react"
-import type { SearchOptions, SearchResponseSimple, SearchSuggestion } from "@/lib/search-types"
+import type { SearchOptions, SearchResponse } from "@/lib/search-types"
 
-interface UseSearchReturn {
-  search: (options: SearchOptions) => Promise<void>
-  isLoading: boolean
-  results: SearchResponseSimple | null
-  error: string | null
-}
-
-export function useSearch(): UseSearchReturn {
+export function useSearch() {
   const [isLoading, setIsLoading] = useState(false)
-  const [results, setResults] = useState<SearchResponseSimple | null>(null)
+  const [results, setResults] = useState<SearchResponse | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   const search = useCallback(async (options: SearchOptions) => {
@@ -29,7 +22,7 @@ export function useSearch(): UseSearchReturn {
       })
 
       if (!response.ok) {
-        throw new Error(`Search failed: ${response.statusText}`)
+        throw new Error("Search failed")
       }
 
       const data = await response.json()
@@ -42,27 +35,32 @@ export function useSearch(): UseSearchReturn {
     }
   }, [])
 
-  return { search, isLoading, results, error }
+  const clearResults = useCallback(() => {
+    setResults(null)
+    setError(null)
+  }, [])
+
+  return {
+    search,
+    clearResults,
+    isLoading,
+    results,
+    error,
+  }
 }
 
-interface UseSearchSuggestionsReturn {
-  suggestions: SearchSuggestion[]
-  getSuggestions: (query: string) => Promise<void>
-  clearSuggestions: () => void
-  isLoading: boolean
-}
-
-export function useSearchSuggestions(): UseSearchSuggestionsReturn {
-  const [suggestions, setSuggestions] = useState<SearchSuggestion[]>([])
+export function useSearchSuggestions() {
+  const [suggestions, setSuggestions] = useState<string[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
-  const getSuggestions = useCallback(async (query: string) => {
-    if (!query.trim()) {
+  const fetchSuggestions = useCallback(async (query: string) => {
+    if (!query.trim() || query.length < 2) {
       setSuggestions([])
       return
     }
 
     setIsLoading(true)
+
     try {
       const response = await fetch(`/api/search/suggestions?q=${encodeURIComponent(query)}`)
       if (response.ok) {
@@ -81,33 +79,43 @@ export function useSearchSuggestions(): UseSearchSuggestionsReturn {
     setSuggestions([])
   }, [])
 
-  return { suggestions, getSuggestions, clearSuggestions, isLoading }
+  return {
+    suggestions,
+    isLoading,
+    fetchSuggestions,
+    clearSuggestions,
+  }
 }
 
-interface UseSearchAnalyticsReturn {
-  analytics: any
-  fetchAnalytics: () => Promise<void>
-  isLoading: boolean
-}
-
-export function useSearchAnalytics(): UseSearchAnalyticsReturn {
+export function useSearchAnalytics() {
   const [analytics, setAnalytics] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const fetchAnalytics = useCallback(async () => {
+  const fetchAnalytics = useCallback(async (days = 7) => {
     setIsLoading(true)
+    setError(null)
+
     try {
-      const response = await fetch("/api/search/analytics")
-      if (response.ok) {
-        const data = await response.json()
-        setAnalytics(data)
+      const response = await fetch(`/api/search/analytics?days=${days}`)
+      if (!response.ok) {
+        throw new Error("Failed to fetch analytics")
       }
-    } catch (error) {
-      console.error("Error fetching analytics:", error)
+
+      const data = await response.json()
+      setAnalytics(data)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to fetch analytics")
+      setAnalytics(null)
     } finally {
       setIsLoading(false)
     }
   }, [])
 
-  return { analytics, fetchAnalytics, isLoading }
+  return {
+    analytics,
+    isLoading,
+    error,
+    fetchAnalytics,
+  }
 }

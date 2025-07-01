@@ -1,59 +1,67 @@
+export interface SearchIndex {
+  id: string
+  name: string
+  description: string
+  content_type: string
+  settings: Record<string, any>
+  created_at: Date
+  updated_at: Date
+}
+
 export interface SearchDocument {
   id: string
   index_id: string
-  document_id: string
+  content_id: string
   content_type: string
   title: string
   content: string
   metadata: Record<string, any>
   tags: string[]
-  created_at: string
-  updated_at: string
+  embedding?: number[]
+  created_at: Date
+  updated_at: Date
+}
+
+export interface SearchQuery {
+  id: string
+  user_id?: string
+  query: string
+  filters: Record<string, any>
+  search_type: "semantic" | "keyword" | "hybrid"
+  results_count: number
+  response_time: number
+  created_at: Date
 }
 
 export interface SearchResult {
   id: string
   query_id: string
   document_id: string
+  relevance_score: number
   rank: number
-  score: number
-  relevance_type: string
   clicked: boolean
-  created_at: string
-  document?: SearchDocument
+  created_at: Date
 }
 
-export interface SearchResponse {
-  results: SearchResult[]
-  total: number
+export interface SearchFeedback {
+  id: string
   query_id: string
-  response_time_ms: number
-  suggestions?: string[]
-  facets?: {
-    content_types: Array<{ value: string; count: number }>
-    tags: Array<{ value: string; count: number }>
-  }
+  result_id: string
+  user_id?: string
+  feedback_type: "helpful" | "not_helpful" | "irrelevant"
+  comment?: string
+  created_at: Date
 }
 
-export interface SearchRequest {
-  query: string
-  type?: "semantic" | "keyword" | "hybrid"
-  filters?: {
-    content_type?: string[]
-    tags?: string[]
-    date_range?: {
-      start: string
-      end: string
-    }
-  }
-  limit?: number
-  offset?: number
-}
-
-export interface SearchSuggestion {
-  text: string
-  type: "query" | "content"
-  score: number
+export interface SearchAnalytics {
+  id: string
+  date: Date
+  total_queries: number
+  unique_users: number
+  avg_response_time: number
+  top_queries: string[]
+  popular_content: string[]
+  created_at: Date
 }
 
 export interface SearchFilters {
@@ -63,6 +71,7 @@ export interface SearchFilters {
     start: Date
     end: Date
   }
+  relevanceThreshold?: number
 }
 
 export interface SearchOptions {
@@ -73,8 +82,7 @@ export interface SearchOptions {
   offset?: number
 }
 
-// Simplified response format for the frontend
-export interface SearchResponseSimple {
+export interface SearchResponse {
   results: Array<{
     id: string
     title: string
@@ -89,5 +97,5 @@ export interface SearchResponseSimple {
   query: string
   searchType: string
   responseTime: number
-  suggestions: string[]
+  suggestions?: string[]
 }
