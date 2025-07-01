@@ -1,121 +1,96 @@
 "use client"
 
 import { useState, useCallback } from "react"
-import type { SearchOptions, SearchResponse } from "@/lib/search-types"
+import type { SearchResult, SearchOptions } from "@/lib/search-types"
 
-export function useSearch() {
+interface UseSearchReturn {
+  results: SearchResult[]
+  isLoading: boolean
+  error: string | null
+  totalResults: number
+  searchType: string
+  responseTime: number
+  suggestions: string[]
+  search: (options: SearchOptions) => Promise<void>
+  clearResults: () => void
+}
+
+export function useSearch(): UseSearchReturn {
+  const [results, setResults] = useState<SearchResult[]>([])
   const [isLoading, setIsLoading] = useState(false)
-  const [results, setResults] = useState<SearchResponse | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [totalResults, setTotalResults] = useState(0)
+  const [searchType, setSearchType] = useState("hybrid")
+  const [responseTime, setResponseTime] = useState(0)
+  const [suggestions, setSuggestions] = useState<string[]>([])
 
   const search = useCallback(async (options: SearchOptions) => {
+    if (!options.query.trim()) {
+      setResults([])
+      setTotalResults(0)
+      return
+    }
+
     setIsLoading(true)
     setError(null)
 
+    const startTime = Date.now()
+
     try {
-      const response = await fetch("/api/search", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(options),
+      const searchParams = new URLSearchParams({
+        q: options.query,
+        type: options.searchType || "hybrid",
+        limit: (options.limit || 20).toString(),
+        offset: (options.offset || 0).toString(),
       })
 
+      if (options.filters?.contentType?.length) {
+        searchParams.set("contentType", options.filters.contentType.join(","))
+      }
+
+      if (options.filters?.tags?.length) {
+        searchParams.set("tags", options.filters.tags.join(","))
+      }
+
+      const response = await fetch(`/api/search?${searchParams}`)
+
       if (!response.ok) {
-        throw new Error("Search failed")
+        throw new Error(`Search failed: ${response.statusText}`)
       }
 
       const data = await response.json()
-      setResults(data)
+
+      setResults(data.results || [])
+      setTotalResults(data.total || 0)
+      setSearchType(data.searchType || "hybrid")
+      setSuggestions(data.suggestions || [])
+      setResponseTime(Date.now() - startTime)
     } catch (err) {
       setError(err instanceof Error ? err.message : "Search failed")
-      setResults(null)
+      setResults([])
+      setTotalResults(0)
     } finally {
       setIsLoading(false)
     }
   }, [])
 
   const clearResults = useCallback(() => {
-    setResults(null)
+    setResults([])
+    setTotalResults(0)
     setError(null)
+    setSuggestions([])
+    setResponseTime(0)
   }, [])
 
   return {
+    results,
+    isLoading,
+    error,
+    totalResults,
+    searchType,
+    responseTime,
+    suggestions,
     search,
     clearResults,
-    isLoading,
-    results,
-    error,
-  }
-}
-
-export function useSearchSuggestions() {
-  const [suggestions, setSuggestions] = useState<string[]>([])
-  const [isLoading, setIsLoading] = useState(false)
-
-  const fetchSuggestions = useCallback(async (query: string) => {
-    if (!query.trim() || query.length < 2) {
-      setSuggestions([])
-      return
-    }
-
-    setIsLoading(true)
-
-    try {
-      const response = await fetch(`/api/search/suggestions?q=${encodeURIComponent(query)}`)
-      if (response.ok) {
-        const data = await response.json()
-        setSuggestions(data.suggestions || [])
-      }
-    } catch (error) {
-      console.error("Error fetching suggestions:", error)
-      setSuggestions([])
-    } finally {
-      setIsLoading(false)
-    }
-  }, [])
-
-  const clearSuggestions = useCallback(() => {
-    setSuggestions([])
-  }, [])
-
-  return {
-    suggestions,
-    isLoading,
-    fetchSuggestions,
-    clearSuggestions,
-  }
-}
-
-export function useSearchAnalytics() {
-  const [analytics, setAnalytics] = useState<any>(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-
-  const fetchAnalytics = useCallback(async (days = 7) => {
-    setIsLoading(true)
-    setError(null)
-
-    try {
-      const response = await fetch(`/api/search/analytics?days=${days}`)
-      if (!response.ok) {
-        throw new Error("Failed to fetch analytics")
-      }
-
-      const data = await response.json()
-      setAnalytics(data)
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to fetch analytics")
-      setAnalytics(null)
-    } finally {
-      setIsLoading(false)
-    }
-  }, [])
-
-  return {
-    analytics,
-    isLoading,
-    error,
-    fetchAnalytics,
   }
 }

@@ -1,23 +1,52 @@
-import { type NextRequest, NextResponse } from "next/server"
+import { NextResponse } from "next/server"
 import { aiSearchService } from "@/lib/ai-search"
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    const { searchParams } = new URL(request.url)
-    const days = Number.parseInt(searchParams.get("days") || "7")
+    const analytics = await aiSearchService.getSearchAnalytics(7)
+
+    return NextResponse.json({
+      success: true,
+      data: analytics,
+    })
+  } catch (error) {
+    console.error("Search analytics API error:", error)
+    return NextResponse.json(
+      {
+        success: false,
+        error: "Failed to fetch search analytics",
+        data: {
+          totalQueries: 0,
+          uniqueUsers: 0,
+          avgResponseTime: 0,
+          topQueries: [],
+          period: 7,
+        },
+      },
+      { status: 500 },
+    )
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    const body = await request.json()
+    const { days = 7 } = body
 
     const analytics = await aiSearchService.getSearchAnalytics(days)
 
-    return NextResponse.json(analytics)
+    return NextResponse.json({
+      success: true,
+      data: analytics,
+    })
   } catch (error) {
     console.error("Search analytics API error:", error)
-    const days = 7 // Declaring the variable before using it
-    return NextResponse.json({
-      totalQueries: 0,
-      uniqueUsers: 0,
-      avgResponseTime: 0,
-      topQueries: [],
-      period: days,
-    })
+    return NextResponse.json(
+      {
+        success: false,
+        error: "Failed to fetch search analytics",
+      },
+      { status: 500 },
+    )
   }
 }
