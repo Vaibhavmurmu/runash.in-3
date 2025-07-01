@@ -1,97 +1,1101 @@
-import { DashboardLayout } from "@/components/dashboard-layout"
-import { EmailVerificationBanner } from "@/components/email-verification-banner"
-import { DashboardStats } from "@/components/dashboard-stats"
-import { LiveStreamsWidget } from "@/components/live-streams-widget"
-import { RecentActivity } from "@/components/recent-activity"
-import { AnalyticsChart } from "@/components/analytics-chart"
-import { QuickActions } from "@/components/quick-actions"
+"use client"
 
-export default function Dashboard() {
+import { Button } from "@/components/ui/button"
+import { Play, Zap, Users, Shield, ArrowRight, ChevronRight, Star, BarChart, Globe,SquareArrowDownRight } from "lucide-react"
+import VideoBackground from "@/components/video-background"
+import FeatureCard from "@/components/feature-card"
+import TestimonialCard from "@/components/testimonial-card"
+import PricingCard from "@/components/pricing-card"
+import Navbar from "@/components/navbar"
+import StatCounter from "@/components/stat-counter"
+import TechBadge from "@/components/tech-badge"
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+import { ThemeToggle } from "@/components/theme-toggle"
+import { NewsletterSignup } from "@/components/newsletter-signup"
+import { LanguageSelector } from "@/components/language-selector"
+import { CountrySelector } from "@/components/country-selector"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
+
+
+export default function Home() {
+  const router = useRouter()
+  const [currency, setCurrency] = useState<"USD" | "INR">("USD")
+
+  const formatPrice = (price: number) => {
+    if (currency === "INR") {
+      return `₹${(price * 83.25).toLocaleString("en-IN")}`
+    }
+    return `$${price}`
+  }
+
   return (
-    <DashboardLayout>
-      <div className="flex flex-1 flex-col gap-6 p-6 pt-0">
-        <EmailVerificationBanner />
+    <div className="min-h-screen bg-gradient-to-b from-white to-orange-50 dark:from-gray-950 dark:to-gray-900 text-gray-900 dark:text-white">
+      <Navbar />
+      
+      {/* Hero Section with Video Background */}
+        <section className="relative h-screen flex items-center justify-center overflow-hidden"> 
+        <VideoBackground />
+        <div className="container relative z-10 mx-auto px-4 text-center">
+          <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
+            <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">
+              Introducing 
+            </span>
+          </div>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
+            RunAsh AI Live Streaming Platform 
+          </h1>
+          <p className=" text-xl md:text-2xl mb-6 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
+            The next generation of AI live streaming selling platform where sellers build own live streaming 
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white shadow-lg shadow-orange-500/20 dark:shadow-orange-500/10"
+              onClick={() => router.push("/stream")}
+            >
+               Get Started  <Play className="ml-2 h-4 w-4" />
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-orange-500 text-orange-600 dark:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-950"
+              onClick={() => router.push("/")}
+            >
+              Learn More <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>     
+         {/* Tech badges */}
+          <div className="mt-12 flex flex-wrap justify-center gap-3">
+            <TechBadge label="Real-time Streaming" />
+            <TechBadge label="Live Streaming Selling" />
+            <TechBadge label="Products Demonstration" />
+            <TechBadge label="Interactive Live Chat" />
+            <TechBadge label="Polls or Q&A sessions" />
+            <TechBadge label="Post-Live Stream" />
+            <TechBadge label="Analytics" />
+          </div>
+        </div>
+        <div className="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
+          <ChevronRight className="h-8 w-8 transform rotate-90 text-orange-500 dark:text-orange-400" />
+        </div>
+      </section>
+     {/* Stats Section */}
+      <section className="py-16 bg-white dark:bg-gray-900 border-y border-orange-100 dark:border-orange-900/20">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <StatCounter value={150} label="100% Organic Certified Products" suffix="+" />
+            <StatCounter value={1000} label="100% Organic Certified Farms" suffix="+" />
+            <StatCounter value={99.9} label="Sustainable" suffix="%" />
+            <StatCounter value={100} label="100% Organic Certified Recipe" suffix="+" />
+          </div>
+        </div>
+      </section>
+       {/* Hero Section with Video Background */}
+        <section className="relative h-screen flex items-center justify-center overflow-hidden"> 
+        <VideoBackground />
+        <div className="container relative z-10 mx-auto px-4 text-center">
+          <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
+            <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">
+              Next Generation AI Streaming
+            </span>
+          </div>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
+            Elevate Your Live Streams with AI
+          </h1>
+          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
+            The most advanced AI-powered end-to-end live streaming platform for creators, sellers, and businesses
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white shadow-lg shadow-orange-500/20 dark:shadow-orange-500/10"
+              onClick={() => router.push("/stream")}
+            >
+              Start Streaming <Play className="ml-2 h-4 w-4" />
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-orange-500 text-orange-600 dark:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-950"
+              onClick={() => router.push("/demo")}
+            >
+              Watch Demo <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>     
+         {/* Tech badges */}
+          <div className="mt-12 flex flex-wrap justify-center gap-3">
+            <TechBadge label="Real-time AI" />
+            <TechBadge label="4K Quality" />
+            <TechBadge label="Low Latency" />
+            <TechBadge label="Multi-platform" />
+          </div>
+        </div>
+        <div className="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
+          <ChevronRight className="h-8 w-8 transform rotate-90 text-orange-500 dark:text-orange-400" />
+        </div>
+      </section>
 
-        {/* Welcome Section */}
-        <div className="rounded-xl bg-gradient-to-br from-orange-50 via-orange-100 to-orange-200 border border-orange-200 p-6">
-          <div className="flex items-center justify-between">
-            <div className="space-y-2">
-              <h1 className="text-2xl font-bold text-orange-900">Welcome back, Alex! 👋</h1>
-              <p className="text-orange-700">
-                You have <span className="font-semibold">3 active streams</span> and{" "}
-                <span className="font-semibold">12,483 viewers</span> watching right now.
+      {/* Stats Section */}
+      <section className="py-16 bg-white dark:bg-gray-900 border-y border-orange-100 dark:border-orange-900/20">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <StatCounter value={1000} label="Active Streamers" suffix="+" />
+            <StatCounter value={1000} label="Monthly Viewers" suffix="+" />
+            <StatCounter value={99.9} label="Uptime Percentage" suffix="%" />
+            <StatCounter value={2} label="Countries Reached" suffix="+" />
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-24 bg-gradient-to-b from-white to-orange-50 dark:from-gray-900 dark:to-gray-950">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 backdrop-blur-sm border border-orage-200 dark:border-orange-800/50">
+              <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">Powerful Features</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
+              AI-Powered Streaming Tools
+            </h2>
+            <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
+              Unlock the full potential of your content with our cutting-edge AI features designed for modern creators
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <FeatureCard
+              icon={<Zap className="h-6 w-6 text-white" />}
+              title="AI-Enhanced Streaming"
+              description="Automatically enhance your video quality, reduce noise, and optimize bandwidth in real-time with our proprietary AI algorithms."
+              gradient="from-orange-600 to-yellow-500"
+            />
+            <FeatureCard
+              icon={<Users className="h-6 w-6 text-white" />}
+              title="Smart Audience Engagement"
+              description="AI-powered chat moderation, sentiment analysis, and audience analytics to boost engagement and grow your community."
+              gradient="from-orange-500 to-red-500"
+            />
+            <FeatureCard
+              icon={<Shield className="h-6 w-6 text-white" />}
+              title="Content Protection"
+              description="Advanced AI content monitoring to protect your brand and comply with platform guidelines automatically."
+              gradient="from-yellow-500 to-orange-600"
+            />
+            <FeatureCard
+              icon={<BarChart className="h-6 w-6 text-white" />}
+              title="Analytics Dashboard"
+              description="Comprehensive analytics with AI-driven insights to understand your audience and optimize your content strategy."
+              gradient="from-red-500 to-orange-500"
+            />
+            <FeatureCard
+              icon={<Star className="h-6 w-6 text-white" />}
+              title="AI Content Suggestions"
+              description="Get personalized content recommendations based on your audience preferences and trending topics."
+              gradient="from-yellow-400 to-orange-500"
+            />
+            <FeatureCard
+              icon={<Globe className="h-6 w-6 text-white" />}
+              title="Multi-platform Streaming"
+              description="Stream simultaneously to multiple platforms with optimized settings for each destination."
+              gradient="from-orange-600 to-red-600"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="py-24 bg-orange-50 dark:bg-gray-950 border-y border-orange-100 dark:border-orange-900/20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
+              <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">Simple Process</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
+              How RunAsh Works
+            </h2>
+            <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
+              Get started in minutes and transform your streaming experience
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="rounded-2xl overflow-hidden shadow-2xl shadow-orange-500/10 dark:shadow-orange-500/5 aspect-video bg-gradient-to-br from-orange-600 to-yellow-500 dark:from-orange-700 dark:to-yellow-600 flex items-center justify-center group relative">
+              <div className="absolute inset-0 bg-black/20 dark:bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <Play className="h-20 w-20 text-white opacity-90 z-10 group-hover:scale-110 transition-transform duration-300" />
+            </div>
+            <div className="space-y-8">
+              <div className="flex items-start gap-6">
+                <div className="bg-gradient-to-br from-orange-600 to-yellow-500 rounded-full h-12 w-12 flex items-center justify-center flex-shrink-0 mt-1 shadow-lg shadow-orange-500/20 dark:shadow-orange-500/10">
+                  <span className="text-white font-bold">1</span>
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">Sign Up & Connect</h3>
+                  <p className="text-gray-700 dark:text-gray-300 text-lg">
+                    Create your account and connect your streaming sources in minutes. Our intuitive setup wizard guides
+                    you through the process.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-6">
+                <div className="bg-gradient-to-br from-orange-600 to-yellow-500 rounded-full h-12 w-12 flex items-center justify-center flex-shrink-0 mt-1 shadow-lg shadow-orange-500/20 dark:shadow-orange-500/10">
+                  <span className="text-white font-bold">2</span>
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">Customize Your Stream</h3>
+                  <p className="text-gray-700 dark:text-gray-300 text-lg">
+                    Set up AI enhancements, overlays, and engagement tools. Choose from our library of templates or
+                    create your own.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-6">
+                <div className="bg-gradient-to-br from-orange-600 to-yellow-500 rounded-full h-12 w-12 flex items-center justify-center flex-shrink-0 mt-1 shadow-lg shadow-orange-500/20 dark:shadow-orange-500/10">
+                  <span className="text-white font-bold">3</span>
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">Go Live with AI</h3>
+                  <p className="text-gray-700 dark:text-gray-300 text-lg">
+                    Start streaming with real-time AI enhancements and analytics. Monitor performance and engage with
+                    your audience like never before.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-24 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
+              <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">Success Stories</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
+              What Streamers Say
+            </h2>
+            <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
+              Join thousands of content creators who have transformed their streaming with RunAsh AI
+            </p>
+          </div>
+
+          <ScrollArea className="w-full pb-8">
+            <div className="flex space-x-6">
+              <TestimonialCard
+                name="Sikander "
+                role="Seller Streamer"
+                image="/placeholder.svg?height=80&width=80"
+                quote="RunAsh AI has doubled my viewer engagement and made streaming so much easier. The AI enhancements make my stream look professional without expensive equipment."
+              />
+              <TestimonialCard
+                name="Nirali"
+                role="Seller Streamer"
+                image="/placeholder.svg?height=80&width=80"
+                quote="The AI video enhancement makes my organic products streams look professional without expensive equipment. My subscribers have increased by 200% since switching to RunAsh."
+              />
+              <TestimonialCard
+                name="Jassi"
+                role="Seller Streamer"
+                image="/placeholder.svg?height=80&width=80"
+                quote="The audience analytics have helped me tailor my content to what my viewers actually want. The AI content suggestions are spot on and have helped me grow my channel."
+              />
+              <TestimonialCard
+                name="Vijay"
+                role="Seller Streamer"
+                image="/placeholder.svg?height=80&width=80"
+                quote="As a seller, audio quality is everything. RunAsh's AI audio enhancement has made my live demonstration sound studio-quality. My fans love it!"
+              />
+              <TestimonialCard
+                name="Sujata"
+                role="Cooking Channel Host"
+                image="/placeholder.svg?height=80&width=80"
+                quote="The multi-camera AI switching is a game-changer for my cooking streams. It's like having a professional director for my channel. Absolutely worth every penny."
+              />
+            </div>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
+        </div>
+      </section>
+      
+      
+      {/* Pricing */}
+      <section className="py-24 bg-orange-50 dark:bg-gray-950 border-y border-orange-100 dark:border-orange-900/20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
+              <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">Flexible Plans</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
+              Choose Your Plan
+            </h2>
+            <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
+              Select the perfect plan for your streaming needs with no hidden fees
+            </p>
+            {/* Currency Selector */}
+            <div className="flex justify-center mt-4 mb-8">
+              <div className="flex items-center gap-2 bg-white dark:bg-gray-800 rounded-lg p-1 border border-gray-200 dark:border-gray-700">
+                <button
+                  onClick={() => setCurrency("USD")}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                    currency === "USD"
+                      ? "bg-orange-500 text-white"
+                      : "text-gray-600 dark:text-gray-400 hover:text-orange-500"
+                  }`}
+                >
+                 🇺🇸 USD
+                </button>
+                <button
+                  onClick={() => setCurrency("INR")}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                    currency === "INR"
+                      ? "bg-orange-500 text-white"
+                      : "text-gray-600 dark:text-gray-400 hover:text-orange-500"
+                  }`}
+                >
+                  🇮🇳 INR
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <PricingCard
+              title="Starter"
+              price={formatPrice(19)}
+              features={[
+                "720p AI Enhancement",
+                "Basic Chat Moderation",
+                "5 Hours Monthly Streaming",
+                "Standard Support",
+                "Single Platform Streaming",
+              ]}
+              buttonText="Get Started"
+              popular={false}
+              onButtonClick={() => router.push("/checkout?plan=starter")}
+            />
+            <PricingCard
+              title="Professional"
+              price={formatPrice (49)}
+              features={[
+                "1080p AI Enhancement",
+                "Advanced Chat Moderation",
+                "50 Hours Monthly Streaming",
+                "Priority Support",
+                "Custom Overlays",
+                "Multi-platform Streaming (2)",
+                "Analytics Dashboard",
+              ]}
+              buttonText="Choose Pro"
+              popular={true}
+              onButtonClick={() => router.push("/checkout?plan=professional")}
+            />
+            <PricingCard
+              title="Enterprise"
+              price={formatPrice (99)}
+              features={[
+                "4K AI Enhancement",
+                "Premium Chat Moderation",
+                "Unlimited Streaming",
+                "24/7 Support",
+                "Custom Branding",
+                "Multi-platform Streaming (unlimited)",
+                "Advanced Analytics",
+                "API Access",
+                "Dedicated Account Manager",
+              ]}
+              buttonText="Contact Sales"
+              popular={false}
+             onButtonClick={() => router.push("/checkout?plan=enterprise")}
+            />
+          </div>
+        </div>
+      </section>
+    
+      {/* CTA */}
+      <section className="py-24 bg-gradient-to-r from-orange-600 to-yellow-500 dark:from-orange-700 dark:to-yellow-600">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">Ready to Transform Your Streams?</h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto text-white/90">
+            Join thousands of content creators who are elevating their streaming with RunAsh AI. Start your free 14-day
+            trial today.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" className="bg-white text-orange-600 hover:bg-gray-100 shadow-lg shadow-orange-700/20"
+             onClick={() => router.push("/get-started")}
+             >
+              Start Your Free Trial <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+            <Button size="lg" variant="outline" className="border-white text-orange-600 hover:bg-orange-600/20"
+              onClick={() => router.push("/demo")}
+              >
+              Schedule a Demo
+            </Button>
+          </div>
+          <p className="mt-6 text-white/80 text-sm">No credit card required. Cancel anytime.</p>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-16 bg-white dark:bg-gray-900 border-t border-orange-100 dark:border-orange-900/20">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 mb-8">
+            {/* Company Info */}
+            <div className="lg:col-span-2">
+              <h3 className="font-bold text-xl mb-4 text-gray-900 dark:text-white">RunAsh AI</h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                RunAsh AI as an AI Research and Development Company focusing on live streaming innovation
+              </p>
+              <div className="flex items-center gap-2 mb-4">
+                <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  <a href="/status" className="hover:text-orange-600 dark:hover:text-orange-400 transition-colors">
+                    All systems operational
+                  </a>
+                </span>
+              </div>
+
+              {/* Language and Country Selector */}
+              <div className="flex flex-col sm:flex-row gap-3 mt-4">
+                <LanguageSelector />
+                <CountrySelector />
+              </div>
+            </div>
+
+            {/* Quick Links */}
+            <div>
+              <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white">Platform</h3>
+              <ul className="space-y-2">
+                <li>
+                  <a
+                    href="/"
+                    className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                  >
+                    AI
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/"
+                    className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                  >
+                    RunAshChat
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/"
+                    className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                  >
+                   LiveStore
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/"
+                    className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                  >
+                    Become a seller 
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white">Product</h3>
+              <ul className="space-y-2">
+                <li>
+                  <a
+                    href="/"
+                    className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                  >
+                    RunAshStudio
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/"
+                    className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                  >
+                    iOS App 
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/"
+                    className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                  >
+                    Android App 
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/"
+                    className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                  >
+                    Web App 
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white">Resources</h3>
+              <ul className="space-y-2">
+                <li>
+                  <a
+                    href="/tutorials"
+                    className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                  >
+                    Documentation
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/tutorials"
+                    className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                  >
+                    Tutorials
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/learn"
+                    className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                  >
+                    Learn 
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/community"
+                    className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                  >
+                    Community 
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Newsletter Signup */}
+            <div className="lg:col-span-2">
+              <NewsletterSignup />
+
+              {/* Social Media */}
+              <div className="mt-6">
+                <h4 className="font-medium text-sm mb-3 text-gray-700 dark:text-gray-300">Follow us</h4>
+                <div className="flex flex-wrap gap-4">
+                  <a
+                    href="https://twitter.com/runash.ai"
+                    className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-twitter"
+                    >
+                      <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
+                    </svg>
+                    <span>Twitter</span>
+                  </a>
+                  <a
+                    href="https://discord.com/runash.ai"
+                    className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-message-circle"
+                    >
+                      <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+                    </svg>
+                    <span>Discord</span>
+                  </a>
+                  <a
+                    href="https://youtube.com/runash.ai"
+                    className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-youtube"
+                    >
+                      <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
+                      <path d="m10 15 5-3-5-3z" />
+                    </svg>
+                    <span>YouTube</span>
+                  </a>
+                  <a
+                    href="https://instagram.com/runash.ai"
+                    className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-instagram"
+                    >
+                      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                    </svg>
+                    <span>Instagram</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Sitemap */}
+          <div className="border-t border-gray-200 dark:border-gray-800 pt-8 mt-8">
+            <h3 className="font-bold text-lg mb-4 text-gray-900 dark:text-white"></h3>
+             <p className="text-gray-600 dark:text-gray-400 mb-4">
+                
+              </p>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              <div>
+                <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">Company</h4>
+                <ul className="space-y-1 text-sm">
+                  <li>
+                    <a
+                      href="/about"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      About
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/contact"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Contact 
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/careers"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Careers
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/roadmap"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Roadmap
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">Products</h4>
+                <ul className="space-y-1 text-sm">
+                  <li>
+                    <a
+                      href="/get-started"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Streaming
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/get-started"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Multi-Host
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/analytics"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Analytics
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/ai"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      AI Features
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">Resources</h4>
+                <ul className="space-y-1 text-sm">
+                  <li>
+                    <a
+                      href="/blog"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Blog
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/pricing"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                     Pricing 
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/sustainable Traker"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                     Sustainable Traker
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                     Recipe Planner 
+                    </a>
+
+                  </li>
+                  <li>
+                    <a
+                      href="/press"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                     Press
+                    </a>
+
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">Legal</h4>
+                <ul className="space-y-1 text-sm">
+                  <li>
+                    <a
+                      href="/privacy"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Privacy Policy
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/terms"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Terms of Service
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/cookies"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Cookie Policy
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/ai-policy"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      AI Policy 
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/gdpr"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                     GDPR
+                    </a>
+
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">More</h4>
+                <ul className="space-y-1 text-sm">
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                     Live Shopping 
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                     OrganicFarms
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                     Creaters
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Partners
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                     For Business
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Influencers 
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">AI Research</h4>
+                <ul className="space-y-1 text-sm">
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                   Overview 
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                     Space 
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                     Model
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Dataset 
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                     Notebook 
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                       Task
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">Financial</h4>
+                <ul className="space-y-1 text-sm">
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                     Credit 
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                     Grant 
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                     Free Credit 
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Sponsor
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      e₹upee
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      RunAshPay
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium text-sm mb-2 text-gray-700 dark:text-gray-300">Tools</h4>
+                <ul className="space-y-1 text-sm">
+                  <li>
+                    <a
+                      href="/status"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Status
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/api"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      API
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/integrations"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Integrations
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Mobile App
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      PWA
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Changelog 
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Copyright and Legal */}
+          <div className="mt-12 pt-8 border-t border-orange-100 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center">
+            <div className="flex items-center gap-4">
+              <p className="text-gray-600 dark:text-gray-400">
+                © {new Date().getFullYear()} RunAsh AI. All rights reserved.
               </p>
             </div>
-            <div className="hidden md:flex items-center space-x-4">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-orange-600">94.2%</div>
-                <div className="text-xs text-orange-700">Uptime</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-orange-600">$45.2K</div>
-                <div className="text-xs text-orange-700">This Month</div>
+            <div className="flex items-center gap-6 mt-4 md:mt-0">
+              <ThemeToggle />
+              <div className="flex space-x-6">
+                <a
+                  href="/privacy"
+                  className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors text-sm"
+                >
+                  Privacy Policy
+                </a>
+                <a
+                  href="/terms"
+                  className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors text-sm"
+                >
+                  Terms of Service
+                </a>
+                <a
+                  href="/cookies"
+                  className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors text-sm"
+                >
+                  Cookie Policy
+                </a>
               </div>
             </div>
           </div>
         </div>
-
-        {/* Stats Overview */}
-        <DashboardStats />
-
-        {/* Main Content Grid */}
-        <div className="grid gap-6 lg:grid-cols-3">
-          {/* Left Column - 2/3 width */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Analytics Charts */}
-            <AnalyticsChart />
-
-            {/* Live Streams */}
-            <LiveStreamsWidget />
-          </div>
-
-          {/* Right Column - 1/3 width */}
-          <div className="space-y-6">
-            {/* Quick Actions */}
-            <QuickActions />
-
-            {/* Recent Activity */}
-            <RecentActivity />
-          </div>
-        </div>
-
-        {/* Bottom Section - Performance Insights */}
-        <div className="grid gap-4 md:grid-cols-3">
-          <div className="rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="font-semibold text-blue-900">Peak Performance</h3>
-                <p className="text-sm text-blue-700 mt-1">Your best streaming day was Friday with 2,450 peak viewers</p>
-              </div>
-              <div className="text-2xl">📈</div>
-            </div>
-          </div>
-
-          <div className="rounded-xl bg-gradient-to-br from-green-50 to-green-100 border border-green-200 p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="font-semibold text-green-900">Revenue Growth</h3>
-                <p className="text-sm text-green-700 mt-1">+18.2% increase in earnings compared to last month</p>
-              </div>
-              <div className="text-2xl">💰</div>
-            </div>
-          </div>
-
-          <div className="rounded-xl bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="font-semibold text-purple-900">Community Growth</h3>
-                <p className="text-sm text-purple-700 mt-1">1,247 new followers this week across all platforms</p>
-              </div>
-              <div className="text-2xl">👥</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </DashboardLayout>
+      </footer>
+    </div>
   )
 }
