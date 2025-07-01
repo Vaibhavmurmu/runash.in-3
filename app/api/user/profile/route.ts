@@ -15,40 +15,33 @@ export async function GET() {
       return NextResponse.json({ error: "Invalid user ID format" }, { status: 400 })
     }
 
-    // First, let's check what columns actually exist
-    const users = await sql`
-      SELECT 
-        id,
-        email,
-        name,
-        COALESCE(username, '') as username,
-        COALESCE(avatar_url, '') as avatar_url,
-        COALESCE(bio, '') as bio,
-        COALESCE(website, '') as website,
-        COALESCE(location, '') as location,
-        COALESCE(email_verified, false) as email_verified,
-        email_verified_at,
-        pending_email,
-        created_at,
-        updated_at
-      FROM users 
-      WHERE id = ${userId}::uuid
-    `
-
-    const user = users[0]
-
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 })
-    }
-
-    return NextResponse.json(user)
-  } catch (error) {
-    console.error("Error fetching user profile:", error)
-
-    // If it's a column error, try a simpler query
-    if (error.message && error.message.includes("column") && error.message.includes("does not exist")) {
+    // Start with basic columns that should always exist
+    let user
+    try {
+      // Try the full query first
+      const users = await sql`
+        SELECT 
+          id,
+          email,
+          name,
+          username,
+          avatar_url,
+          bio,
+          website,
+          location,
+          email_verified,
+          email_verified_at,
+          pending_email,
+          created_at,
+          updated_at
+        FROM users 
+        WHERE id = ${userId}::uuid
+      `
+      user = users[0]
+    } catch (error) {
+      // If that fails, try with just the basic columns
+      console.log("Full query failed, trying basic query:", error.message)
       try {
-        const userId = getCurrentUserId()
         const users = await sql`
           SELECT 
             id,
@@ -59,27 +52,34 @@ export async function GET() {
           FROM users 
           WHERE id = ${userId}::uuid
         `
-
-        const user = users[0]
-        if (user) {
-          // Return user with default values for missing columns
-          return NextResponse.json({
-            ...user,
-            username: "",
-            avatar_url: "",
-            bio: "",
-            website: "",
-            location: "",
+        const basicUser = users[0]
+        if (basicUser) {
+          // Add default values for missing columns
+          user = {
+            ...basicUser,
+            username: null,
+            avatar_url: null,
+            bio: null,
+            website: null,
+            location: null,
             email_verified: false,
             email_verified_at: null,
             pending_email: null,
-          })
+          }
         }
-      } catch (fallbackError) {
-        console.error("Fallback query also failed:", fallbackError)
+      } catch (basicError) {
+        console.error("Even basic query failed:", basicError)
+        return NextResponse.json({ error: "Database error" }, { status: 500 })
       }
     }
 
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 })
+    }
+
+    return NextResponse.json(user)
+  } catch (error) {
+    console.error("Error fetching user profile:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
 }
@@ -100,8 +100,10 @@ export async function PUT(request: NextRequest) {
     const body = await request.json()
     const { name, username, bio, website, location, avatar_url } = body
 
-    // Try to update with all columns, but handle missing columns gracefully
+    // Try to update with available columns
+    let updatedUser
     try {
+      // Try full update first
       const updatedUsers = await sql`
         UPDATE users 
         SET 
@@ -113,36 +115,13 @@ export async function PUT(request: NextRequest) {
           avatar_url = ${avatar_url || null},
           updated_at = NOW()
         WHERE id = ${userId}::uuid
-        RETURNING 
-          id,
-          email,
-          name,
-          COALESCE(username, '') as username,
-          COALESCE(avatar_url, '') as avatar_url,
-          COALESCE(bio, '') as bio,
-          COALESCE(website, '') as website,
-          COALESCE(location, '') as location,
-          COALESCE(email_verified, false) as email_verified,
-          email_verified_at,
-          pending_email,
-          created_at,
-          updated_at
+        RETURNING *
       `
-
-      const updatedUser = updatedUsers[0]
-
-      if (!updatedUser) {
-        return NextResponse.json({ error: "User not found" }, { status: 404 })
-      }
-
-      return NextResponse.json(updatedUser)
+      updatedUser = updatedUsers[0]
     } catch (updateError) {
-      // If update fails due to missing columns, try basic update
-      if (
-        updateError.message &&
-        updateError.message.includes("column") &&
-        updateError.message.includes("does not exist")
-      ) {
+      console.log("Full update failed, trying basic update:", updateError.message)
+      // If that fails, just update name
+      try {
         const updatedUsers = await sql`
           UPDATE users 
           SET 
@@ -156,24 +135,31 @@ export async function PUT(request: NextRequest) {
             created_at,
             updated_at
         `
-
-        const updatedUser = updatedUsers[0]
-        if (updatedUser) {
-          return NextResponse.json({
-            ...updatedUser,
-            username: username || "",
-            avatar_url: avatar_url || "",
-            bio: bio || "",
-            website: website || "",
-            location: location || "",
+        const basicUser = updatedUsers[0]
+        if (basicUser) {
+          updatedUser = {
+            ...basicUser,
+            username: username || null,
+            avatar_url: avatar_url || null,
+            bio: bio || null,
+            website: website || null,
+            location: location || null,
             email_verified: false,
             email_verified_at: null,
             pending_email: null,
-          })
+          }
         }
+      } catch (basicError) {
+        console.error("Even basic update failed:", basicError)
+        return NextResponse.json({ error: "Update failed" }, { status: 500 })
       }
-      throw updateError
     }
+
+    if (!updatedUser) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 })
+    }
+
+    return NextResponse.json(updatedUser)
   } catch (error) {
     console.error("Error updating user profile:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })

@@ -174,7 +174,7 @@ export default function ProfilePage() {
               </div>
               <div className="space-y-1">
                 <h3 className="font-semibold">{user.name}</h3>
-                <p className="text-sm text-muted-foreground">@{user.username}</p>
+                <p className="text-sm text-muted-foreground">@{user.username || "username"}</p>
                 <div className="flex items-center justify-center gap-2">
                   <Badge variant="secondary" className="bg-gradient-to-r from-orange-100 to-orange-200 text-orange-700">
                     Creator Plan
