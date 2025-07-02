@@ -3,62 +3,62 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Share2, Twitter, Facebook, Linkedin, Link2, Check } from "lucide-react"
+import { Share2, Twitter, Facebook, Linkedin, Copy } from "lucide-react"
 import { toast } from "sonner"
 
 interface ShareButtonProps {
   url: string
   title: string
+  description?: string
 }
 
-export function ShareButton({ url, title }: ShareButtonProps) {
-  const [copied, setCopied] = useState(false)
+export function ShareButton({ url, title, description }: ShareButtonProps) {
+  const [isOpen, setIsOpen] = useState(false)
 
   const shareLinks = {
     twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`,
     facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
-    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
+    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}&summary=${encodeURIComponent(description || "")}`,
   }
 
-  const copyToClipboard = async () => {
+  const handleCopyLink = async () => {
     try {
       await navigator.clipboard.writeText(url)
-      setCopied(true)
       toast.success("Link copied to clipboard!")
-      setTimeout(() => setCopied(false), 2000)
+      setIsOpen(false)
     } catch (err) {
       toast.error("Failed to copy link")
     }
   }
 
-  const openShareWindow = (shareUrl: string) => {
-    window.open(shareUrl, "_blank", "width=600,height=400")
+  const handleShare = (platform: keyof typeof shareLinks) => {
+    window.open(shareLinks[platform], "_blank", "width=600,height=400")
+    setIsOpen(false)
   }
 
   return (
-    <DropdownMenu>
+    <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="gap-2">
+        <Button variant="ghost" size="sm">
           <Share2 className="h-4 w-4" />
-          Share
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48">
-        <DropdownMenuItem onClick={() => openShareWindow(shareLinks.twitter)}>
-          <Twitter className="h-4 w-4 mr-2" />
+        <DropdownMenuItem onClick={() => handleShare("twitter")} className="cursor-pointer">
+          <Twitter className="h-4 w-4 mr-2 text-blue-400" />
           Share on Twitter
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => openShareWindow(shareLinks.facebook)}>
-          <Facebook className="h-4 w-4 mr-2" />
+        <DropdownMenuItem onClick={() => handleShare("facebook")} className="cursor-pointer">
+          <Facebook className="h-4 w-4 mr-2 text-blue-600" />
           Share on Facebook
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => openShareWindow(shareLinks.linkedin)}>
-          <Linkedin className="h-4 w-4 mr-2" />
+        <DropdownMenuItem onClick={() => handleShare("linkedin")} className="cursor-pointer">
+          <Linkedin className="h-4 w-4 mr-2 text-blue-700" />
           Share on LinkedIn
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={copyToClipboard}>
-          {copied ? <Check className="h-4 w-4 mr-2 text-green-500" /> : <Link2 className="h-4 w-4 mr-2" />}
-          {copied ? "Copied!" : "Copy Link"}
+        <DropdownMenuItem onClick={handleCopyLink} className="cursor-pointer">
+          <Copy className="h-4 w-4 mr-2" />
+          Copy Link
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

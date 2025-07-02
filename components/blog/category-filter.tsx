@@ -3,51 +3,50 @@
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
-interface CategoryFilterProps {
-  categories: string[]
-  selectedCategory: string | null
-  onCategoryChange: (category: string | null) => void
-  postCounts?: Record<string, number>
+interface Category {
+  id: string
+  name: string
+  count: number
 }
 
-export function CategoryFilter({
-  categories,
-  selectedCategory,
-  onCategoryChange,
-  postCounts = {},
-}: CategoryFilterProps) {
-  return (
-    <div className="flex flex-wrap gap-2">
-      <Button
-        variant={selectedCategory === null ? "default" : "outline"}
-        size="sm"
-        onClick={() => onCategoryChange(null)}
-        className={selectedCategory === null ? "bg-gradient-to-r from-orange-600 to-yellow-600" : ""}
-      >
-        All Posts
-        {postCounts.all && (
-          <Badge variant="secondary" className="ml-2 text-xs">
-            {postCounts.all}
-          </Badge>
-        )}
-      </Button>
+interface CategoryFilterProps {
+  categories: Category[]
+  selectedCategory: string | null
+  onCategoryChange: (categoryId: string | null) => void
+  totalPosts: number
+}
 
-      {categories.map((category) => (
+export function CategoryFilter({ categories, selectedCategory, onCategoryChange, totalPosts }: CategoryFilterProps) {
+  return (
+    <div className="space-y-4">
+      <h3 className="text-lg font-semibold">Categories</h3>
+      <div className="flex flex-wrap gap-2">
         <Button
-          key={category}
-          variant={selectedCategory === category ? "default" : "outline"}
+          variant={selectedCategory === null ? "default" : "outline"}
           size="sm"
-          onClick={() => onCategoryChange(category)}
-          className={selectedCategory === category ? "bg-gradient-to-r from-orange-600 to-yellow-600" : ""}
+          onClick={() => onCategoryChange(null)}
+          className={selectedCategory === null ? "bg-gradient-to-r from-orange-600 to-yellow-500" : ""}
         >
-          {category}
-          {postCounts[category] && (
-            <Badge variant="secondary" className="ml-2 text-xs">
-              {postCounts[category]}
-            </Badge>
-          )}
+          All Posts
+          <Badge variant="secondary" className="ml-2">
+            {totalPosts}
+          </Badge>
         </Button>
-      ))}
+        {categories.map((category) => (
+          <Button
+            key={category.id}
+            variant={selectedCategory === category.id ? "default" : "outline"}
+            size="sm"
+            onClick={() => onCategoryChange(category.id)}
+            className={selectedCategory === category.id ? "bg-gradient-to-r from-orange-600 to-yellow-500" : ""}
+          >
+            {category.name}
+            <Badge variant="secondary" className="ml-2">
+              {category.count}
+            </Badge>
+          </Button>
+        ))}
+      </div>
     </div>
   )
 }
