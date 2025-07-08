@@ -296,6 +296,213 @@ export default function BlogPage() {
         </div>
         
       </section>
+             {/* Blog Content */}
+      <section className="py-16 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <Tabs defaultValue="all" className="mb-8">
+              <TabsList className="bg-orange-100/50 dark:bg-orange-900/20">
+                <TabsTrigger value="all">All Posts</TabsTrigger>
+                <TabsTrigger value="tutorials">Tutorials</TabsTrigger>
+                <TabsTrigger value="product">Product Updates</TabsTrigger>
+                <TabsTrigger value="ai">AI Research</TabsTrigger>
+                <TabsTrigger value="community">Community</TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="all" className="mt-8">
+                {/* Featured Post */}
+                <div className="mb-12">
+                  <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Featured Article</h2>
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div className="aspect-video overflow-hidden rounded-xl">
+                      <img
+                        src="/placeholder.svg?height=400&width=600"
+                        alt="Featured article"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 text-sm font-medium rounded-full">
+                          AI Research
+                        </span>
+                        <span className="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 text-sm font-medium rounded-full">
+                          Featured
+                        </span>
+                      </div>
+                      <h3 className="text-3xl font-bold mb-4">The Future of AI-Powered Live Streaming</h3>
+                      <p className="text-gray-600 dark:text-gray-400 mb-6 text-lg">
+                        Explore how artificial intelligence is revolutionizing the live streaming industry and what it
+                        means for content creators worldwide.
+                      </p>
+                      <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-6">
+                        <div className="flex items-center gap-1">
+                          <User className="h-4 w-4" />
+                          <span>Ram Murmu</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Calendar className="h-4 w-4" />
+                          <span>Jun 06 2025</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Clock className="h-4 w-4" />
+                          <span>8 min read</span>
+                        </div>
+                      </div>
+                      <Button className="bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-700 hover:to-yellow-700 dark:from-orange-500 dark:to-yellow-500 dark:hover:from-orange-600 dark:hover:to-yellow-600 text-white">
+                        Read Full Article <ArrowRight className="ml-2 h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Recent Posts */}
+                <div>
+                  <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Recent Posts</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <BlogPost
+                      title="Getting Started with AI Video Enhancement"
+                      excerpt="Learn how to use RunAsh's AI video enhancement features to improve your stream quality automatically."
+                      author="Ram Murmu"
+                      date="Jun 06, 2025"
+                      readTime="5 min read"
+                      category="Tutorial"
+                      image="/placeholder.svg?height=300&width=400"
+                    />
+                    <BlogPost
+                      title="Multi-Platform Streaming Best Practices"
+                      excerpt="Discover the best strategies for streaming to multiple platforms simultaneously while maintaining quality."
+                      author="Ram Murmu"
+                      date="Jun 06, 2025"
+                      readTime="7 min read"
+                      category="Tips"
+                      image="/placeholder.svg?height=300&width=400"
+                    />
+                    <BlogPost
+                      title="RunAsh 2.1 Release Notes"
+                      excerpt="Explore the latest features and improvements in RunAsh AI 2.1, including enhanced chat moderation and new analytics."
+                      author="Product Team"
+                      date="Jun 04, 2025"
+                      readTime="4 min read"
+                      category="Product Updates"
+                      image="/placeholder.svg?height=300&width=400"
+                    />
+                    <BlogPost
+                      title="Building Your Streaming Brand with AI"
+                      excerpt="How to leverage AI tools to create consistent branding and grow your streaming audience."
+                      author="Community Team"
+                      date="May  06, 2025"
+                      readTime="6 min read"
+                      category="Community"
+                      image="/placeholder.svg?height=300&width=400"
+                    />
+                    <BlogPost
+                      title="The Science Behind Real-Time Video Processing"
+                      excerpt="A deep dive into the technical challenges and solutions for processing video streams in real-time."
+                      author="Ram Murmu"
+                      date="Feb 01, 2025"
+                      readTime="10 min read"
+                      category="AI Research"
+                      image="/placeholder.svg?height=300&width=400"
+                    />
+                    <BlogPost
+                      title="Community Spotlight: Top Streamers Using RunAsh"
+                      excerpt="Meet some of the amazing content creators who are using RunAsh AI to elevate their streaming experience."
+                      author="Community Team"
+                      date="Jun 06, 2025"
+                      readTime="8 min read"
+                      category="Community"
+                      image="/placeholder.svg?height=300&width=400"
+                    />
+                  </div>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="tutorials" className="mt-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  <BlogPost
+                    title="Getting Started with AI Video Enhancement"
+                    excerpt="Learn how to use RunAsh's AI video enhancement features to improve your stream quality automatically."
+                    author="Vaibhav Murmu"
+                    date="Jun 06, 2025"
+                    readTime="5 min read"
+                    category="Tutorial"
+                    image="/placeholder.svg?height=300&width=400"
+                  />
+                  <BlogPost
+                    title="Setting Up Multi-Platform Streaming"
+                    excerpt="Step-by-step guide to configure streaming to multiple platforms simultaneously."
+                    author="Tech Team"
+                    date="Jun 06, 2025"
+                    readTime="12 min read"
+                    category="Tutorial"
+                    image="/placeholder.svg?height=300&width=400"
+                  />
+                </div>
+              </TabsContent>
+
+              <TabsContent value="product" className="mt-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  <BlogPost
+                    title="RunAsh 2.1 Release Notes"
+                    excerpt="Explore the latest features and improvements in RunAsh AI 2.1, including enhanced chat moderation and new analytics."
+                    author="Product Team"
+                    date="Jun 04, 2025"
+                    readTime="4 min read"
+                    category="Product Updates"
+                    image="/placeholder.svg?height=300&width=400"
+                  />
+                </div>
+              </TabsContent>
+
+              <TabsContent value="ai" className="mt-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  <BlogPost
+                    title="The Future of AI-Powered Live Streaming"
+                    excerpt="Explore how artificial intelligence is revolutionizing the live streaming industry."
+                    author="Vaibhav Murmu"
+                    date="Jun 06, 2025"
+                    readTime="8 min read"
+                    category="AI Research"
+                    image="/placeholder.svg?height=300&width=400"
+                    featured={true}
+                  />
+                  <BlogPost
+                    title="The Science Behind Real-Time Video Processing"
+                    excerpt="A deep dive into the technical challenges and solutions for processing video streams in real-time."
+                    author="Vaibhav Murmu"
+                    date="Jun 06, 2025"
+                    readTime="10 min read"
+                    category="AI Research"
+                    image="/placeholder.svg?height=300&width=400"
+                  />
+                </div>
+              </TabsContent>
+
+              <TabsContent value="community" className="mt-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  <BlogPost
+                    title="Building Your Streaming Brand with AI"
+                    excerpt="How to leverage AI tools to create consistent branding and grow your streaming audience."
+                    author="Community Team"
+                    date="Jun 06, 2025"
+                    readTime="6 min read"
+                    category="Community"
+                    image="/placeholder.svg?height=300&width=400"
+                  />
+                  <BlogPost
+                    title="Community Spotlight: Top Streamers Using RunAsh"
+                    excerpt="Meet some of the amazing content creators who are using RunAsh AI to elevate their streaming experience."
+                    author="Community Team"
+                    date="Jun 06, 2025"
+                    readTime="8 min read"
+                    category="Community"
+                    image="/placeholder.svg?height=300&width=400"
+                  />
+                </div>
+              </TabsContent>
+            </Tabs>
+                        
       
       
       <div className="container mx-auto px-4 py-8">
