@@ -239,7 +239,7 @@ export default function BlogPage() {
   }
 
   return (
-    {/* <div className="min-h-screen bg-gradient-to-b from-white to-orange-50 dark:from-gray-950 dark:to-gray-900">
+    {/* <div className="min-h-screen bg-gradient-to-b from-white to-orange-50 dark:from-gray-950 dark:to-gray-900"> */}
       {/* Hero Section */}
     {/* <div className="bg-gradient-to-r from-orange-600 to-yellow-500 text-white py-16">
         <div className="container mx-auto px-4 text-center">
@@ -259,7 +259,7 @@ export default function BlogPage() {
             </div>
           </div>
         </div>
-      </div> */}
+      </div>  */}
 
       <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-white">
       {/* Hero Section */}
