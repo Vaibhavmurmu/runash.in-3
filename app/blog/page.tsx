@@ -8,8 +8,8 @@ import { BlogPostCard } from "@/components/blog/blog-post-card"
 import { CategoryFilter } from "@/components/blog/category-filter"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import ThemeToggle from "@/components/theme-toggle"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Card, CardContent } from "@/components/ui/card"
+//* import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs" *//
+//* import { Card, CardContent } from "@/components/ui/card" *//
 
 interface BlogPost {
   id: string
@@ -297,6 +297,7 @@ export default function BlogPage() {
         
       </section>
       </div>
+      
       <div className="container mx-auto px-4 py-8">
         {/* Featured Posts */}
         {featuredPosts.length > 0 && (
