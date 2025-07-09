@@ -55,16 +55,16 @@ export default function BlogPage() {
         "Discover how AI is revolutionizing live streaming and creating new opportunities for sellers and creators worldwide.",
       author: {
         name: "Ram Murmu",
-        avatar: "/gradient.svg?height=100&width=100",
+        avatar: "/placeholder.svg?height=100&width=100",
       },
       category: "AI Technology",
       publishedAt: "2023-01-15",
       readingTime: 8,
       views: 0,
       likes: 0,
-      comments: 28,
+      comments: 0,
       featured: true,
-      image: "/gradient.svg?height=400&width=800",
+      image: "/placeholder.svg?height=400&width=800",
     },
     {
       id: "2",
@@ -81,7 +81,7 @@ export default function BlogPage() {
       readingTime: 6,
       views: 0,
       likes: 0,
-      comments: 15,
+      comments: 0,
       featured: false,
       image: "/placeholder.svg?height=400&width=800",
     },
@@ -100,7 +100,7 @@ export default function BlogPage() {
       readingTime: 7,
       views: 0,
       likes: 0,
-      comments: 22,
+      comments: 0,
       featured: false,
       image: "/placeholder.svg?height=400&width=800",
     },
@@ -119,7 +119,7 @@ export default function BlogPage() {
       readingTime: 5,
       views: 0,
       likes: 0,
-      comments: 12,
+      comments: 0,
       featured: false,
       image: "/placeholder.svg?height=400&width=800",
     },
@@ -138,7 +138,7 @@ export default function BlogPage() {
       readingTime: 9,
       views: 0,
       likes: 0,
-      comments: 35,
+      comments: 0,
       featured: true,
       image: "/placeholder.svg?height=400&width=800",
     },
@@ -157,7 +157,7 @@ export default function BlogPage() {
       readingTime: 12,
       views: 0,
       likes: 0,
-      comments: 48,
+      comments: 0,
       featured: false,
       image: "/placeholder.svg?height=400&width=800",
     },
@@ -166,7 +166,7 @@ export default function BlogPage() {
   const mockCategories: Category[] = [
     { id: "ai-research", name: "AI Research", count: 1 },
     { id: "ai-technology", name: "AI Technology", count: 1 },
-    { id: "tutorial", name: "Tutorial", count: 1 },
+    { id: "tutorials", name: "Tutorials", count: 1 },
     { id: "product-updates", name: "Product Updates", count: 1 },
     { id: "organic-products", name: "Organic Products", count: 2 },
     { id: "best-practices", name: "Best Practices", count: 1 },
@@ -261,7 +261,7 @@ export default function BlogPage() {
               Insights & Updates
             </h1>
             <p className="text-xl text-gray-700 dark:text-gray-300 mb-8">
-              Stay up to date with the latest news, tutorials, tips, stories ,and insights from the RunAsh AI team.
+              Stay up to date with the latest news, tutorials,and insights from the RunAsh AI team.
             </p>
 
             {/* Search */}
