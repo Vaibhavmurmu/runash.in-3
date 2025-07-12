@@ -78,7 +78,7 @@ export default function LoginPage() {
           <div className="relative mr-3 h-10 w-10 overflow-hidden rounded-xl bg-gradient-to-br from-orange-500 to-amber-400 shadow-lg group-hover:shadow-xl transition-all duration-300">
             <div className="absolute inset-0 flex items-center justify-center text-white font-bold text-lg">R</div>
           </div>
-          <span className="text-2xl font-bold bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 dark:from-orange-400 dark:via-orange-300 dark:to-amber-300 text-transparent bg-clip-text">
+          <span className="text-2xl font-bold bg-gradient-to-r from-orange-600 via-orange-500 to-orange-500 dark:from-orange-400 dark:via-orange-300 dark:to-amber-300 text-transparent bg-clip-text">
             RunAsh
           </span>
         </Link>
@@ -98,7 +98,7 @@ export default function LoginPage() {
         <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Centre - Welcome Message */}
           <div className="space-y-8 flex items-center justify-center">
-            <div className="space-y-4">
+            <div className="space-y-4 text-center">
               <h1 className="text-2xl lg:text-4xl font-bold leading-tight">
                 Welcome back to{" "}
                 <span className="bg-gradient-to-r from-orange-600 to-amber-600 text-transparent bg-clip-text">
@@ -109,33 +109,6 @@ export default function LoginPage() {
                 Sign in to continue your AI live streaming journey and unlock powerful features
               </p>
             </div>
-          
-        
-            {/* Feature Highlights */}
-        {/*  <div className="space-y-4">
-              <div className="flex items-center gap-4 p-4 rounded-lg bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm border border-orange-200/50 dark:border-orange-900/30">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-orange-500 to-amber-500 flex items-center justify-center">
-                  <span className="text-white font-bold">AI</span>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white">AI-Powered Analytics</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Get insights that help you grow</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4 p-4 rounded-lg bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm border border-orange-200/50 dark:border-orange-900/30">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-orange-500 to-amber-500 flex items-center justify-center">
-                  <span className="text-white font-bold">🎥</span>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white">Multi-Platform Streaming</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Stream to multiple platforms simultaneously
-                  </p>
-                </div>
-              </div> 
-            </div> */}
-            
           </div> 
 
           {/* Right Side - Login Form */}
