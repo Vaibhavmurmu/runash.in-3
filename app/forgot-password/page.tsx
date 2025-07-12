@@ -68,9 +68,9 @@ export default function ForgotPasswordPage() {
 
       {/* Main Content */}
       <main className="flex-1 flex items-center justify-center p-6">
-        <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"> 
+   <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"> 
           {/* Left Side - Information */}
-            <div className="space-y-8">
+     {/* <div className="space-y-8">
             <div className="space-y-4">
               <h1 className="text-4xl lg:text-5xl font-bold leading-tight">
                 Reset your{" "}
@@ -82,7 +82,7 @@ export default function ForgotPasswordPage() {
                 Don't worry, it happens to the best of us. Enter your email address and we'll send you a link to reset
                 your password.
               </p>
-            </div> 
+            </div> */}
 
             {/* Security Features */}
               {/* <div className="space-y-4">
@@ -111,7 +111,7 @@ export default function ForgotPasswordPage() {
               </div>
             </div> */}
               
-          </div> 
+          </div> */}
 
           {/* Right Side - Reset Form */}
           <div className="flex justify-center lg:justify-end">
