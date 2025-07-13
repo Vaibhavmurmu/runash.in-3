@@ -105,9 +105,6 @@ export default function LoginPage() {
                   RunAsh AI
                 </span>
               </h1>
-              <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
-                Continue your AI live streaming journey 
-              </p>
             </div>
           </div> 
 
