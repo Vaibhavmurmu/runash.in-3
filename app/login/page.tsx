@@ -76,13 +76,13 @@ export default function LoginPage() {
       <header className="w-full py-6 px-6 flex justify-between items-center">
         <Link href="/" className="flex items-center group">
           {/* <div className="relative mr-3 h-10 w-10 overflow-hidden rounded-xl bg-gradient-to-br from-orange-500 to-amber-400 shadow-lg group-hover:shadow-xl transition-all duration-300">
-           <div className="absolute inset-0 flex items-center justify-center text-white font-bold text-lg">R</div> */}
-          </div>
+           <div className="absolute inset-0 flex items-center justify-center text-white font-bold text-lg">R</div>
+          </div> */}
           <span className="text-2xl font-bold bg-gradient-to-r from-orange-600 via-orange-500 to-orange-500 dark:from-orange-400 dark:via-orange-300 dark:to-amber-300 text-transparent bg-clip-text">
             RunAsh
           </span>
         </Link>
-        <div className="flex items-center gap-4">
+        <div className="flex sm-hidden items-center gap-4">
           <ThemeToggle />
           <Link
             href="/get-started"
