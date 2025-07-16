@@ -76,7 +76,7 @@ export default function LoginPage() {
       <header className="w-full py-6 px-6 flex justify-between items-center">
         <Link href="/" className="flex items-center group">
           <div className="relative mr-3 h-10 w-10 overflow-hidden rounded-xl bg-gradient-to-br from-orange-500 to-amber-400 shadow-lg group-hover:shadow-xl transition-all duration-300">
-            <div className="absolute inset-0 flex items-center justify-center text-white font-bold text-lg">R</div>
+      {/* <div className="absolute inset-0 flex items-center justify-center text-white font-bold text-lg">R</div> */}
           </div>
           <span className="text-2xl font-bold bg-gradient-to-r from-orange-600 via-orange-500 to-orange-500 dark:from-orange-400 dark:via-orange-300 dark:to-amber-300 text-transparent bg-clip-text">
             RunAsh
@@ -97,7 +97,7 @@ export default function LoginPage() {
       <main className="flex-1 flex items-center justify-center p-6">
         <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Centre - Welcome Message */}
-          <div className="space-y-8 flex items-center justify-center">
+            {/*  <div className="space-y-8 flex items-center justify-center">
             <div className="space-y-4 text-center">
               <h1 className="text-2xl lg:text-4xl font-bold leading-tight">
                 Welcome back to{" "}
@@ -106,7 +106,7 @@ export default function LoginPage() {
                 </span>
               </h1>
             </div>
-          </div> 
+          </div> */}
 
           {/* Right Side - Login Form */}
           <div className="flex justify-center lg:justify-end">
