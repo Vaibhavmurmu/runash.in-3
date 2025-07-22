@@ -36,7 +36,7 @@ export default function Home() {
       {/* Hero Section with Video Background */}
         <section className="relative h-screen flex items-center justify-center overflow-hidden"> 
         <VideoBackground />
-        <div className="container relative z-10 mx-auto px-4 text-center">
+        <div className="mb-4 container relative z-10 mx-auto px-4 text-center">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
             <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">
               Introducing 
@@ -46,7 +46,7 @@ export default function Home() {
             RunAsh AI Live Streaming Platform 
           </h1>
           <p className=" text-xl md:text-2xl mb-6 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
-            The next generation of AI live streaming selling platform where sellers build own live streaming 
+            The next generation of AI live streaming platform for creators, sellers, and businesses
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -74,6 +74,7 @@ export default function Home() {
             <TechBadge label="Polls or Q&A sessions" />
             <TechBadge label="Post-Live Stream" />
             <TechBadge label="Analytics" />
+            <TechBadge label="Live Streaming Shopping" />
           </div>
         </div>
         <div className="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
@@ -104,7 +105,7 @@ export default function Home() {
             Elevate Your Live Streams with AI
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
-            The most advanced AI-powered end-to-end live streaming platform for creators, sellers, and businesses
+            The most advanced AI-powered end-to-end live streaming platform where creators build own live streaming 
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -488,7 +489,7 @@ export default function Home() {
                     href="/"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
-                   LiveStore
+                   RunAsh Live
                   </a>
                 </li>
                 <li>
@@ -587,7 +588,7 @@ export default function Home() {
                 <h4 className="font-medium text-sm mb-3 text-gray-700 dark:text-gray-300">Follow us</h4>
                 <div className="flex flex-wrap gap-4">
                   <a
-                    href="https://twitter.com/runash.ai"
+                    href="https://x.runash.in"
                     className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     <svg
@@ -607,7 +608,7 @@ export default function Home() {
                     <span>Twitter</span>
                   </a>
                   <a
-                    href="https://discord.com/runash.ai"
+                    href="https://discord.runash.in"
                     className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     <svg
@@ -627,7 +628,7 @@ export default function Home() {
                     <span>Discord</span>
                   </a>
                   <a
-                    href="https://youtube.com/runash.ai"
+                    href="https://youtube.runash.in"
                     className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     <svg
@@ -648,7 +649,7 @@ export default function Home() {
                     <span>YouTube</span>
                   </a>
                   <a
-                    href="https://instagram.com/runash.ai"
+                    href="https://instagram.runash.in"
                     className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     <svg
@@ -776,10 +777,10 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/sustainable Traker"
+                      href="/forum"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Sustainable Traker
+                     Forum 
                     </a>
                   </li>
                   <li>
@@ -787,7 +788,7 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Recipe Planner 
+                      Enterprise
                     </a>
 
                   </li>
@@ -925,7 +926,7 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Model
+                     Models
                     </a>
                   </li>
                   <li>
@@ -933,7 +934,7 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      Dataset 
+                      Datasets 
                     </a>
                   </li>
                   <li>
@@ -970,7 +971,7 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Grant 
+                     Grants 
                     </a>
                   </li>
                   <li>
@@ -994,7 +995,7 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      e₹upee
+                      
                     </a>
                   </li>
                   <li>
