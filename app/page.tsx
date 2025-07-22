@@ -588,7 +588,7 @@ export default function Home() {
                 <h4 className="font-medium text-sm mb-3 text-gray-700 dark:text-gray-300">Follow us</h4>
                 <div className="flex flex-wrap gap-4">
                   <a
-                    href="https://x.runash.in"
+                    href="x.runash.in"
                     className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     <svg
@@ -748,7 +748,15 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/ai"
+                      href="/upload"
+                      className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+                    >
+                      Upload & Stream
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/ai-features"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       AI Features
@@ -769,10 +777,10 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/pricing"
+                      href="/prees"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Pricing 
+                     Prees
                     </a>
                   </li>
                   <li>
@@ -785,19 +793,19 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/"
+                      href="/pricing"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      Enterprise
+                      Pricing 
                     </a>
 
                   </li>
                   <li>
                     <a
-                      href="/press"
+                      href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Press
+                     Enterprise
                     </a>
 
                   </li>
@@ -918,7 +926,7 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Space 
+                     Spaces 
                     </a>
                   </li>
                   <li>
