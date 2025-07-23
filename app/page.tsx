@@ -34,7 +34,7 @@ export default function Home() {
       <Navbar />
       
       {/* Hero Section with Video Background */}
-        <section className="mt-4 mb-4 relative h-screen flex items-center justify-center overflow-hidden"> 
+        <section className="relative h-screen flex items-center justify-center overflow-hidden"> 
         <VideoBackground />
         <div className="container relative z-10 mx-auto px-4 text-center">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
@@ -46,7 +46,7 @@ export default function Home() {
             RunAsh AI Live Streaming Platform 
           </h1>
           <p className=" text-xl md:text-2xl mb-6 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
-            The next generation of AI live streaming selling platform for creators, sellers, and businesses 
+            The next generation of AI live streaming platform for creators, sellers, and businesses 
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -66,9 +66,10 @@ export default function Home() {
             </Button>
           </div>     
          {/* Tech badges */}
-          <div className="mt-12 mb-6 flex flex-wrap justify-center gap-3">
+          <div className="mt-16 flex flex-wrap justify-center gap-3">
             <TechBadge label="Real-time Streaming" />
             <TechBadge label="Live Streaming Selling" />
+            <TechBadge label="Live Streaming Shopping" />
             <TechBadge label="Products Demonstration" />
             <TechBadge label="Interactive Live Chat" />
             <TechBadge label="Polls or Q&A sessions" />
