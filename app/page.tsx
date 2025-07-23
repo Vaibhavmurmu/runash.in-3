@@ -36,7 +36,7 @@ export default function Home() {
       {/* Hero Section with Video Background */}
         <section className="relative h-screen flex items-center justify-center overflow-hidden"> 
         <VideoBackground />
-        <div className="mb-4 container relative z-10 mx-auto px-4 text-center">
+        <div className="container relative z-10 mx-auto px-4 text-center">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
             <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">
               Introducing 
@@ -46,7 +46,7 @@ export default function Home() {
             RunAsh AI Live Streaming Platform 
           </h1>
           <p className=" text-xl md:text-2xl mb-6 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
-            The next generation of AI live streaming platform for creators, sellers, and businesses
+            The next generation of AI live streaming platform for creators, sellers, and businesses 
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -69,12 +69,12 @@ export default function Home() {
           <div className="mt-12 flex flex-wrap justify-center gap-3">
             <TechBadge label="Real-time Streaming" />
             <TechBadge label="Live Streaming Selling" />
+            <TechBadge label="Live Streaming Shopping" />
             <TechBadge label="Products Demonstration" />
             <TechBadge label="Interactive Live Chat" />
             <TechBadge label="Polls or Q&A sessions" />
             <TechBadge label="Post-Live Stream" />
             <TechBadge label="Analytics" />
-            <TechBadge label="Live Streaming Shopping" />
           </div>
         </div>
         <div className="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
@@ -105,7 +105,7 @@ export default function Home() {
             Elevate Your Live Streams with AI
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
-            The most advanced AI-powered end-to-end live streaming platform where creators build own live streaming 
+            The most advanced AI-powered end-to-end live streaming platform where creators build own live streaming
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -130,6 +130,8 @@ export default function Home() {
             <TechBadge label="4K Quality" />
             <TechBadge label="Low Latency" />
             <TechBadge label="Multi-platform" />
+            <TechBadge label="Screen Sharing " />
+            <TechBadge label="Upload & Stream " />
           </div>
         </div>
         <div className="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
@@ -470,7 +472,7 @@ export default function Home() {
               <ul className="space-y-2">
                 <li>
                   <a
-                    href="/"
+                    href="/ai"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     AI
@@ -478,7 +480,7 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    href="/"
+                    href="/chat"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     RunAshChat
@@ -486,7 +488,7 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    href="/"
+                    href="/store"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                    RunAsh Live
@@ -494,7 +496,7 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    href="/"
+                    href="/become-seller"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     Become a seller 
@@ -508,7 +510,7 @@ export default function Home() {
               <ul className="space-y-2">
                 <li>
                   <a
-                    href="/"
+                    href="/stream"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     RunAshStudio
@@ -516,7 +518,7 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    href="/"
+                    href="/ios"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     iOS App 
@@ -524,7 +526,7 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    href="/"
+                    href="/android"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     Android App 
@@ -532,7 +534,7 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    href="/"
+                    href="/web"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     Web App 
@@ -546,7 +548,7 @@ export default function Home() {
               <ul className="space-y-2">
                 <li>
                   <a
-                    href="/tutorials"
+                    href="/doc"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     Documentation
@@ -588,7 +590,7 @@ export default function Home() {
                 <h4 className="font-medium text-sm mb-3 text-gray-700 dark:text-gray-300">Follow us</h4>
                 <div className="flex flex-wrap gap-4">
                   <a
-                    href="https://x.runash.in"
+                    href="https://x.runash.ai"
                     className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     <svg
@@ -608,7 +610,7 @@ export default function Home() {
                     <span>Twitter</span>
                   </a>
                   <a
-                    href="https://discord.runash.in"
+                    href="https://discord.runash.ai"
                     className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     <svg
@@ -628,7 +630,7 @@ export default function Home() {
                     <span>Discord</span>
                   </a>
                   <a
-                    href="https://youtube.runash.in"
+                    href="https://youtube.runash.ai"
                     className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     <svg
@@ -649,7 +651,7 @@ export default function Home() {
                     <span>YouTube</span>
                   </a>
                   <a
-                    href="https://instagram.runash.in"
+                    href="https://instagram.runash.ai"
                     className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     <svg
@@ -724,7 +726,7 @@ export default function Home() {
                 <ul className="space-y-1 text-sm">
                   <li>
                     <a
-                      href="/get-started"
+                      href="/stream"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       Streaming
@@ -732,7 +734,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/get-started"
+                      href="/multi-hot"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       Multi-Host
@@ -748,18 +750,18 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/upload"
+                      href="/ai"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      Upload & Stream
+                      AI Features
                     </a>
                   </li>
                   <li>
                     <a
-                      href="/ai-features"
+                      href="/upload-stream"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      AI Features
+                      Upload & Stream
                     </a>
                   </li>
                 </ul>
@@ -777,10 +779,10 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/prees"
+                      href="/press"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Prees
+                     Press
                     </a>
                   </li>
                   <li>
@@ -788,7 +790,7 @@ export default function Home() {
                       href="/forum"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Forum 
+                     Forum
                     </a>
                   </li>
                   <li>
@@ -796,16 +798,16 @@ export default function Home() {
                       href="/pricing"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      Pricing 
+                     Pricing 
                     </a>
 
                   </li>
                   <li>
                     <a
-                      href="/"
+                      href="/enterprise"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Enterprise
+                     Enterprise 
                     </a>
 
                   </li>
@@ -862,7 +864,7 @@ export default function Home() {
                 <ul className="space-y-1 text-sm">
                   <li>
                     <a
-                      href="/"
+                      href="/live"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                      Live Shopping 
@@ -870,15 +872,15 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/"
+                      href="/organic-farms"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     OrganicFarms
+                     Organic Farms
                     </a>
                   </li>
                   <li>
                     <a
-                      href="/"
+                      href="/creators"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                      Creaters
@@ -886,7 +888,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/"
+                      href="/partners"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       Partners
@@ -894,7 +896,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/"
+                      href="/for-businesses"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                      For Business
@@ -902,7 +904,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/"
+                      href="/influencers"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       Influencers 
@@ -915,7 +917,7 @@ export default function Home() {
                 <ul className="space-y-1 text-sm">
                   <li>
                     <a
-                      href="/"
+                      href="/overview"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                    Overview 
@@ -923,15 +925,15 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/"
+                      href="/space"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     Spaces 
+                     Space 
                     </a>
                   </li>
                   <li>
                     <a
-                      href="/"
+                      href="/models"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                      Models
@@ -939,7 +941,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/"
+                      href="/datasets"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       Datasets 
@@ -947,7 +949,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/"
+                      href="/notebook"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                      Notebook 
@@ -955,7 +957,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/"
+                      href="/task"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                        Task
@@ -968,7 +970,7 @@ export default function Home() {
                 <ul className="space-y-1 text-sm">
                   <li>
                     <a
-                      href="/"
+                      href="/credit"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                      Credit 
@@ -976,7 +978,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/"
+                      href="/grants"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                      Grants 
@@ -984,7 +986,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/"
+                      href="/free-credit"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                      Free Credit 
@@ -992,7 +994,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/"
+                      href="/sponsor"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       Sponsor
@@ -1000,15 +1002,15 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/"
+                      href="/erupee"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      
+                      e₹upee
                     </a>
                   </li>
                   <li>
                     <a
-                      href="/"
+                      href="/runash-pay"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       RunAshPay
@@ -1045,7 +1047,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/"
+                      href="/mobile"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       Mobile App
@@ -1053,7 +1055,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/"
+                      href="/pwa"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       PWA
@@ -1061,7 +1063,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/"
+                      href="/changelog"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       Changelog 
