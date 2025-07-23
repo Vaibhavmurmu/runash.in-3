@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Equal } from "lucide-react"
 import Link from "next/link"
 import { ThemeSelector } from "@/components/theme-selector"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -68,7 +69,7 @@ export default function Navbar() {
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
-              {/* <ThemeSelector /> */}
+            <ThemeToggle />
             <Link href="/login">
               <Button
                 variant="ghost"
@@ -88,7 +89,7 @@ export default function Navbar() {
           <div className="md:hidden flex items-center space-x-4">
             {/* <ThemeSelector /> */}
             <Button variant="ghost" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Equal className="h-6 w-6" />}
             </Button>
           </div>
         </div>
