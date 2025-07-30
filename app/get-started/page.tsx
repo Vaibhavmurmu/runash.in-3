@@ -154,7 +154,7 @@ export default function GetStartedPage() {
                   Create your account
                 </CardTitle>
                 <CardDescription className="text-gray-600 dark:text-gray-400">
-                  Start your AI streaming journey
+                  Start your RunAsh AI live streaming journey
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -169,7 +169,7 @@ export default function GetStartedPage() {
                     <Mail className="mr-3 h-5 w-5 text-red-500" />
                     Continue with Google
                   </Button>
-                  <Button
+          {/*      <Button
                     onClick={() => handleOAuthSignIn("github")}
                     variant="outline"
                     className="w-full h-12 border-orange-200 hover:border-orange-300 hover:bg-orange-50 dark:border-orange-800 dark:hover:bg-orange-950/20"
@@ -177,7 +177,7 @@ export default function GetStartedPage() {
                   >
                     <Github className="mr-3 h-5 w-5" />
                     Continue with GitHub
-                  </Button>
+                  </Button> */}
                 </div>
 
                 <div className="relative">
