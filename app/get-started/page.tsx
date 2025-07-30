@@ -154,7 +154,7 @@ export default function GetStartedPage() {
                   Create your account
                 </CardTitle>
                 <CardDescription className="text-gray-600 dark:text-gray-400">
-                  Start your AI-powered streaming journey
+                  Start your AI streaming journey
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -239,7 +239,7 @@ export default function GetStartedPage() {
                     </div>
                   </div>
 
-                  <div className="space-y-2">
+              {/*   <div className="space-y-2">
                     <Label htmlFor="confirmPassword">Confirm Password</Label>
                     <Input
                       id="confirmPassword"
@@ -250,7 +250,7 @@ export default function GetStartedPage() {
                       required
                       className="h-12 border-orange-200 focus:border-orange-400 dark:border-orange-800"
                     />
-                  </div>
+                  </div> */}
 
                   <div className="flex items-start space-x-3 pt-2">
                     <Checkbox id="terms" required className="mt-1" />
