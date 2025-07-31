@@ -28,6 +28,10 @@ export async function middleware(request: NextRequest) {
     "/cookies",
     "/roadmap",
     "/status",
+    "/ai",
+    "/become-seller"
+    "/docs"
+    "/dashboard"
     
   ]
 
@@ -45,7 +49,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // Protect dashboard routes
-  if (pathname.startsWith("/dashboard") && !token) {
+  if (pathname.startsWith("/") && !token) {
     return NextResponse.redirect(new URL("/login", request.url))
   }
 
