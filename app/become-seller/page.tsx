@@ -245,8 +245,8 @@ export default function BecomeSellerPage() {
       </section>
 
       
-      {/* Hero Section with Video Background */}
-        <section className="relative h-screen flex items-center justify-center overflow-hidden"> 
+        {/* Hero Section with Video Background */}
+      {/* <section className="relative h-screen flex items-center justify-center overflow-hidden"> 
         <VideoBackground />
         <div className="container relative z-10 mx-auto px-4 text-center">
           <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
@@ -276,9 +276,9 @@ export default function BecomeSellerPage() {
             >
               Learn More <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-          </div>     
+          </div>     */}
          {/* Tech badges */}
-          <div className="mt-12 flex flex-wrap justify-center gap-3">
+      {/*   <div className="mt-12 flex flex-wrap justify-center gap-3">
             <TechBadge label="Real-time Streaming" />
             <TechBadge label="Live Streaming Selling" />
             <TechBadge label="Products Demonstration" />
@@ -287,11 +287,11 @@ export default function BecomeSellerPage() {
             <TechBadge label="Post-Live Stream" />
             <TechBadge label="Analytics" />
           </div>
-        </div>
+        </div> 
         <div className="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
           <ChevronRight className="h-8 w-8 transform rotate-90 text-orange-500 dark:text-orange-400" />
         </div>
-      </section>
+      </section> */}
      {/* Stats Section */}
       <section className="py-16 bg-white dark:bg-gray-900 border-y border-orange-100 dark:border-orange-900/20">
         <div className="container mx-auto px-4">
