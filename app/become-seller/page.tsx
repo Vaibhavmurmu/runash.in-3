@@ -250,6 +250,7 @@ export default function BecomeSellerPage() {
       </section>
 
       
+
       {/* Hero Section with Video Background */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden"> 
         <VideoBackground />
@@ -310,6 +311,9 @@ export default function BecomeSellerPage() {
           </div>
         </div>
       </section>
+
+     
+
 
       {/* Features Section */}
       <section
