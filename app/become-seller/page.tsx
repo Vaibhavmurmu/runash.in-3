@@ -310,6 +310,8 @@ export default function BecomeSellerPage() {
           </div>
         </div>
       </section>
+      </div>
+    
 
       {/* Features Section */}
       <section
