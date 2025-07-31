@@ -29,9 +29,9 @@ export async function middleware(request: NextRequest) {
     "/roadmap",
     "/status",
     "/ai",
-    "/become-seller"
-    "/docs"
-    "/dashboard"
+    "/become-seller",
+    "/docs",
+    "/dashboard",
     
   ]
 
