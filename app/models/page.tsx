@@ -1,469 +1,537 @@
-import type { Metadata } from "next"
-import {
-  ArrowRight,
-  Brain,
-  Download,
-  ExternalLink,
-  Eye,
-  Heart,
-  MessageSquare,
-  TrendingUp,
-  Database,
-  Cpu,
-  CheckCircle,
-  Volume2,
-} from "lucide-react"
+"use client"
 
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-
-export const metadata: Metadata = {
-  title: "AI Models | RunAsh AI Platform",
-  description:
-    "Explore RunAsh's collection of AI models for live streaming, content creation, and business automation.",
-}
+import { Input } from "@/components/ui/input"
+import {
+  Brain,
+  Eye,
+  Mic,
+  MessageSquare,
+  BarChart3,
+  Download,
+  Search,
+  Filter,
+  Star,
+  Zap,
+  Shield,
+  Play,
+  BookOpen,
+  Github,
+} from "lucide-react"
+import { useRouter } from "next/navigation"
 
 export default function ModelsPage() {
-  const featuredModels = [
-    {
-      name: "RunAsh-Vision-Pro",
-      description: "Advanced computer vision model for real-time video analysis and enhancement",
-      category: "Computer Vision",
-      version: "v2.1.0",
-      size: "1.2GB",
-      accuracy: 94.5,
-      latency: "15ms",
-      downloads: "50K+",
-      likes: 1250,
-      status: "Production",
-      tags: ["Video Analysis", "Real-time", "Edge Optimized"],
-      capabilities: [
-        "Object Detection & Tracking",
-        "Scene Understanding",
-        "Quality Assessment",
-        "Content Moderation",
-        "Background Segmentation",
-      ],
-      benchmarks: {
-        "COCO mAP": 0.68,
-        "FPS (RTX 4090)": 120,
-        "Mobile FPS": 30,
-        "Memory Usage": "2.1GB",
-      },
-    },
-    {
-      name: "RunAsh-NLP-Chat",
-      description: "Natural language processing model optimized for live chat and content understanding",
-      category: "Natural Language",
-      version: "v1.8.2",
-      size: "850MB",
-      accuracy: 96.2,
-      latency: "8ms",
-      downloads: "75K+",
-      likes: 2100,
-      status: "Production",
-      tags: ["Chat Analysis", "Sentiment", "Multilingual"],
-      capabilities: [
-        "Sentiment Analysis",
-        "Language Detection",
-        "Content Summarization",
-        "Toxicity Detection",
-        "Intent Recognition",
-      ],
-      benchmarks: {
-        "GLUE Score": 89.2,
-        Languages: 25,
-        "Tokens/sec": 1500,
-        "Memory Usage": "1.8GB",
-      },
-    },
-    {
-      name: "RunAsh-Audio-Pro",
-      description: "Advanced audio processing model for speech recognition and enhancement",
-      category: "Audio Processing",
-      version: "v1.5.1",
-      size: "650MB",
-      accuracy: 97.8,
-      latency: "12ms",
-      downloads: "35K+",
-      likes: 890,
-      status: "Beta",
-      tags: ["Speech-to-Text", "Audio Enhancement", "Real-time"],
-      capabilities: [
-        "Speech Recognition",
-        "Noise Reduction",
-        "Voice Enhancement",
-        "Speaker Identification",
-        "Audio Classification",
-      ],
-      benchmarks: {
-        WER: 2.1,
-        "SNR Improvement": "15dB",
-        "Processing Speed": "4x Real-time",
-        "Memory Usage": "1.2GB",
-      },
-    },
-    {
-      name: "RunAsh-Recommend",
-      description: "Intelligent recommendation engine for content and product suggestions",
-      category: "Recommendation",
-      version: "v3.0.0",
-      size: "420MB",
-      accuracy: 91.7,
-      latency: "5ms",
-      downloads: "28K+",
-      likes: 650,
-      status: "Production",
-      tags: ["Recommendations", "Personalization", "E-commerce"],
-      capabilities: [
-        "Content Recommendations",
-        "Product Matching",
-        "User Behavior Analysis",
-        "Trend Prediction",
-        "Cross-platform Sync",
-      ],
-      benchmarks: {
-        "Precision@10": 0.85,
-        "Recall@10": 0.78,
-        "CTR Improvement": "35%",
-        "Memory Usage": "800MB",
-      },
-    },
-  ]
+  const router = useRouter()
+  const [searchQuery, setSearchQuery] = useState("")
+  const [selectedCategory, setSelectedCategory] = useState("all")
+  const [selectedModel, setSelectedModel] = useState<string | null>(null)
 
   const modelCategories = [
+    { id: "all", name: "All Models", count: 24 },
+    { id: "vision", name: "Computer Vision", count: 8 },
+    { id: "audio", name: "Audio Processing", count: 6 },
+    { id: "nlp", name: "Natural Language", count: 5 },
+    { id: "analytics", name: "Analytics", count: 3 },
+    { id: "multimodal", name: "Multimodal", count: 2 },
+  ]
+
+  const featuredModels = [
     {
-      name: "Computer Vision",
-      count: 12,
-      description: "Models for image and video analysis",
-      icon: <Eye className="h-6 w-6" />,
-      color: "from-blue-500 to-cyan-500",
+      id: "runash-vision-v3",
+      name: "RunAsh Vision v3",
+      category: "vision",
+      description: "Advanced computer vision model for real-time video enhancement and analysis",
+      version: "3.2.1",
+      size: "2.1 GB",
+      accuracy: 98.5,
+      latency: "< 50ms",
+      downloads: 15420,
+      rating: 4.9,
+      tags: ["real-time", "enhancement", "detection", "streaming"],
+      capabilities: [
+        "Real-time video enhancement",
+        "Object detection and tracking",
+        "Scene understanding",
+        "Quality optimization",
+        "Auto-cropping and framing",
+      ],
+      benchmarks: {
+        "Video Quality": 98.5,
+        "Object Detection": 96.8,
+        "Scene Analysis": 94.2,
+        "Processing Speed": 97.1,
+      },
+      pricing: {
+        free: "1,000 API calls/month",
+        pro: "$0.01 per API call",
+        enterprise: "Custom pricing",
+      },
+      lastUpdated: "2024-01-15",
+      documentation: "/docs/models/vision-v3",
+      github: "https://github.com/runash-ai/vision-v3",
     },
     {
-      name: "Natural Language",
-      count: 8,
-      description: "Text processing and understanding",
-      icon: <MessageSquare className="h-6 w-6" />,
-      color: "from-green-500 to-emerald-500",
+      id: "runash-audio-v2",
+      name: "RunAsh Audio v2",
+      category: "audio",
+      description: "Intelligent audio processing for noise reduction and voice enhancement",
+      version: "2.4.0",
+      size: "850 MB",
+      accuracy: 96.8,
+      latency: "< 30ms",
+      downloads: 12350,
+      rating: 4.8,
+      tags: ["noise-reduction", "enhancement", "real-time", "voice"],
+      capabilities: [
+        "Real-time noise reduction",
+        "Voice enhancement",
+        "Audio quality optimization",
+        "Multi-channel processing",
+        "Acoustic echo cancellation",
+      ],
+      benchmarks: {
+        "Noise Reduction": 96.8,
+        "Voice Clarity": 95.4,
+        "Processing Speed": 98.2,
+        "Audio Quality": 94.7,
+      },
+      pricing: {
+        free: "500 minutes/month",
+        pro: "$0.05 per minute",
+        enterprise: "Custom pricing",
+      },
+      lastUpdated: "2024-01-10",
+      documentation: "/docs/models/audio-v2",
+      github: "https://github.com/runash-ai/audio-v2",
     },
     {
-      name: "Audio Processing",
-      count: 6,
-      description: "Speech and audio analysis",
-      icon: <Volume2 className="h-6 w-6" />,
-      color: "from-purple-500 to-violet-500",
+      id: "runash-nlp-v1",
+      name: "RunAsh NLP v1",
+      category: "nlp",
+      description: "Natural language processing for chat moderation and content analysis",
+      version: "1.8.2",
+      size: "1.2 GB",
+      accuracy: 94.2,
+      latency: "< 100ms",
+      downloads: 8920,
+      rating: 4.7,
+      tags: ["moderation", "sentiment", "multilingual", "chat"],
+      capabilities: [
+        "Real-time chat moderation",
+        "Sentiment analysis",
+        "Language detection",
+        "Content classification",
+        "Toxicity detection",
+      ],
+      benchmarks: {
+        "Moderation Accuracy": 94.2,
+        "Sentiment Analysis": 92.8,
+        "Language Detection": 98.1,
+        "Processing Speed": 95.6,
+      },
+      pricing: {
+        free: "10,000 messages/month",
+        pro: "$0.001 per message",
+        enterprise: "Custom pricing",
+      },
+      lastUpdated: "2024-01-08",
+      documentation: "/docs/models/nlp-v1",
+      github: "https://github.com/runash-ai/nlp-v1",
     },
     {
-      name: "Recommendation",
-      count: 4,
-      description: "Personalization and suggestions",
-      icon: <TrendingUp className="h-6 w-6" />,
-      color: "from-orange-500 to-red-500",
-    },
-    {
-      name: "Multimodal",
-      count: 3,
-      description: "Cross-modal understanding",
-      icon: <Brain className="h-6 w-6" />,
-      color: "from-pink-500 to-rose-500",
-    },
-    {
-      name: "Edge Optimized",
-      count: 15,
-      description: "Lightweight models for mobile",
-      icon: <Cpu className="h-6 w-6" />,
-      color: "from-yellow-500 to-orange-500",
+      id: "runash-analytics-v1",
+      name: "RunAsh Analytics v1",
+      category: "analytics",
+      description: "Predictive analytics for audience engagement and content optimization",
+      version: "1.5.1",
+      size: "650 MB",
+      accuracy: 92.7,
+      latency: "< 200ms",
+      downloads: 5680,
+      rating: 4.6,
+      tags: ["prediction", "engagement", "optimization", "insights"],
+      capabilities: [
+        "Audience behavior prediction",
+        "Engagement optimization",
+        "Content recommendation",
+        "Revenue forecasting",
+        "Trend analysis",
+      ],
+      benchmarks: {
+        "Prediction Accuracy": 92.7,
+        "Engagement Insights": 89.4,
+        "Revenue Forecasting": 87.2,
+        "Processing Speed": 94.8,
+      },
+      pricing: {
+        free: "100 predictions/month",
+        pro: "$0.10 per prediction",
+        enterprise: "Custom pricing",
+      },
+      lastUpdated: "2024-01-05",
+      documentation: "/docs/models/analytics-v1",
+      github: "https://github.com/runash-ai/analytics-v1",
     },
   ]
 
-  const usageStats = [
-    { metric: "Total Downloads", value: "2.5M+", change: "+15%" },
-    { metric: "Active Deployments", value: "45K+", change: "+22%" },
-    { metric: "API Calls/Month", value: "1.2B+", change: "+35%" },
-    { metric: "Developer Community", value: "12K+", change: "+18%" },
-  ]
+  const filteredModels = featuredModels.filter((model) => {
+    const matchesSearch =
+      model.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      model.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      model.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+    const matchesCategory = selectedCategory === "all" || model.category === selectedCategory
+    return matchesSearch && matchesCategory
+  })
+
+  const ModelCard = ({ model }: { model: (typeof featuredModels)[0] }) => (
+    <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => setSelectedModel(model.id)}>
+      <CardHeader>
+        <div className="flex items-start justify-between">
+          <div>
+            <CardTitle className="text-lg flex items-center gap-2">
+              {model.category === "vision" && <Eye className="h-5 w-5 text-blue-500" />}
+              {model.category === "audio" && <Mic className="h-5 w-5 text-green-500" />}
+              {model.category === "nlp" && <MessageSquare className="h-5 w-5 text-purple-500" />}
+              {model.category === "analytics" && <BarChart3 className="h-5 w-5 text-orange-500" />}
+              {model.name}
+            </CardTitle>
+            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{model.description}</p>
+          </div>
+          <Badge variant="secondary">v{model.version}</Badge>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-4">
+          <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-1">
+                <Star className="h-4 w-4 text-yellow-500" />
+                <span>{model.rating}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Download className="h-4 w-4 text-gray-500" />
+                <span>{model.downloads.toLocaleString()}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Zap className="h-4 w-4 text-green-500" />
+                <span>{model.latency}</span>
+              </div>
+            </div>
+            <span className="text-xs text-gray-500">Size: {model.size}</span>
+          </div>
+
+          <div className="flex flex-wrap gap-1">
+            {model.tags.slice(0, 3).map((tag, index) => (
+              <Badge key={index} variant="outline" className="text-xs">
+                {tag}
+              </Badge>
+            ))}
+            {model.tags.length > 3 && (
+              <Badge variant="outline" className="text-xs">
+                +{model.tags.length - 3} more
+              </Badge>
+            )}
+          </div>
+
+          <div className="flex gap-2">
+            <Button size="sm" className="flex-1">
+              <Download className="h-4 w-4 mr-2" />
+              Download
+            </Button>
+            <Button size="sm" variant="outline">
+              <Play className="h-4 w-4 mr-2" />
+              Try Demo
+            </Button>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  )
+
+  const ModelDetails = ({ model }: { model: (typeof featuredModels)[0] }) => (
+    <div className="space-y-6">
+      <div className="flex items-start justify-between">
+        <div>
+          <h2 className="text-2xl font-bold flex items-center gap-2">
+            {model.category === "vision" && <Eye className="h-6 w-6 text-blue-500" />}
+            {model.category === "audio" && <Mic className="h-6 w-6 text-green-500" />}
+            {model.category === "nlp" && <MessageSquare className="h-6 w-6 text-purple-500" />}
+            {model.category === "analytics" && <BarChart3 className="h-6 w-6 text-orange-500" />}
+            {model.name}
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300 mt-2">{model.description}</p>
+        </div>
+        <Button onClick={() => setSelectedModel(null)} variant="outline" size="sm">
+          ← Back
+        </Button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Model Info</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex justify-between">
+              <span className="text-sm text-gray-600">Version</span>
+              <Badge>{model.version}</Badge>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-sm text-gray-600">Size</span>
+              <span className="text-sm font-medium">{model.size}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-sm text-gray-600">Accuracy</span>
+              <span className="text-sm font-medium">{model.accuracy}%</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-sm text-gray-600">Latency</span>
+              <span className="text-sm font-medium">{model.latency}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-sm text-gray-600">Downloads</span>
+              <span className="text-sm font-medium">{model.downloads.toLocaleString()}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-sm text-gray-600">Updated</span>
+              <span className="text-sm font-medium">{model.lastUpdated}</span>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Benchmarks</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {Object.entries(model.benchmarks).map(([metric, score]) => (
+              <div key={metric} className="space-y-1">
+                <div className="flex justify-between text-sm">
+                  <span>{metric}</span>
+                  <span className="font-medium">{score}%</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="bg-blue-600 h-2 rounded-full" style={{ width: `${score}%` }} />
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Pricing</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div>
+              <div className="text-sm font-medium text-green-600">Free Tier</div>
+              <div className="text-sm text-gray-600">{model.pricing.free}</div>
+            </div>
+            <div>
+              <div className="text-sm font-medium text-blue-600">Pro</div>
+              <div className="text-sm text-gray-600">{model.pricing.pro}</div>
+            </div>
+            <div>
+              <div className="text-sm font-medium text-purple-600">Enterprise</div>
+              <div className="text-sm text-gray-600">{model.pricing.enterprise}</div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Capabilities</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {model.capabilities.map((capability, index) => (
+              <div key={index} className="flex items-center gap-2">
+                <Shield className="h-4 w-4 text-green-500" />
+                <span className="text-sm">{capability}</span>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Integration Example</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+            <pre className="text-green-400 text-sm">
+              <code>{`// Initialize ${model.name}
+import { ${model.id.replace(/-/g, "")} } from '@runash/ai-sdk'
+
+const model = new ${model.id.replace(/-/g, "")}({
+  apiKey: 'your-api-key',
+  version: '${model.version}'
+})
+
+// Use the model
+const result = await model.process({
+  input: 'your-input-data',
+  options: {
+    realTime: true,
+    quality: 'high'
+  }
+})
+
+console.log('Result:', result)`}</code>
+            </pre>
+          </div>
+        </CardContent>
+      </Card>
+
+      <div className="flex gap-4">
+        <Button className="flex-1">
+          <Download className="h-4 w-4 mr-2" />
+          Download Model
+        </Button>
+        <Button variant="outline" onClick={() => window.open(model.documentation, "_blank")}>
+          <BookOpen className="h-4 w-4 mr-2" />
+          Documentation
+        </Button>
+        <Button variant="outline" onClick={() => window.open(model.github, "_blank")}>
+          <Github className="h-4 w-4 mr-2" />
+          GitHub
+        </Button>
+      </div>
+    </div>
+  )
+
+  if (selectedModel) {
+    const model = featuredModels.find((m) => m.id === selectedModel)
+    if (model) {
+      return (
+        <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-950 dark:to-gray-900">
+          <div className="container mx-auto px-4 py-8">
+            <ModelDetails model={model} />
+          </div>
+        </div>
+      )
+    }
+  }
 
   return (
-    <main className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-b from-white to-orange-50 dark:from-gray-900 dark:to-gray-900">
-        <div className="container px-4 mx-auto">
-          <div className="flex flex-col items-center text-center mb-16">
-            <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4">
-              <Database className="h-8 w-8 text-white" />
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text mb-6">
-              AI Models Hub
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-950 dark:to-gray-900">
+      {/* Header */}
+      <section className="py-16 bg-gradient-to-r from-blue-600/10 to-purple-600/10 dark:from-blue-600/5 dark:to-purple-600/5">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
+              AI Models Library
             </h1>
-            <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 max-w-4xl mb-8">
-              Discover, deploy, and integrate state-of-the-art AI models designed for live streaming and content
+            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
+              Discover and integrate state-of-the-art AI models designed specifically for live streaming and content
               creation
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-gradient-to-r from-orange-600 to-yellow-500 hover:opacity-90 text-white">
-                Browse Models <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-orange-500 text-orange-600 hover:bg-orange-50 bg-transparent"
-              >
-                API Documentation
+            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Input
+                  placeholder="Search models..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+              <Button variant="outline">
+                <Filter className="h-4 w-4 mr-2" />
+                Filters
               </Button>
             </div>
           </div>
-
-          {/* Usage Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
-            {usageStats.map((stat, index) => (
-              <Card key={index} className="text-center">
-                <CardContent className="p-6">
-                  <div className="text-2xl font-bold text-gray-900 dark:text-white mb-1">{stat.value}</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">{stat.metric}</div>
-                  <div className="text-xs text-green-600 font-medium">{stat.change}</div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
         </div>
       </section>
 
-      {/* Model Categories */}
-      <section className="py-20 bg-white dark:bg-gray-900">
-        <div className="container px-4 mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">Model Categories</h2>
-            <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
-              Explore our comprehensive collection of AI models organized by use case
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {modelCategories.map((category, index) => (
-              <Card
-                key={index}
-                className="group hover:shadow-lg transition-all duration-300 cursor-pointer border border-orange-100 dark:border-orange-900/20"
-              >
-                <CardHeader>
-                  <div className={`p-3 rounded-lg bg-gradient-to-r ${category.color} w-fit mb-4`}>{category.icon}</div>
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-xl">{category.name}</CardTitle>
-                    <Badge variant="secondary">{category.count} models</Badge>
-                  </div>
-                  <CardDescription>{category.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Button variant="ghost" className="w-full group-hover:bg-orange-50 dark:group-hover:bg-orange-950">
-                    Explore Models <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Models */}
-      <section className="py-20 bg-gradient-to-b from-orange-50 to-white dark:from-gray-900 dark:to-gray-900">
-        <div className="container px-4 mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">Featured Models</h2>
-            <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
-              Our most popular and powerful AI models ready for production use
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {featuredModels.map((model, index) => (
-              <Card
-                key={index}
-                className="border border-orange-100 dark:border-orange-900/20 hover:shadow-xl transition-shadow"
-              >
-                <CardHeader>
-                  <div className="flex items-start justify-between mb-4">
-                    <div>
-                      <CardTitle className="text-2xl mb-2">{model.name}</CardTitle>
-                      <CardDescription className="text-base">{model.description}</CardDescription>
-                    </div>
-                    <Badge variant={model.status === "Production" ? "default" : "secondary"}>{model.status}</Badge>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {model.tags.map((tag, idx) => (
-                      <Badge key={idx} variant="outline" className="text-xs">
-                        {tag}
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex gap-8">
+          {/* Sidebar */}
+          <div className="w-64 space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Categories</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                {modelCategories.map((category) => (
+                  <button
+                    key={category.id}
+                    onClick={() => setSelectedCategory(category.id)}
+                    className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
+                      selectedCategory === category.id
+                        ? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
+                        : "hover:bg-gray-100 dark:hover:bg-gray-800"
+                    }`}
+                  >
+                    <div className="flex justify-between items-center">
+                      <span>{category.name}</span>
+                      <Badge variant="secondary" className="text-xs">
+                        {category.count}
                       </Badge>
-                    ))}
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div className="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                      <div className="text-lg font-bold text-orange-600">{model.accuracy}%</div>
-                      <div className="text-xs text-gray-600 dark:text-gray-400">Accuracy</div>
                     </div>
-                    <div className="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                      <div className="text-lg font-bold text-orange-600">{model.latency}</div>
-                      <div className="text-xs text-gray-600 dark:text-gray-400">Latency</div>
-                    </div>
-                  </div>
-                </CardHeader>
+                  </button>
+                ))}
+              </CardContent>
+            </Card>
 
-                <CardContent>
-                  <Tabs defaultValue="capabilities" className="w-full">
-                    <TabsList className="grid w-full grid-cols-2">
-                      <TabsTrigger value="capabilities">Capabilities</TabsTrigger>
-                      <TabsTrigger value="benchmarks">Benchmarks</TabsTrigger>
-                    </TabsList>
-
-                    <TabsContent value="capabilities" className="mt-4">
-                      <ul className="space-y-2">
-                        {model.capabilities.map((capability, idx) => (
-                          <li key={idx} className="flex items-center gap-2">
-                            <CheckCircle className="h-4 w-4 text-green-500" />
-                            <span className="text-sm">{capability}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </TabsContent>
-
-                    <TabsContent value="benchmarks" className="mt-4">
-                      <div className="space-y-3">
-                        {Object.entries(model.benchmarks).map(([metric, value], idx) => (
-                          <div key={idx} className="flex justify-between items-center">
-                            <span className="text-sm text-gray-600 dark:text-gray-400">{metric}</span>
-                            <span className="font-medium">{value}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </TabsContent>
-                  </Tabs>
-
-                  <div className="flex items-center justify-between mt-6 pt-4 border-t">
-                    <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
-                      <span className="flex items-center gap-1">
-                        <Download className="h-4 w-4" />
-                        {model.downloads}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Heart className="h-4 w-4" />
-                        {model.likes}
-                      </span>
-                      <span>{model.size}</span>
-                    </div>
-                    <div className="flex gap-2">
-                      <Button size="sm" variant="outline">
-                        <ExternalLink className="h-4 w-4 mr-1" />
-                        Demo
-                      </Button>
-                      <Button size="sm" className="bg-gradient-to-r from-orange-600 to-yellow-500 text-white">
-                        Deploy
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Integration Guide */}
-      <section className="py-20 bg-white dark:bg-gray-900">
-        <div className="container px-4 mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">Easy Integration</h2>
-            <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
-              Get started with our models in minutes using our comprehensive APIs and SDKs
-            </p>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Quick Stats</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600">Total Models</span>
+                  <span className="text-sm font-medium">24</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600">Total Downloads</span>
+                  <span className="text-sm font-medium">42.3K</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600">Avg Rating</span>
+                  <span className="text-sm font-medium">4.7 ⭐</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-600">Last Updated</span>
+                  <span className="text-sm font-medium">Today</span>
+                </div>
+              </CardContent>
+            </Card>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h3 className="text-2xl font-bold mb-6">Quick Start Guide</h3>
-              <div className="space-y-4">
-                <div className="flex items-start gap-4">
-                  <div className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">
-                    1
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-1">Install SDK</h4>
-                    <p className="text-gray-600 dark:text-gray-400">Install our Python or JavaScript SDK</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">
-                    2
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-1">Authenticate</h4>
-                    <p className="text-gray-600 dark:text-gray-400">Get your API key and configure authentication</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">
-                    3
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-1">Deploy Model</h4>
-                    <p className="text-gray-600 dark:text-gray-400">Choose and deploy your model with one API call</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">
-                    4
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-1">Start Inferencing</h4>
-                    <p className="text-gray-600 dark:text-gray-400">Send data and receive AI-powered insights</p>
-                  </div>
-                </div>
-              </div>
+          {/* Main Content */}
+          <div className="flex-1">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold">
+                {selectedCategory === "all"
+                  ? "All Models"
+                  : modelCategories.find((c) => c.id === selectedCategory)?.name}
+              </h2>
+              <div className="text-sm text-gray-600">{filteredModels.length} models found</div>
             </div>
 
-            <div className="bg-gray-900 rounded-lg p-6 text-green-400 font-mono text-sm overflow-x-auto">
-              <div className="mb-4 text-gray-400"># Install RunAsh SDK</div>
-              <div className="mb-4">pip install runash-ai</div>
-
-              <div className="mb-4 text-gray-400"># Initialize client</div>
-              <div className="mb-4">
-                from runash import RunAshClient
-                <br />
-                client = RunAshClient(api_key="your_key")
-              </div>
-
-              <div className="mb-4 text-gray-400"># Deploy model</div>
-              <div className="mb-4">
-                model = client.deploy("runash-vision-pro")
-                <br />
-                result = model.analyze(video_stream)
-              </div>
-
-              <div className="text-gray-400"># Get results</div>
-              <div>print(result.objects_detected)</div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {filteredModels.map((model) => (
+                <ModelCard key={model.id} model={model} />
+              ))}
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-orange-600 to-yellow-500">
-        <div className="container px-4 mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Build with AI?</h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Start integrating our AI models into your applications today
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-orange-600 hover:bg-gray-100">
-              Get API Key
-            </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 bg-transparent">
-              View Documentation
-            </Button>
+            {filteredModels.length === 0 && (
+              <div className="text-center py-12">
+                <Brain className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No models found</h3>
+                <p className="text-gray-600 dark:text-gray-300">Try adjusting your search query or category filter</p>
+              </div>
+            )}
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </div>
   )
 }

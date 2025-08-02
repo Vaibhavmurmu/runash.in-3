@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@auth/core": "latest",
+    "@aws-sdk/client-s3": "latest",
+    "@aws-sdk/s3-request-presigner": "latest",
     "@emotion/is-prop-valid": "latest",
     "@hookform/resolvers": "latest",
     "@neondatabase/serverless": "latest",

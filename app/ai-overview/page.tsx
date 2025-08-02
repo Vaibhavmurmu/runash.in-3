@@ -1,172 +1,258 @@
-import type { Metadata } from "next"
-import { ArrowRight, Brain, Speech, Cpu, Video, Play, Star, CheckCircle, TrendingUp, Layers } from "lucide-react"
+"use client"
 
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-
-export const metadata: Metadata = {
-  title: "AI Overview | RunAsh AI Platform",
-  description:
-    "Comprehensive overview of RunAsh's AI capabilities, models, and features for live streaming and content creation.",
-}
+import { Progress } from "@/components/ui/progress"
+import {
+  Brain,
+  Zap,
+  Eye,
+  Mic,
+  MessageSquare,
+  BarChart3,
+  Shield,
+  Database,
+  ArrowRight,
+  Play,
+  CheckCircle,
+  TrendingUp,
+  Users,
+  Globe,
+} from "lucide-react"
+import { useRouter } from "next/navigation"
 
 export default function AIOverviewPage() {
+  const router = useRouter()
+  const [activeDemo, setActiveDemo] = useState<string | null>(null)
+
   const aiCapabilities = [
     {
-      title: "Real-time Video Analysis",
-      description: "Advanced computer vision for live content analysis and enhancement",
-      icon: <Video className="h-6 w-6" />,
-      features: ["Object Detection", "Scene Recognition", "Quality Assessment", "Content Moderation"],
-      status: "Production Ready",
+      icon: <Eye className="h-6 w-6" />,
+      title: "Computer Vision",
+      description: "Advanced image and video analysis for content enhancement",
+      features: ["Real-time object detection", "Scene understanding", "Quality enhancement", "Auto-cropping"],
+      accuracy: 98.5,
+      color: "from-blue-500 to-cyan-500",
     },
     {
-      title: "Natural Language Processing",
-      description: "Intelligent text processing and understanding for chat and content",
-      icon: <Brain className="h-6 w-6" />,
-      features: ["Sentiment Analysis", "Language Translation", "Content Summarization", "Auto-moderation"],
-      status: "Production Ready",
+      icon: <Mic className="h-6 w-6" />,
+      title: "Audio Processing",
+      description: "Intelligent audio enhancement and speech recognition",
+      features: ["Noise reduction", "Voice enhancement", "Real-time transcription", "Multi-language support"],
+      accuracy: 96.8,
+      color: "from-green-500 to-emerald-500",
     },
     {
-      title: "Speech & Audio AI",
-      description: "Advanced audio processing and speech recognition capabilities",
-      icon: <Speech className="h-6 w-6" />,
-      features: ["Speech-to-Text", "Text-to-Speech", "Audio Enhancement", "Voice Cloning"],
-      status: "Beta",
+      icon: <MessageSquare className="h-6 w-6" />,
+      title: "Natural Language",
+      description: "Advanced NLP for chat moderation and content generation",
+      features: ["Sentiment analysis", "Auto-moderation", "Content suggestions", "Multi-language chat"],
+      accuracy: 94.2,
+      color: "from-purple-500 to-violet-500",
     },
     {
+      icon: <BarChart3 className="h-6 w-6" />,
       title: "Predictive Analytics",
-      description: "AI-powered insights and predictions for content optimization",
-      icon: <TrendingUp className="h-6 w-6" />,
-      features: ["Engagement Prediction", "Optimal Timing", "Content Recommendations", "Audience Insights"],
-      status: "Production Ready",
+      description: "AI-powered insights for audience engagement and growth",
+      features: ["Audience prediction", "Engagement optimization", "Revenue forecasting", "Trend analysis"],
+      accuracy: 92.7,
+      color: "from-orange-500 to-red-500",
     },
-    {
-      title: "Multimodal AI",
-      description: "Combined understanding of video, audio, and text content",
-      icon: <Layers className="h-6 w-6" />,
-      features: ["Cross-modal Analysis", "Content Synchronization", "Contextual Understanding", "Unified Insights"],
-      status: "Research",
-    },
-    {
-      title: "Edge AI Processing",
-      description: "Optimized AI models for real-time edge device processing",
-      icon: <Cpu className="h-6 w-6" />,
-      features: ["Low Latency", "Offline Capability", "Resource Optimization", "Mobile Deployment"],
-      status: "Beta",
-    },
+  ]
+
+  const technicalSpecs = [
+    { label: "Processing Speed", value: "< 50ms latency", icon: <Zap className="h-4 w-4" /> },
+    { label: "Model Accuracy", value: "95.8% average", icon: <Brain className="h-4 w-4" /> },
+    { label: "Supported Languages", value: "40+ languages", icon: <Globe className="h-4 w-4" /> },
+    { label: "Concurrent Users", value: "100K+ streams", icon: <Users className="h-4 w-4" /> },
+    { label: "Uptime", value: "99.99% SLA", icon: <Shield className="h-4 w-4" /> },
+    { label: "Data Processing", value: "10TB+ daily", icon: <Database className="h-4 w-4" /> },
   ]
 
   const useCases = [
     {
-      title: "Live Commerce",
-      description: "AI-powered product recommendations and sales optimization",
-      image: "/placeholder.svg?height=300&width=400",
-      benefits: ["30% increase in conversion", "Real-time product matching", "Automated pricing optimization"],
+      title: "Live Stream Enhancement",
+      description: "Automatically enhance video quality, reduce noise, and optimize streaming parameters in real-time.",
+      metrics: { improvement: "40%", metric: "viewer retention" },
+      image: "/placeholder.svg?height=200&width=300",
     },
     {
-      title: "Content Creation",
-      description: "Intelligent content enhancement and generation tools",
-      image: "/placeholder.svg?height=300&width=400",
-      benefits: ["50% faster content creation", "Automated editing suggestions", "Style consistency"],
+      title: "Intelligent Chat Moderation",
+      description:
+        "AI-powered chat filtering, sentiment analysis, and automated responses to maintain healthy communities.",
+      metrics: { improvement: "85%", metric: "moderation accuracy" },
+      image: "/placeholder.svg?height=200&width=300",
     },
     {
-      title: "Audience Engagement",
-      description: "Smart audience analysis and engagement optimization",
-      image: "/placeholder.svg?height=300&width=400",
-      benefits: ["40% higher engagement", "Personalized experiences", "Predictive insights"],
+      title: "Content Optimization",
+      description: "Analyze audience engagement patterns and suggest optimal content strategies for maximum reach.",
+      metrics: { improvement: "60%", metric: "engagement rate" },
+      image: "/placeholder.svg?height=200&width=300",
+    },
+    {
+      title: "Automated Highlights",
+      description: "Automatically detect and create highlight clips from live streams using advanced scene analysis.",
+      metrics: { improvement: "75%", metric: "clip creation speed" },
+      image: "/placeholder.svg?height=200&width=300",
     },
   ]
 
-  const techStack = [
-    { name: "PyTorch", category: "Deep Learning", usage: "Model Training" },
-    { name: "TensorFlow", category: "ML Platform", usage: "Production Deployment" },
-    { name: "ONNX Runtime", category: "Inference", usage: "Cross-platform Optimization" },
-    { name: "OpenCV", category: "Computer Vision", usage: "Image Processing" },
-    { name: "Transformers", category: "NLP", usage: "Language Models" },
-    { name: "WebRTC", category: "Streaming", usage: "Real-time Communication" },
-    { name: "CUDA", category: "GPU Computing", usage: "Acceleration" },
-    { name: "Docker", category: "Containerization", usage: "Model Deployment" },
+  const integrationSteps = [
+    {
+      step: 1,
+      title: "API Integration",
+      description: "Connect your application using our RESTful API or WebSocket connections",
+      code: `// Initialize RunAsh AI SDK
+import { RunAshAI } from '@runash/ai-sdk'
+
+const ai = new RunAshAI({
+  apiKey: 'your-api-key',
+  region: 'us-east-1'
+})
+
+// Start video enhancement
+await ai.video.enhance({
+  streamId: 'your-stream-id',
+  quality: 'ultra',
+  realTime: true
+})`,
+    },
+    {
+      step: 2,
+      title: "Configure Models",
+      description: "Select and configure AI models based on your specific use case requirements",
+      code: `// Configure AI models
+const config = {
+  vision: {
+    model: 'runash-vision-v3',
+    features: ['enhancement', 'detection', 'analysis']
+  },
+  audio: {
+    model: 'runash-audio-v2',
+    features: ['noise-reduction', 'enhancement']
+  }
+}
+
+await ai.configure(config)`,
+    },
+    {
+      step: 3,
+      title: "Real-time Processing",
+      description: "Start processing your media streams with AI-powered enhancements",
+      code: `// Start real-time processing
+ai.stream.onFrame((frame) => {
+  // AI processing happens automatically
+  console.log('Enhanced frame ready:', frame.id)
+})
+
+ai.stream.onAudioChunk((audio) => {
+  console.log('Enhanced audio ready:', audio.id)
+})`,
+    },
   ]
 
   return (
-    <main className="flex flex-col min-h-screen">
+    <div className="min-h-screen bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-gray-900">
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-b from-white to-orange-50 dark:from-gray-900 dark:to-gray-900 overflow-hidden">
-        <div className="container px-4 mx-auto">
-          <div className="flex flex-col items-center text-center mb-16">
-            <div className="p-3 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500 mb-4">
-              <Brain className="h-8 w-8 text-white" />
+      <section className="relative py-20 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10 dark:from-blue-600/5 dark:to-purple-600/5" />
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center max-w-4xl mx-auto">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm font-medium mb-6">
+              <Brain className="h-4 w-4" />
+              Powered by Advanced AI
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text mb-6">
-              RunAsh AI Overview
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-500 text-transparent bg-clip-text">
+              AI-Powered Live Streaming Revolution
             </h1>
-            <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 max-w-4xl mb-8">
-              Discover the cutting-edge AI technologies powering the next generation of live streaming and content
-              creation
+            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+              Transform your live streaming experience with cutting-edge artificial intelligence. Enhance video quality,
+              moderate chat, analyze audience, and optimize content in real-time.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-gradient-to-r from-orange-600 to-yellow-500 hover:opacity-90 text-white">
-                Explore AI Models <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
-                variant="outline"
-                className="border-orange-500 text-orange-600 hover:bg-orange-50 bg-transparent"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+                onClick={() => router.push("/get-started")}
               >
-                View Documentation
+                Start Free Trial
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+              <Button size="lg" variant="outline" onClick={() => setActiveDemo("overview")}>
+                <Play className="mr-2 h-4 w-4" />
+                Watch Demo
               </Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* AI Capabilities */}
-      <section className="py-20 bg-white dark:bg-gray-900">
-        <div className="container px-4 mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">AI Capabilities</h2>
-            <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
-              Comprehensive AI solutions designed for modern content creators and businesses
+      {/* Technical Specifications */}
+      <section className="py-16 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Technical Excellence</h2>
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              Built on state-of-the-art infrastructure with industry-leading performance metrics
             </p>
           </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {technicalSpecs.map((spec, index) => (
+              <Card key={index} className="text-center hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 mb-4">
+                    {spec.icon}
+                  </div>
+                  <h3 className="font-semibold mb-2">{spec.label}</h3>
+                  <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{spec.value}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {/* AI Capabilities */}
+      <section className="py-16 bg-gray-50 dark:bg-gray-800">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">AI Capabilities</h2>
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              Comprehensive AI suite designed specifically for live streaming and content creation
+            </p>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {aiCapabilities.map((capability, index) => (
-              <Card
-                key={index}
-                className="border border-orange-100 dark:border-orange-900/20 hover:shadow-lg transition-shadow"
-              >
+              <Card key={index} className="overflow-hidden hover:shadow-xl transition-shadow">
                 <CardHeader>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="p-2 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-500">
+                  <div className="flex items-center gap-4">
+                    <div className={`p-3 rounded-lg bg-gradient-to-r ${capability.color} text-white`}>
                       {capability.icon}
                     </div>
-                    <Badge
-                      variant={
-                        capability.status === "Production Ready"
-                          ? "default"
-                          : capability.status === "Beta"
-                            ? "secondary"
-                            : "outline"
-                      }
-                    >
-                      {capability.status}
-                    </Badge>
+                    <div>
+                      <CardTitle className="text-xl">{capability.title}</CardTitle>
+                      <p className="text-gray-600 dark:text-gray-300">{capability.description}</p>
+                    </div>
                   </div>
-                  <CardTitle className="text-xl">{capability.title}</CardTitle>
-                  <CardDescription>{capability.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <ul className="space-y-2">
-                    {capability.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center gap-2">
-                        <CheckCircle className="h-4 w-4 text-green-500" />
-                        <span className="text-sm text-gray-600 dark:text-gray-400">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium">Accuracy</span>
+                      <span className="text-sm font-bold">{capability.accuracy}%</span>
+                    </div>
+                    <Progress value={capability.accuracy} className="h-2" />
+                    <div className="grid grid-cols-2 gap-2">
+                      {capability.features.map((feature, idx) => (
+                        <div key={idx} className="flex items-center gap-2 text-sm">
+                          <CheckCircle className="h-4 w-4 text-green-500" />
+                          {feature}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             ))}
@@ -175,36 +261,34 @@ export default function AIOverviewPage() {
       </section>
 
       {/* Use Cases */}
-      <section className="py-20 bg-gradient-to-b from-orange-50 to-white dark:from-gray-900 dark:to-gray-900">
-        <div className="container px-4 mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
-              Real-World Applications
-            </h2>
-            <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
-              See how our AI technology transforms businesses across different industries
+      <section className="py-16 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Real-World Applications</h2>
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              See how our AI technology transforms live streaming across different use cases
             </p>
           </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {useCases.map((useCase, index) => (
-              <Card key={index} className="overflow-hidden border border-orange-100 dark:border-orange-900/20">
-                <div className="aspect-video bg-gradient-to-br from-orange-500 to-yellow-500 flex items-center justify-center">
-                  <Play className="h-12 w-12 text-white" />
+              <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
+                <div className="aspect-video bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/20 dark:to-purple-900/20 flex items-center justify-center">
+                  <img
+                    src={useCase.image || "/placeholder.svg"}
+                    alt={useCase.title}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-                <CardHeader>
-                  <CardTitle>{useCase.title}</CardTitle>
-                  <CardDescription>{useCase.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2">
-                    {useCase.benefits.map((benefit, idx) => (
-                      <li key={idx} className="flex items-center gap-2">
-                        <Star className="h-4 w-4 text-yellow-500" />
-                        <span className="text-sm">{benefit}</span>
-                      </li>
-                    ))}
-                  </ul>
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-bold mb-2">{useCase.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-300 mb-4">{useCase.description}</p>
+                  <div className="flex items-center gap-2">
+                    <TrendingUp className="h-4 w-4 text-green-500" />
+                    <span className="text-sm">
+                      <span className="font-bold text-green-600">{useCase.metrics.improvement}</span> improvement in{" "}
+                      {useCase.metrics.metric}
+                    </span>
+                  </div>
                 </CardContent>
               </Card>
             ))}
@@ -212,106 +296,77 @@ export default function AIOverviewPage() {
         </div>
       </section>
 
-      {/* Technology Stack */}
-      <section className="py-20 bg-white dark:bg-gray-900">
-        <div className="container px-4 mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">Technology Stack</h2>
-            <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
-              Built on industry-leading technologies and frameworks
+      {/* Integration Guide */}
+      <section className="py-16 bg-gray-50 dark:bg-gray-800">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Easy Integration</h2>
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              Get started with RunAsh AI in minutes with our comprehensive SDK and APIs
             </p>
           </div>
-
-          <Tabs defaultValue="all" className="w-full">
-            <TabsList className="grid w-full grid-cols-4">
-              <TabsTrigger value="all">All Technologies</TabsTrigger>
-              <TabsTrigger value="ml">Machine Learning</TabsTrigger>
-              <TabsTrigger value="vision">Computer Vision</TabsTrigger>
-              <TabsTrigger value="deployment">Deployment</TabsTrigger>
+          <Tabs defaultValue="step1" className="max-w-4xl mx-auto">
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="step1">Step 1: Setup</TabsTrigger>
+              <TabsTrigger value="step2">Step 2: Configure</TabsTrigger>
+              <TabsTrigger value="step3">Step 3: Process</TabsTrigger>
             </TabsList>
-
-            <TabsContent value="all" className="mt-8">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {techStack.map((tech, index) => (
-                  <Card key={index} className="text-center p-4">
-                    <CardContent className="p-0">
-                      <div className="font-semibold text-lg mb-1">{tech.name}</div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">{tech.category}</div>
-                      <div className="text-xs text-gray-500">{tech.usage}</div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </TabsContent>
-
-            <TabsContent value="ml" className="mt-8">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {techStack
-                  .filter((tech) => ["Deep Learning", "ML Platform", "NLP"].includes(tech.category))
-                  .map((tech, index) => (
-                    <Card key={index} className="text-center p-4">
-                      <CardContent className="p-0">
-                        <div className="font-semibold text-lg mb-1">{tech.name}</div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">{tech.category}</div>
-                        <div className="text-xs text-gray-500">{tech.usage}</div>
-                      </CardContent>
-                    </Card>
-                  ))}
-              </div>
-            </TabsContent>
-
-            <TabsContent value="vision" className="mt-8">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {techStack
-                  .filter((tech) => ["Computer Vision", "GPU Computing"].includes(tech.category))
-                  .map((tech, index) => (
-                    <Card key={index} className="text-center p-4">
-                      <CardContent className="p-0">
-                        <div className="font-semibold text-lg mb-1">{tech.name}</div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">{tech.category}</div>
-                        <div className="text-xs text-gray-500">{tech.usage}</div>
-                      </CardContent>
-                    </Card>
-                  ))}
-              </div>
-            </TabsContent>
-
-            <TabsContent value="deployment" className="mt-8">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {techStack
-                  .filter((tech) => ["Inference", "Containerization", "Streaming"].includes(tech.category))
-                  .map((tech, index) => (
-                    <Card key={index} className="text-center p-4">
-                      <CardContent className="p-0">
-                        <div className="font-semibold text-lg mb-1">{tech.name}</div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">{tech.category}</div>
-                        <div className="text-xs text-gray-500">{tech.usage}</div>
-                      </CardContent>
-                    </Card>
-                  ))}
-              </div>
-            </TabsContent>
+            {integrationSteps.map((step, index) => (
+              <TabsContent key={index} value={`step${step.step}`} className="mt-6">
+                <Card>
+                  <CardHeader>
+                    <div className="flex items-center gap-4">
+                      <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
+                        {step.step}
+                      </div>
+                      <div>
+                        <CardTitle>{step.title}</CardTitle>
+                        <p className="text-gray-600 dark:text-gray-300">{step.description}</p>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+                      <pre className="text-green-400 text-sm">
+                        <code>{step.code}</code>
+                      </pre>
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            ))}
           </Tabs>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-orange-600 to-yellow-500">
-        <div className="container px-4 mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Experience AI-Powered Streaming?</h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Join thousands of creators and businesses leveraging our AI technology
+      <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Streams?</h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
+            Join thousands of creators who are already using RunAsh AI to enhance their live streaming experience
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-orange-600 hover:bg-gray-100">
+            <Button
+              size="lg"
+              className="bg-white text-blue-600 hover:bg-gray-100"
+              onClick={() => router.push("/get-started")}
+            >
               Start Free Trial
+              <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 bg-transparent">
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-white text-white hover:bg-white/10 bg-transparent"
+              onClick={() => router.push("/contact")}
+            >
               Contact Sales
             </Button>
           </div>
+          <p className="mt-4 text-sm opacity-75">No credit card required • 14-day free trial • Cancel anytime</p>
         </div>
       </section>
-    </main>
+    </div>
   )
 }
