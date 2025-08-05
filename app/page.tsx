@@ -1,6 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
+import { Benner } from "@/components/banner"
 import { Play, Zap, Users, Shield, ArrowRight, ChevronRight, Star, BarChart, Globe,SquareArrowDownRight } from "lucide-react"
 import VideoBackground from "@/components/video-background"
 import FeatureCard from "@/components/feature-card"
