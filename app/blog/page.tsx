@@ -36,6 +36,78 @@ interface Category {
   count: number
 }
 
+
+const BlogPost = ({
+  title,
+  excerpt,
+  author,
+  date,
+  readTime,
+  category,
+  image,
+  featured = false,
+}: {
+  title: string
+  excerpt: string
+  author: string
+  date: string
+  readTime: string
+  category: string
+  image: string
+  featured?: boolean
+}) => {
+  return (
+    <Card
+      className={`overflow-hidden ${featured ? "border-orange-500/50 bg-orange-50/50 dark:bg-orange-950/20" : "border-orange-200/50 dark:border-orange-900/30"}`}
+    >
+      <div className="aspect-video overflow-hidden">
+        <img
+          src={image || "/placeholder.svg"}
+          alt={title}
+          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+        />
+      </div>
+      <CardContent className="p-6">
+        <div className="flex items-center gap-2 mb-3">
+          <span className="px-2 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 text-xs font-medium rounded-full">
+            {category}
+          </span>
+          {featured && (
+            <span className="px-2 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 text-xs font-medium rounded-full">
+              Featured
+            </span>
+          )}
+        </div>
+        <h3 className="text-xl font-bold mb-3 line-clamp-2">{title}</h3>
+        <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">{excerpt}</p>
+        <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-1">
+              <User className="h-4 w-4" />
+              <span>{author}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Calendar className="h-4 w-4" />
+              <span>{date}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Clock className="h-4 w-4" />
+              <span>{readTime}</span>
+            </div>
+          </div>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300"
+          >
+            Read More <ArrowRight className="ml-1 h-3 w-3" />
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  )
+      }
+
 export default function BlogPage() {
   const [posts, setPosts] = useState<BlogPost[]>([])
   const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([])
