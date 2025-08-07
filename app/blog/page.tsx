@@ -412,6 +412,7 @@ export default function BlogPage() {
               </TabsContent>
               </Tabs>
               {/* Recent Posts */}
+               <TabsContent>
                 <div>
                   <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Recent Posts</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
