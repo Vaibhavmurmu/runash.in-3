@@ -410,7 +410,7 @@ export default function BlogPage() {
                   </div>
                 </div>
               </TabsContent>
-              
+              </Tabs>
               {/* Recent Posts */}
                 <div>
                   <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Recent Posts</h2>
@@ -556,7 +556,10 @@ export default function BlogPage() {
                   />
                 </div>
               </TabsContent>
-            </Tabs>
+            </div>
+        </section>
+       </div>
+    
           
       <div className="container mx-auto px-4 py-8">
         {/* Featured Posts */}
