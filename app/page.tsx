@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Banner } from "@/components/banner"
+import Banner  from "@/components/banner"
 import { Badge } from "@/components/ui/badge"
 import { Play, Zap, Users, Shield, ArrowRight, ChevronRight, Star, BarChart, Globe,SquareArrowDownRight } from "lucide-react"
 import VideoBackground from "@/components/video-background"
@@ -33,7 +33,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-orange-50 dark:from-gray-950 dark:to-gray-900 text-gray-900 dark:text-white">
-      {/* <Banner /> */}
+       <Banner /> 
       <Navbar />
        {/* Hero Section with Video Background */}
         <section className="relative h-screen flex items-center justify-center overflow-hidden"> 
@@ -390,7 +390,7 @@ export default function Home() {
             <div className="lg:col-span-2">
               <h3 className="font-bold text-xl mb-4 text-gray-900 dark:text-white">RunAsh AI</h3>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Runash Digital Innovation Technologies Private Limited.
+               Runash Digital Innovation Technologies Pvt Ltd.
               </p>
               <div className="flex items-center gap-2 mb-4">
                 <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
@@ -438,7 +438,7 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    href="/"
+                    href="/become-seller"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
                     Become a seller 
