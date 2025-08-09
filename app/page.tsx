@@ -33,7 +33,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-orange-50 dark:from-gray-950 dark:to-gray-900 text-gray-900 dark:text-white">
-       <Banner /> 
+{/*  <Banner /> */}
       <Navbar />
        {/* Hero Section with Video Background */}
         <section className="relative h-screen flex items-center justify-center overflow-hidden"> 
@@ -247,7 +247,7 @@ export default function Home() {
                 quote="The audience analytics have helped me tailor my content to what my viewers actually want. The AI content suggestions are spot on and have helped me grow my channel."
               />
               <TestimonialCard
-                name="Vijay"
+                name="P k Murmu"
                 role="Seller Streamer"
                 image="/placeholder.svg?height=80&width=80"
                 quote="As a seller, audio quality is everything. RunAsh's AI audio enhancement has made my live demonstration sound studio-quality. My fans love it!"
@@ -390,7 +390,7 @@ export default function Home() {
             <div className="lg:col-span-2">
               <h3 className="font-bold text-xl mb-4 text-gray-900 dark:text-white">RunAsh AI</h3>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-               Runash Digital Innovation Technologies Pvt Ltd.
+               Runash Digital Innovation Technologies Private Limited.
               </p>
               <div className="flex items-center gap-2 mb-4">
                 <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
