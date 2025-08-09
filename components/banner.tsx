@@ -10,7 +10,6 @@ export default function Banner() {
   const [showBanner, setShowBanner] = useState(true)
 
   return (
-    <>
       {/* Top Banner */}
       {showBanner && (
         <div className="bg-gradient-to-r from-orange-600 to-yello-600 text-white py-2 px-4 text-center text-sm relative">
@@ -31,6 +30,5 @@ export default function Banner() {
           </button>
         </div>
       )}
-      </>
     )
 }
