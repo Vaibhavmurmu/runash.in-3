@@ -299,6 +299,7 @@ export default function CheckoutPage() {
                   <Button
                     type="submit"
                     className="w-full bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white"
+                    onClick={() => router.push("/payment")}
                   >
                     Complete Order - ${totals.total.toFixed(2)}
                   </Button>
