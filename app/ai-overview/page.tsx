@@ -164,7 +164,7 @@ ai.stream.onAudioChunk((audio) => {
               <Brain className="h-4 w-4" />
               Powered by RunAsh AI
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-orange-600 to-orange-500 text-transparent bg-clip-text">">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-orange-600 text-transparent bg-clip-text">
               AI Live Streaming Revolution
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
