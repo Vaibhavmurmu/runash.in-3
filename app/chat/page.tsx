@@ -327,9 +327,9 @@ export default function RunAshChatPage() {
               </div>
               <div>
                 <h1 className="text-xl font-bold bg-gradient-to-r from-orange-600 to-yellow-500 text-transparent bg-clip-text">
-                  RunAshChat AI
+                  RunAshChat
                 </h1>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Organic • Sustainable • Smart Retail</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">AI Assistant</p>
               </div>
             </div>
             <div className="flex items-center space-x-2">
@@ -440,7 +440,7 @@ export default function RunAshChatPage() {
                   </span>
                   <span className="flex items-center">
                     <Sparkles className="h-3 w-3 mr-1 text-orange-500" />
-                    AI Powered
+                    RunAsh AI 
                   </span>
                 </div>
               </div>
