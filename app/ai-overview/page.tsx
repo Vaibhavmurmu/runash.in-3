@@ -34,7 +34,7 @@ export default function AIOverviewPage() {
       description: "Advanced image and video analysis for content enhancement",
       features: ["Real-time object detection", "Scene understanding", "Quality enhancement", "Auto-cropping"],
       accuracy: 98.5,
-      color: "from-blue-500 to-cyan-500",
+      color: "from-orange-500 to-orange-500",
     },
     {
       icon: <Mic className="h-6 w-6" />,
@@ -42,7 +42,7 @@ export default function AIOverviewPage() {
       description: "Intelligent audio enhancement and speech recognition",
       features: ["Noise reduction", "Voice enhancement", "Real-time transcription", "Multi-language support"],
       accuracy: 96.8,
-      color: "from-green-500 to-emerald-500",
+      color: "from-orange-500 to-orange-500",
     },
     {
       icon: <MessageSquare className="h-6 w-6" />,
@@ -50,15 +50,15 @@ export default function AIOverviewPage() {
       description: "Advanced NLP for chat moderation and content generation",
       features: ["Sentiment analysis", "Auto-moderation", "Content suggestions", "Multi-language chat"],
       accuracy: 94.2,
-      color: "from-purple-500 to-violet-500",
+      color: "from-orange-500 to-orange-500",
     },
     {
       icon: <BarChart3 className="h-6 w-6" />,
       title: "Predictive Analytics",
-      description: "AI-powered insights for audience engagement and growth",
+      description: "AI insights for audience engagement and growth",
       features: ["Audience prediction", "Engagement optimization", "Revenue forecasting", "Trend analysis"],
       accuracy: 92.7,
-      color: "from-orange-500 to-red-500",
+      color: "from-orange-600 to-orange-500",
     },
   ]
 
@@ -154,18 +154,18 @@ ai.stream.onAudioChunk((audio) => {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-gray-900">
+    <div className="min-h-screen bg-gradient-to-b from-white to-orange-50 dark:from-gray-950 dark:to-gray-900 text-gray-900 dark:text-white">
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10 dark:from-blue-600/5 dark:to-purple-600/5" />
+        <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 text-sm font-medium mb-6">
               <Brain className="h-4 w-4" />
-              Powered by Advanced AI
+              Powered by RunAsh AI
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-500 text-transparent bg-clip-text">
-              AI-Powered Live Streaming Revolution
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-orange-600 text-transparent bg-clip-text">
+              AI Live Streaming Revolution
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
               Transform your live streaming experience with cutting-edge artificial intelligence. Enhance video quality,
@@ -174,7 +174,7 @@ ai.stream.onAudioChunk((audio) => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+                className="bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white shadow-lg shadow-orange-500/20 dark:shadow-orange-500/10"
                 onClick={() => router.push("/get-started")}
               >
                 Start Free Trial
@@ -202,11 +202,11 @@ ai.stream.onAudioChunk((audio) => {
             {technicalSpecs.map((spec, index) => (
               <Card key={index} className="text-center hover:shadow-lg transition-shadow">
                 <CardContent className="p-6">
-                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 mb-4">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 mb-4">
                     {spec.icon}
                   </div>
                   <h3 className="font-semibold mb-2">{spec.label}</h3>
-                  <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{spec.value}</p>
+                  <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">{spec.value}</p>
                 </CardContent>
               </Card>
             ))}
@@ -272,7 +272,7 @@ ai.stream.onAudioChunk((audio) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {useCases.map((useCase, index) => (
               <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="aspect-video bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/20 dark:to-purple-900/20 flex items-center justify-center">
+                <div className="aspect-video bg-gradient-to-br from-orange-100 to-orange-100 dark:from-orange-900/20 dark:to-orange-900/20 flex items-center justify-center">
                   <img
                     src={useCase.image || "/placeholder.svg"}
                     alt={useCase.title}
@@ -283,9 +283,9 @@ ai.stream.onAudioChunk((audio) => {
                   <h3 className="text-xl font-bold mb-2">{useCase.title}</h3>
                   <p className="text-gray-600 dark:text-gray-300 mb-4">{useCase.description}</p>
                   <div className="flex items-center gap-2">
-                    <TrendingUp className="h-4 w-4 text-green-500" />
+                    <TrendingUp className="h-4 w-4 text-orange-500" />
                     <span className="text-sm">
-                      <span className="font-bold text-green-600">{useCase.metrics.improvement}</span> improvement in{" "}
+                      <span className="font-bold text-orange-600">{useCase.metrics.improvement}</span> improvement in{" "}
                       {useCase.metrics.metric}
                     </span>
                   </div>
@@ -316,7 +316,7 @@ ai.stream.onAudioChunk((audio) => {
                 <Card>
                   <CardHeader>
                     <div className="flex items-center gap-4">
-                      <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
+                      <div className="w-8 h-8 rounded-full bg-orange-600 text-white flex items-center justify-center font-bold">
                         {step.step}
                       </div>
                       <div>
@@ -327,7 +327,7 @@ ai.stream.onAudioChunk((audio) => {
                   </CardHeader>
                   <CardContent>
                     <div className="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-                      <pre className="text-green-400 text-sm">
+                      <pre className="text-white text-sm">
                         <code>{step.code}</code>
                       </pre>
                     </div>
@@ -340,7 +340,7 @@ ai.stream.onAudioChunk((audio) => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+      <section className="py-24 bg-gradient-to-r from-orange-600 to-yellow-500 dark:from-orange-700 dark:to-yellow-600 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Streams?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
@@ -349,7 +349,7 @@ ai.stream.onAudioChunk((audio) => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
-              className="bg-white text-blue-600 hover:bg-gray-100"
+              className="bg-white text-orange-600 hover:bg-gray-100"
               onClick={() => router.push("/get-started")}
             >
               Start Free Trial
@@ -358,7 +358,7 @@ ai.stream.onAudioChunk((audio) => {
             <Button
               size="lg"
               variant="outline"
-              className="border-white text-white hover:bg-white/10 bg-transparent"
+              className="border-white text-white hover:bg-white/10 hover:text-white bg-transparent"
               onClick={() => router.push("/contact")}
             >
               Contact Sales
