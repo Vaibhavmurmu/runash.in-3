@@ -179,6 +179,30 @@ export default function AIPage() {
       icon: <Server className="h-6 w-6 text-orange-500" />,
       gradient: "from-yellow-600 to-orange-600",
     },
+    {
+      title: "Hugging Face",
+      description: "Machine learning platform for production deployment",
+      icon: <Code className="h-6 w-6 text-orange-500" />,
+      gradient: "from-yellow-500 to-orange-500",
+    },
+    {
+      title: "Kaggl",
+      description: "Machine learning platform for production deployment",
+      icon: <Code className="h-6 w-6 text-orange-500" />,
+      gradient: "from-yellow-500 to-orange-500",
+    },
+    {
+      title: "Scikit-learn",
+      description: "Machine learning in python",
+      icon: <Code className="h-6 w-6 text-orange-500" />,
+      gradient: "from-yellow-500 to-orange-500",
+    },
+    {
+      title: "Colab",
+      description: "Machine learning platform for production deployment",
+      icon: <Code className="h-6 w-6 text-orange-500" />,
+      gradient: "from-yellow-500 to-orange-500",
+    },
   ]
 
   return (
@@ -248,10 +272,10 @@ export default function AIPage() {
               <Cpu className="h-6 w-6 text-white" />
             </div>
             <h2 className="text-4xl font-bold bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text mb-4">
-              Custom RunAsh AI Model 
+              RunAsh AI Models 
             </h2>
             <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl">
-              Our custom RunAsh AI Model is built using the latest deep learning architectures and is optimized for performance and scalability.
+              Our AI Models is built using the latest deep learning architectures and is optimized for performance and scalability.
                 For Advanced Video Classification for Live Streaming.
             </p>
           </div>
