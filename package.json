@@ -61,6 +61,7 @@
     "crypto": "latest",
     "date-fns": "latest",
     "embla-carousel-react": "latest",
+    "events": "latest",
     "framer-motion": "latest",
     "input-otp": "latest",
     "ioredis": "latest",

@@ -1,4 +1,7 @@
 import nodemailer from "nodemailer"
+import { EmailDeliveryTracker } from "./email-delivery"
+import { EmailBounceHandler } from "./email-bounce-handler"
+import { triggerDeliveryStatusEvent } from "./email-realtime"
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
@@ -15,15 +18,108 @@ export async function sendEmail(options: {
   subject: string
   html: string
   from?: string
+  template_id?: number
+  campaign_id?: number
+  user_id?: number
+  recipient_name?: string
+  track_delivery?: boolean
 }) {
+  // Check if email is suppressed before sending
+  const validation = await EmailBounceHandler.validateEmailForSending(options.to)
+  if (!validation.canSend) {
+    throw new Error(`Cannot send email: ${validation.reason} (${validation.suppressionType})`)
+  }
+
+  let message_id: string | undefined
+  let delivery_id: number | undefined
+
+  // Create delivery tracking record if enabled
+  if (options.track_delivery !== false) {
+    try {
+      const tracking = await EmailDeliveryTracker.createDelivery({
+        recipient_email: options.to,
+        recipient_name: options.recipient_name,
+        user_id: options.user_id,
+        subject: options.subject,
+        template_id: options.template_id,
+        campaign_id: options.campaign_id,
+      })
+
+      delivery_id = tracking.delivery_id
+      message_id = tracking.message_id
+    } catch (error) {
+      console.error("Error creating delivery tracking:", error)
+    }
+  }
+
+  // Add tracking to HTML if message_id exists
+  let html = options.html
+  if (message_id && options.track_delivery !== false) {
+    html = EmailDeliveryTracker.addTrackingToEmail(html, message_id)
+
+    // Add unsubscribe link
+    const unsubscribeUrl = `${process.env.NEXT_PUBLIC_APP_URL}/api/email/unsubscribe?email=${encodeURIComponent(options.to)}`
+    const unsubscribeFooter = `
+      <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; text-align: center; color: #666; font-size: 12px;">
+        <p>
+          If you no longer wish to receive these emails, you can 
+          <a href="${unsubscribeUrl}" style="color: #666; text-decoration: underline;">unsubscribe here</a>.
+        </p>
+      </div>
+    `
+
+    // Add unsubscribe footer before closing body tag or at the end
+    if (html.includes("</body>")) {
+      html = html.replace("</body>", `${unsubscribeFooter}</body>`)
+    } else {
+      html += unsubscribeFooter
+    }
+  }
+
   const mailOptions = {
     from: options.from || process.env.SMTP_FROM || "noreply@runash.in",
     to: options.to,
     subject: options.subject,
-    html: options.html,
+    html,
+    headers: message_id
+      ? {
+          "X-Message-ID": message_id,
+          "List-Unsubscribe": `<${process.env.NEXT_PUBLIC_APP_URL}/api/email/unsubscribe?email=${encodeURIComponent(options.to)}>`,
+        }
+      : undefined,
   }
 
-  await transporter.sendMail(mailOptions)
+  try {
+    const result = await transporter.sendMail(mailOptions)
+
+    // Update delivery status to sent
+    if (message_id) {
+      await EmailDeliveryTracker.updateDeliveryStatus(message_id, "sent", {
+        tracking_data: { smtp_response: result.response },
+      })
+
+      triggerDeliveryStatusEvent(message_id, options.to, "sent", {
+        smtp_response: result.response,
+      })
+    }
+
+    return { success: true, message_id, delivery_id }
+  } catch (error) {
+    console.error("Error sending email:", error)
+
+    // Update delivery status to failed
+    if (message_id) {
+      await EmailDeliveryTracker.updateDeliveryStatus(message_id, "failed", {
+        error_message: error instanceof Error ? error.message : "Unknown error",
+      })
+
+      triggerDeliveryStatusEvent(message_id, options.to, "failed", {
+        error_message: error instanceof Error ? error.message : "Unknown error",
+      })
+    }
+
+    throw error
+  }
 }
 
 export async function sendVerificationEmail(email: string, name: string, token: string) {
