@@ -78,6 +78,7 @@ export function DashboardNavigation() {
     { href: "/settings", icon: <Settings className="h-4 w-4" />, label: "Settings" },
     { href: "/community", icon: <Users className="h-4 w-4" />, label: "Community" },
     { href: "/support", icon: <HelpCircle className="h-4 w-4" />, label: "Help & Support" },
+    { href: "/Contact", icon: <HelpCircle className="h-4 w-4" />, label: "Contact" },
   ]
 
   const closeMobileMenu = () => {
@@ -140,8 +141,8 @@ export function DashboardNavigation() {
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium truncate">Jamie Smith</p>
-                    <p className="text-xs text-muted-foreground truncate">jamie@runash.ai</p>
+                    <p className="text-sm font-medium truncate">Your Name</p>
+                    <p className="text-xs text-muted-foreground truncate">your@company.com</p>
                   </div>
                   <Button variant="ghost" size="icon" className="text-muted-foreground">
                     <LogOut className="h-4 w-4" />
@@ -229,8 +230,8 @@ export function DashboardNavigation() {
                       </AvatarFallback>
                     </Avatar>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium truncate">Jamie Smith</p>
-                      <p className="text-xs text-muted-foreground truncate">jamie@runash.ai</p>
+                      <p className="text-sm font-medium truncate">Your Name</p>
+                      <p className="text-xs text-muted-foreground truncate">you@company.com</p>
                     </div>
                     <Button variant="ghost" size="icon" className="text-muted-foreground">
                       <LogOut className="h-4 w-4" />
