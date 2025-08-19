@@ -18,7 +18,7 @@ import {
   LogOut,
   Menu,
   X,
-  Contac,
+  Contact,
   Dock,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
