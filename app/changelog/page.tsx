@@ -599,7 +599,9 @@ export default function ChangelogPage() {
             </div>
           </div>
         </div>
-      </section>
+        </section>
+      
+      
 
       <div className="container mx-auto px-4 py-8">
         <div className="flex gap-8">
