@@ -478,7 +478,7 @@ export default function ChangelogPage() {
       </div>
 
       {/* Newsletter Signup */}
-      <section className="py-16 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+      <section className="py-24 bg-gradient-to-r from-orange-500 to-orange-600 text-white relative overflow-hidden">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Never Miss an Update</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
@@ -492,6 +492,30 @@ export default function ChangelogPage() {
             <Button className="bg-white text-purple-600 hover:bg-gray-100">Subscribe</Button>
           </div>
           <p className="mt-4 text-sm opacity-75">No spam, unsubscribe at any time</p>
+        </div>
+      </section>
+      {/* Subscribe CTA */}
+      <section className="py-24 bg-gradient-to-r from-orange-500 to-orange-600 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/10" />
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/5 to-transparent" />
+
+        <div className="relative container mx-auto px-4 text-center">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl lg:text-5xl font-bold mb-6">Stay Updated</h2>
+            <p className="text-xl text-orange-100 mb-8 leading-relaxed">
+              Never miss an update. Subscribe to our changelog and be the first to know about new features and
+              improvements.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" variant="secondary" className="bg-white text-orange-600 hover:bg-gray-100">
+                Subscribe to Updates
+              </Button>
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 bg-transparent">
+                Follow on GitHub
+              </Button>
+            </div>
+          </div>
         </div>
       </section>
     </div>
