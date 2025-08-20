@@ -965,7 +965,7 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/"
+                      href="/ai.runash.in"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
                       AI Editor 
@@ -1020,10 +1020,10 @@ export default function Home() {
               <div className="flex space-x-6">
                 <a
                   href="/"
-                  className="text-gray-600  mr-2 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors text-sm"
+                  className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors text-sm"
                 >
-                  Agent 
-                <Badge varient="secondary" className="bg-green-600 text-white gap-2 space-x-1 dark:bg-green-500 animate-pulse text-xs">New</Badge>
+                 AI Agent 
+                <Badge varient="secondary" className="bg-green-600 text-white dark:bg-green-500 animate-pulse text-xs">New</Badge>
                 </a>
                 <a
                   href="/help"
