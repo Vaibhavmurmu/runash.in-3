@@ -31,8 +31,8 @@ export default function ChangelogPage() {
 
   const changelogEntries = [
     {
-      version: "2.4.0",
-      date: "2024-01-15",
+      version: "1.0.0",
+      date: "2025-01-21",
       type: "major",
       title: "AI-Powered Stream Enhancement",
       description: "Major update introducing advanced AI capabilities for real-time stream enhancement",
@@ -64,12 +64,12 @@ export default function ChangelogPage() {
           impact: "medium",
         },
       ],
-      downloads: 15420,
-      feedback: { positive: 89, negative: 11 },
+      downloads: 0,
+      feedback: { positive: 0, negative: 0 },
     },
     {
-      version: "2.3.2",
-      date: "2024-01-08",
+      version: "1.0.0",
+      date: "2025-01-21",
       type: "patch",
       title: "Performance Improvements & Bug Fixes",
       description: "Critical bug fixes and performance optimizations",
@@ -100,12 +100,12 @@ export default function ChangelogPage() {
           impact: "high",
         },
       ],
-      downloads: 12850,
-      feedback: { positive: 92, negative: 8 },
+      downloads: 0,
+      feedback: { positive: 0, negative: 0 },
     },
     {
-      version: "2.3.1",
-      date: "2024-01-03",
+      version: "1.0.0",
+      date: "2025-01-21",
       type: "patch",
       title: "Holiday Hotfix",
       description: "Quick fixes for issues discovered during holiday streaming events",
@@ -124,12 +124,12 @@ export default function ChangelogPage() {
           impact: "medium",
         },
       ],
-      downloads: 8920,
-      feedback: { positive: 85, negative: 15 },
+      downloads: 0,
+      feedback: { positive: 0, negative: 0 },
     },
     {
-      version: "2.3.0",
-      date: "2023-12-20",
+      version: "1.0.0",
+      date: "2025-01-21",
       type: "minor",
       title: "Multi-Host Streaming & Analytics",
       description: "New collaborative streaming features and enhanced analytics dashboard",
@@ -160,12 +160,12 @@ export default function ChangelogPage() {
           impact: "medium",
         },
       ],
-      downloads: 18750,
-      feedback: { positive: 94, negative: 6 },
+      downloads: 0,
+      feedback: { positive: 0, negative: 0 },
     },
     {
-      version: "2.2.1",
-      date: "2023-12-10",
+      version: "1.0.0",
+      date: "2025-01-21",
       type: "patch",
       title: "Security & Stability Updates",
       description: "Important security updates and stability improvements",
@@ -173,8 +173,8 @@ export default function ChangelogPage() {
       changes: [
         {
           type: "security",
-          title: "OAuth 2.0 Implementation",
-          description: "Enhanced security with OAuth 2.0 for third-party integrations",
+          title: "OAuth 1.0 Implementation",
+          description: "Enhanced security with OAuth 1.0 for third-party integrations",
           impact: "high",
         },
         {
@@ -190,8 +190,8 @@ export default function ChangelogPage() {
           impact: "medium",
         },
       ],
-      downloads: 11200,
-      feedback: { positive: 88, negative: 12 },
+      downloads: 0,
+      feedback: { positive: 0, negative: 0 },
     },
   ]
 
@@ -345,7 +345,7 @@ export default function ChangelogPage() {
               Changelog
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-              Stay up to date with the latest features, improvements, and fixes in RunAsh
+              Stay up to date with the latest features, & improvements,in RunAsh AI
             </p>
             <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <div className="relative flex-1">
@@ -366,7 +366,7 @@ export default function ChangelogPage() {
         </div>
       </section>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 md:hidden">
         <div className="flex gap-8">
           {/* Sidebar */}
           <div className="w-64 space-y-6">
@@ -381,7 +381,7 @@ export default function ChangelogPage() {
                     onClick={() => setSelectedCategory(category.id)}
                     className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
                       selectedCategory === category.id
-                        ? "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300"
+                        ? "bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300"
                         : "hover:bg-gray-100 dark:hover:bg-gray-800"
                     }`}
                   >
