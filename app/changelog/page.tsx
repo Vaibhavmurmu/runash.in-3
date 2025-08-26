@@ -366,7 +366,7 @@ export default function ChangelogPage() {
         </div>
       </section>
 
-      <div className="container mx-auto px-4 py-8 md:hidden">
+      <div className="container mx-auto px-4 py-8 ">
         <div className="flex gap-8">
           {/* Sidebar */}
           <div className="w-64 space-y-6">
