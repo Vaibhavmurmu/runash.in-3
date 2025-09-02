@@ -192,7 +192,7 @@ export default function BlogPage() {
                       date="Jun 06, 2025"
                       readTime="5 min read"
                       category="Tutorial"
-                      image="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmGb8yHeD6CWNLlRYIanJc5vpzr89kHEOMFBimP?height=300&width=400"
+                      image="/placeholder.svg?height=300&width=400"
                     />
                     <BlogPost
                       title="Multi-Platform Streaming Best Practices"
@@ -201,7 +201,7 @@ export default function BlogPage() {
                       date="Jun 06, 2025"
                       readTime="7 min read"
                       category="Tips"
-                      image="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmGT6R0I3nHcVr3A5Mfk4aynzl9dUFS8CGqosWm?height=300&width=400"
+                      image="/placeholder.svg?height=300&width=400"
                     />
                     <BlogPost
                       title="RunAsh 2.1 Release Notes"
@@ -210,7 +210,7 @@ export default function BlogPage() {
                       date="Jun 04, 2025"
                       readTime="4 min read"
                       category="Product Updates"
-                      image="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmG1dGIx7ZsNxWoMeJtdyUBPwSr7v8DR6AKmuOT?height=300&width=400"
+                      image="/placeholder.svg?height=300&width=400"
                     />
                     <BlogPost
                       title="Building Your Streaming Brand with AI"
@@ -228,7 +228,7 @@ export default function BlogPage() {
                       date="Feb 01, 2025"
                       readTime="10 min read"
                       category="AI Research"
-                      image="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmGZO7ZByU4HjmGx5NIQRbvskUzn3ElK29iJO7M?height=300&width=400"
+                      image="/placeholder.svg?height=300&width=400"
                     />
                     <BlogPost
                       title="Community Spotlight: Top Streamers Using RunAsh"
@@ -237,7 +237,7 @@ export default function BlogPage() {
                       date="Jun 06, 2025"
                       readTime="8 min read"
                       category="Community"
-                      image="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmGW4tnDm7qtRKv91ZLHIfVUb5dghJjTDBSz38N?height=300&width=400"
+                      image="/placeholder.svg?height=300&width=400"
                     />
                   </div>
                 </div>
@@ -252,7 +252,7 @@ export default function BlogPage() {
                     date="Jun 06, 2025"
                     readTime="5 min read"
                     category="Tutorial"
-                    image="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmGb8yHeD6CWNLlRYIanJc5vpzr89kHEOMFBimP?height=300&width=400"
+                    image="/placeholder.svg?height=300&width=400"
                   />
                   <BlogPost
                     title="Setting Up Multi-Platform Streaming"
@@ -261,7 +261,7 @@ export default function BlogPage() {
                     date="Jun 06, 2025"
                     readTime="12 min read"
                     category="Tutorial"
-                    image="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmGT6R0I3nHcVr3A5Mfk4aynzl9dUFS8CGqosWm?height=300&width=400"
+                    image="/placeholder.svg?height=300&width=400"
                   />
                 </div>
               </TabsContent>
@@ -275,7 +275,7 @@ export default function BlogPage() {
                     date="Jun 04, 2025"
                     readTime="4 min read"
                     category="Product Updates"
-                    image="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmG1dGIx7ZsNxWoMeJtdyUBPwSr7v8DR6AKmuOT?height=300&width=400"
+                    image="/placeholder.svg?height=300&width=400"
                   />
                 </div>
               </TabsContent>
@@ -289,7 +289,7 @@ export default function BlogPage() {
                     date="Jun 06, 2025"
                     readTime="8 min read"
                     category="AI Research"
-                    image="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmGluXP5zMdSikVTc3tFsvpAWUIuo7aLq4ZlYw2?height=300&width=400"
+                    image="/placeholder.svg?height=300&width=400"
                     featured={true}
                   />
                   <BlogPost
@@ -299,7 +299,7 @@ export default function BlogPage() {
                     date="Jun 06, 2025"
                     readTime="10 min read"
                     category="AI Research"
-                    image="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmGZO7ZByU4HjmGx5NIQRbvskUzn3ElK29iJO7M?height=300&width=400"
+                    image="/placeholder.svg?height=300&width=400"
                   />
                 </div>
               </TabsContent>
@@ -313,7 +313,7 @@ export default function BlogPage() {
                     date="Jun 06, 2025"
                     readTime="6 min read"
                     category="Community"
-                    image="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmGW4tnDm7qtRKv91ZLHIfVUb5dghJjTDBSz38N?height=300&width=400"
+                    image="/placeholder.svg?height=300&width=400"
                   />
                   <BlogPost
                     title="Community Spotlight: Top Streamers Using RunAsh"
@@ -322,7 +322,7 @@ export default function BlogPage() {
                     date="Jun 06, 2025"
                     readTime="8 min read"
                     category="Community"
-                    image="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmGW4tnDm7qtRKv91ZLHIfVUb5dghJjTDBSz38N?height=300&width=400"
+                    image="/placeholder.svg?height=300&width=400"
                   />
                 </div>
               </TabsContent>
