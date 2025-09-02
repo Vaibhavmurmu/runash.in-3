@@ -45,10 +45,10 @@ export default function Home() {
             </span>
           </div>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
-           AI Live Streaming Platform 
+            AI Live Streaming Platform 
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
-            The next generation of AI live retail streaming automation platform for creators, sellers, and businesses
+            The next generation of AI live streaming platform for creators, sellers, and businesses
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -88,7 +88,7 @@ export default function Home() {
             <StatCounter value={1000} label="Active Streamers" suffix="+" />
             <StatCounter value={1000} label="Monthly Viewers" suffix="+" />
             <StatCounter value={99.9} label="Uptime Percentage" suffix="%" />
-            <StatCounter value={6} label="Countries Reached" suffix="+" />
+            <StatCounter value={2} label="Countries Reached" suffix="+" />
           </div>
         </div>
       </section>
@@ -455,7 +455,7 @@ export default function Home() {
                     href="/get-started"
                     className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                   >
-                    AI Studio
+                    Studio
                   </a>
                 </li>
                 <li>
@@ -679,7 +679,7 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                     AI Live Selling 
+                      Live Selling 
                     </a>
                   </li>
                   <li>
@@ -687,7 +687,7 @@ export default function Home() {
                       href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                    AI Live shopping 
+                      Live Shopping 
                     </a>
                   </li>
                   <li>
@@ -965,10 +965,10 @@ export default function Home() {
                   </li>
                   <li>
                     <a
-                      href="/ai.runash.in"
+                      href="/"
                       className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                     >
-                      AI Editor 
+                      Editor 
                     </a>
                   </li>
                   <li>
@@ -1020,10 +1020,10 @@ export default function Home() {
               <div className="flex space-x-6">
                 <a
                   href="/"
-                  className="text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors text-sm"
+                  className="text-gray-600  dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors text-sm"
                 >
-                 AI Agent 
-                <Badge varient="secondary" className="bg-green-600 text-white dark:bg-green-500 animate-pulse text-xs">New</Badge>
+                  Agent 
+                <Badge varient="secondary" className="bg-green-600 text-white gap-2 space-x-1 dark:bg-green-500 animate-pulse text-xs">New</Badge>
                 </a>
                 <a
                   href="/help"

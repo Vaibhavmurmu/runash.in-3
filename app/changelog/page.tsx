@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import {
@@ -18,9 +19,7 @@ import {
   Star,
   GitBranch,
   Info,
-  GitCommit
 } from "lucide-react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { useRouter } from "next/navigation"
 
 export default function ChangelogPage() {
@@ -31,8 +30,8 @@ export default function ChangelogPage() {
 
   const changelogEntries = [
     {
-      version: "1.0.0",
-      date: "2025-01-21",
+      version: "2.4.0",
+      date: "2024-01-15",
       type: "major",
       title: "AI-Powered Stream Enhancement",
       description: "Major update introducing advanced AI capabilities for real-time stream enhancement",
@@ -64,12 +63,12 @@ export default function ChangelogPage() {
           impact: "medium",
         },
       ],
-      downloads: 0,
-      feedback: { positive: 0, negative: 0 },
+      downloads: 15420,
+      feedback: { positive: 89, negative: 11 },
     },
     {
-      version: "1.0.0",
-      date: "2025-01-21",
+      version: "2.3.2",
+      date: "2024-01-08",
       type: "patch",
       title: "Performance Improvements & Bug Fixes",
       description: "Critical bug fixes and performance optimizations",
@@ -100,12 +99,12 @@ export default function ChangelogPage() {
           impact: "high",
         },
       ],
-      downloads: 0,
-      feedback: { positive: 0, negative: 0 },
+      downloads: 12850,
+      feedback: { positive: 92, negative: 8 },
     },
     {
-      version: "1.0.0",
-      date: "2025-01-21",
+      version: "2.3.1",
+      date: "2024-01-03",
       type: "patch",
       title: "Holiday Hotfix",
       description: "Quick fixes for issues discovered during holiday streaming events",
@@ -124,12 +123,12 @@ export default function ChangelogPage() {
           impact: "medium",
         },
       ],
-      downloads: 0,
-      feedback: { positive: 0, negative: 0 },
+      downloads: 8920,
+      feedback: { positive: 85, negative: 15 },
     },
     {
-      version: "1.0.0",
-      date: "2025-01-21",
+      version: "2.3.0",
+      date: "2023-12-20",
       type: "minor",
       title: "Multi-Host Streaming & Analytics",
       description: "New collaborative streaming features and enhanced analytics dashboard",
@@ -160,12 +159,12 @@ export default function ChangelogPage() {
           impact: "medium",
         },
       ],
-      downloads: 0,
-      feedback: { positive: 0, negative: 0 },
+      downloads: 18750,
+      feedback: { positive: 94, negative: 6 },
     },
     {
-      version: "1.0.0",
-      date: "2025-01-21",
+      version: "2.2.1",
+      date: "2023-12-10",
       type: "patch",
       title: "Security & Stability Updates",
       description: "Important security updates and stability improvements",
@@ -173,8 +172,8 @@ export default function ChangelogPage() {
       changes: [
         {
           type: "security",
-          title: "OAuth 1.0 Implementation",
-          description: "Enhanced security with OAuth 1.0 for third-party integrations",
+          title: "OAuth 2.0 Implementation",
+          description: "Enhanced security with OAuth 2.0 for third-party integrations",
           impact: "high",
         },
         {
@@ -190,8 +189,8 @@ export default function ChangelogPage() {
           impact: "medium",
         },
       ],
-      downloads: 0,
-      feedback: { positive: 0, negative: 0 },
+      downloads: 11200,
+      feedback: { positive: 88, negative: 12 },
     },
   ]
 
@@ -336,16 +335,16 @@ export default function ChangelogPage() {
   )
 
   return (
-      <div className="min-h-screen bg-gradient-to-b from-white to-purple-50 dark:from-gray-950 dark:to-gray-900">
+    <div className="min-h-screen bg-gradient-to-b from-white to-purple-50 dark:from-gray-950 dark:to-gray-900">
       {/* Header */}
-      <section className="py-16 bg-gradient-to-r from-orange-500/10 to-orange-600/10 dark:from-orange-600/5 dark:to-orange-500/5">
+      <section className="py-16 bg-gradient-to-r from-purple-600/10 to-blue-600/10 dark:from-purple-600/5 dark:to-blue-600/5">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-orange-600 to-orange-600 text-transparent bg-clip-text">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-blue-600 text-transparent bg-clip-text">
               Changelog
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-              Stay up to date with the latest features, & improvements,in RunAsh AI
+              Stay up to date with the latest features, improvements, and fixes in RunAsh
             </p>
             <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <div className="relative flex-1">
@@ -366,7 +365,7 @@ export default function ChangelogPage() {
         </div>
       </section>
 
-      <div className="container mx-auto px-4 py-8 ">
+      <div className="container mx-auto px-4 py-8">
         <div className="flex gap-8">
           {/* Sidebar */}
           <div className="w-64 space-y-6">
@@ -381,7 +380,7 @@ export default function ChangelogPage() {
                     onClick={() => setSelectedCategory(category.id)}
                     className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
                       selectedCategory === category.id
-                        ? "bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300"
+                        ? "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300"
                         : "hover:bg-gray-100 dark:hover:bg-gray-800"
                     }`}
                   >
@@ -429,7 +428,7 @@ export default function ChangelogPage() {
                   Get notified about new releases and important updates
                 </p>
                 <div className="space-y-2">
-                  <Button className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white shadow-lg hover:shadow-xl transition-all duration-300" size="sm">
+                  <Button className="w-full" size="sm">
                     <Bell className="h-4 w-4 mr-2" />
                     Email Notifications
                   </Button>
@@ -478,38 +477,21 @@ export default function ChangelogPage() {
         </div>
       </div>
 
-      
-      
-      {/* Subscribe CTA */}
-      <section className="py-24 bg-gradient-to-r from-orange-500 to-orange-600 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/10" />
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/5 to-transparent" />
-
-        <div className="relative container mx-auto px-4 text-center">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl lg:text-5xl font-bold mb-6">Stay Updated</h2>
-            <p className="text-xl text-orange-100 mb-8 leading-relaxed">
-              Never miss an update. Subscribe to our changelog to stay informed and be the first to know about new features and
-              improvements.
-            </p>
-           <div className="flex flex-col mb-2 sm:flex-row gap-4 justify-center max-w-md mx-auto">
+      {/* Newsletter Signup */}
+      <section className="py-16 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-4">Never Miss an Update</h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
+            Subscribe to our changelog to stay informed about new features, improvements, and fixes
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
             <Input
               placeholder="Enter your email"
               className="bg-white/10 border-white/20 text-white placeholder:text-white/70"
             />
-            <Button className="bg-white/10 border-white/20 text-white placeholder:text-white/70 hover:bg-white/10 ">Subscribe</Button>
-         </div>
-           
-           
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="secondary" className="bg-white text-orange-600 hover:bg-gray-100">
-                Follow on Hugging Face 
-              </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 bg-transparent">
-                Follow on GitHub
-              </Button>
-            </div>
+            <Button className="bg-white text-purple-600 hover:bg-gray-100">Subscribe</Button>
           </div>
+          <p className="mt-4 text-sm opacity-75">No spam, unsubscribe at any time</p>
         </div>
       </section>
     </div>

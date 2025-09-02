@@ -1,17 +1,12 @@
-"use client"
+import Link from 'next/link'
+import Head from 'next/head'
 
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Code, Cpu, Globe, Layers, Shield, Zap } from "lucide-react"
-import Link from "next/link"
-import Head from "next/head"
-import ThemeToggle from "@/components/theme-toggle"
-
-export default function CompanyPage() {
+export default function About() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <Head>
-        <title>Company</title>
-        <link rel="icon" href="" />
+        <title>About runash live</title>
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className="mt-16 flex w-full flex-1 flex-col items-center justify-centre px-20 text-center">
