@@ -21,7 +21,7 @@ export default function RunAshChatPage() {
     {
       id: "1",
       content:
-        "Hello! I'm RunAshChat, your AI assistant for organic products, sustainable living, recipes, and retailing automation. How can I help you today?",
+        "Hello! I'm RunAshChat, your AI agent for organic products, sustainable living, recipes, and retailing automation. How can I help you today?",
       role: "assistant",
       timestamp: new Date(),
       type: "text",
@@ -329,7 +329,7 @@ export default function RunAshChatPage() {
                 <h1 className="text-xl font-bold bg-gradient-to-r from-orange-600 to-yellow-500 text-transparent bg-clip-text">
                   RunAshChat
                 </h1>
-                <p className="text-sm text-gray-600 dark:text-gray-400">AI Assistant</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">AI Agent</p>
               </div>
             </div>
             <div className="flex items-center space-x-2">
