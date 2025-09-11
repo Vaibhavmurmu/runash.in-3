@@ -369,12 +369,9 @@ export default function RunAshChatPage() {
               </HoverCardContent>
              </HoverCard>
             </div>
-            <div className="flex items-center gap-2">
-          {isStreaming ? (
-            <Button variant="destructive" size="sm" onClick={stopStreaming}>
-              End Stream
-            </Button>
-          ) : (
+          
+      
+          
             <Dialog>
               <DialogTrigger asChild>
                 <Button variant="outline" size="sm">
@@ -394,8 +391,8 @@ export default function RunAshChatPage() {
                 </div>
               </DialogContent>
             </Dialog>
-          )}
-        </div>
+          
+        
             <div className="flex items-center space-x-2">
               <CartDrawer />
               <Button variant="outline" size="sm" onClick={() => setShowPreferences(true)}>
