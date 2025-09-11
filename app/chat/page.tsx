@@ -15,9 +15,9 @@ import UserPreferencesDialog from "@/components/chat/user-preferences-dialog"
 import CartDrawer from "@/components/cart/cart-drawer"
 import VoiceControls from "@/components/chat/voice-controls"
 import { Separator } from "@/components/ui/separator"
-import { Skeleton } from "@/components/ui/skeleton"
+{/* import { Skeleton } from "@/components/ui/skeleton"
 import { toast } from "sonner"
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet" */}
 import {
   AlertDialog,
   AlertDialogAction,
@@ -39,7 +39,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
+{/*import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel" */}
 import { Card, CardContent } from "@/components/ui/card"
 
 export default function RunAshChatPage() {
