@@ -15,6 +15,7 @@ import ChatSidebar from "@/components/chat/chat-sidebar"
 import UserPreferencesDialog from "@/components/chat/user-preferences-dialog"
 import CartDrawer from "@/components/cart/cart-drawer"
 import VoiceControls from "@/components/chat/voice-controls"
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
 
 export default function RunAshChatPage() {
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -331,7 +332,24 @@ export default function RunAshChatPage() {
                 </h1>
                 <p className="text-sm text-gray-600 dark:text-gray-400">AI Agent</p>
               </div>
+             <HoverCard>
+                <HoverCardTrigger asChild>
+                 <Button variant="ghost" size="icon" className="ml-2">
+                  <Info className="h-4 w-4" />
+                   </Button>
+               </HoverCardTrigger>
+              <HoverCardContent className="w-80">
+                <div className="space-y-2">
+                  <h4 className="font-medium">About RunAshChat</h4>
+                   <p className="text-sm text-muted-foreground">
+                     Your AI agent  for organic products, sustainable living, recipes, and retailing automation.
+                     tips.
+                   </p>
+                  </div>
+              </HoverCardContent>
+             </HoverCard>
             </div>
+            
             <div className="flex items-center space-x-2">
               <CartDrawer />
               <Button variant="outline" size="sm" onClick={() => setShowPreferences(true)}>
