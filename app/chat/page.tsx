@@ -6,8 +6,7 @@ import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Card } from "@/components/ui/card"
-import { Send, Sparkles, Leaf, Settings, History, Bot, Mic, Info } from "lucide-react"
+import { Send, Sparkles, Leaf, Settings, History, Bot, Mic, Info, Video } from "lucide-react"
 import type { ChatMessage, ChatSession, UserPreferences, QuickAction } from "@/types/runash-chat"
 import ChatMessageComponent from "@/components/chat/chat-message"
 import QuickActions from "@/components/chat/quick-actions"
@@ -15,7 +14,33 @@ import ChatSidebar from "@/components/chat/chat-sidebar"
 import UserPreferencesDialog from "@/components/chat/user-preferences-dialog"
 import CartDrawer from "@/components/cart/cart-drawer"
 import VoiceControls from "@/components/chat/voice-controls"
+import { Separator } from "@/components/ui/separator"
+import { Skeleton } from "@/components/ui/skeleton"
+import { toast } from "sonner"
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
+import { Card, CardContent } from "@/components/ui/card"
 
 export default function RunAshChatPage() {
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -340,16 +365,41 @@ export default function RunAshChatPage() {
                </HoverCardTrigger>
               <HoverCardContent className="w-80">
                 <div className="space-y-2">
-                  <h4 className="font-medium">About RunAshChat</h4>
+                  <h4 className="font-medium">About</h4>
                    <p className="text-sm text-muted-foreground">
-                     Your AI agent  for organic products, sustainable living, recipes, and retailing automation.
-                     tips.
+                     Your AI agent for organic products, sustainable living, recipes, and retailing automation.
                    </p>
                   </div>
               </HoverCardContent>
              </HoverCard>
             </div>
-            
+            <div className="flex items-center gap-2">
+          {isStreaming ? (
+            <Button variant="destructive" size="sm" onClick={stopStreaming}>
+              End Stream
+            </Button>
+          ) : (
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="outline" size="sm">
+                  <Video className="h-4 w-4 mr-2" />
+                  Join Live Stream
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Join Live Stream</DialogTitle>
+                  <DialogDescription>
+                    Watch our organic farmers showcase fresh produce and sustainable farming practices.
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="bg-muted aspect-video rounded-md flex items-center justify-center">
+                  <Button onClick={startStreaming}>Start Watching</Button>
+                </div>
+              </DialogContent>
+            </Dialog>
+          )}
+        </div>
             <div className="flex items-center space-x-2">
               <CartDrawer />
               <Button variant="outline" size="sm" onClick={() => setShowPreferences(true)}>
