@@ -18,8 +18,20 @@ import {
   Cell,
 } from "recharts"
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
-import { ArrowUpRight, ArrowDownRight, Users, MessageSquare, Heart, DollarSign, Clock, TrendingUp } from "lucide-react"
+import {
+  ArrowUpRight,
+  ArrowDownRight,
+  Users,
+  MessageSquare,
+  Heart,
+  DollarSign,
+  Clock,
+  TrendingUp,
+  RefreshCw,
+} from "lucide-react"
 import { AnalyticsService, type AnalyticsData, type PlatformAnalytics } from "@/lib/analytics-service"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 
 interface AnalyticsOverviewProps {
   period: string
@@ -32,12 +44,37 @@ export function AnalyticsOverview({ period, isLive = false }: AnalyticsOverviewP
   const [platformData, setPlatformData] = useState<PlatformAnalytics[]>([])
   const [loading, setLoading] = useState(true)
   const [previousPeriodData, setPreviousPeriodData] = useState<AnalyticsData | null>(null)
+  const [lastUpdated, setLastUpdated] = useState<Date>(new Date())
+  const [autoRefresh, setAutoRefresh] = useState(isLive)
 
   const analyticsService = AnalyticsService.getInstance()
 
   useEffect(() => {
     loadAnalyticsData()
   }, [period])
+
+  useEffect(() => {
+    let unsubscribe: (() => void) | null = null
+    let refreshInterval: NodeJS.Timeout | null = null
+
+    if (isLive && autoRefresh) {
+      // Subscribe to real-time updates
+      unsubscribe = analyticsService.subscribeToRealTimeUpdates("current", (data) => {
+        setAnalyticsData(data)
+        setLastUpdated(new Date())
+      })
+
+      // Also refresh historical data every 30 seconds
+      refreshInterval = setInterval(() => {
+        loadHistoricalData()
+      }, 30000)
+    }
+
+    return () => {
+      if (unsubscribe) unsubscribe()
+      if (refreshInterval) clearInterval(refreshInterval)
+    }
+  }, [isLive, autoRefresh])
 
   const loadAnalyticsData = async () => {
     try {
@@ -47,9 +84,7 @@ export function AnalyticsOverview({ period, isLive = false }: AnalyticsOverviewP
       const realTimeData = await analyticsService.getRealTimeAnalytics()
       setAnalyticsData(realTimeData)
 
-      // Load historical data
-      const historical = await analyticsService.getHistoricalAnalytics(period)
-      setHistoricalData(historical)
+      await loadHistoricalData()
 
       // Load platform data
       const platforms = await analyticsService.getPlatformAnalytics(period)
@@ -58,13 +93,23 @@ export function AnalyticsOverview({ period, isLive = false }: AnalyticsOverviewP
       // Load previous period for comparison
       const previousPeriod = getPreviousPeriod(period)
       const previousData = await analyticsService.getHistoricalAnalytics(previousPeriod)
-      // Calculate previous period totals for comparison
       const prevTotals = calculatePeriodTotals(previousData)
       setPreviousPeriodData(prevTotals)
+
+      setLastUpdated(new Date())
     } catch (error) {
       console.error("Failed to load analytics data:", error)
     } finally {
       setLoading(false)
+    }
+  }
+
+  const loadHistoricalData = async () => {
+    try {
+      const historical = await analyticsService.getHistoricalAnalytics(period)
+      setHistoricalData(historical)
+    } catch (error) {
+      console.error("Failed to load historical data:", error)
     }
   }
 
@@ -91,7 +136,6 @@ export function AnalyticsOverview({ period, isLive = false }: AnalyticsOverviewP
   }
 
   const getPreviousPeriod = (currentPeriod: string): string => {
-    // Return the same period length but for the previous timeframe
     return currentPeriod
   }
 
@@ -140,6 +184,27 @@ export function AnalyticsOverview({ period, isLive = false }: AnalyticsOverviewP
 
   return (
     <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          {isLive && (
+            <Badge variant="secondary" className="bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300">
+              <div className="w-2 h-2 bg-red-500 rounded-full mr-2 animate-pulse" />
+              Live Analytics
+            </Badge>
+          )}
+          <span className="text-sm text-muted-foreground">Last updated: {lastUpdated.toLocaleTimeString()}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <Button variant="outline" size="sm" onClick={() => setAutoRefresh(!autoRefresh)} disabled={!isLive}>
+            {autoRefresh ? "Pause" : "Resume"} Auto-refresh
+          </Button>
+          <Button variant="outline" size="sm" onClick={loadAnalyticsData}>
+            <RefreshCw className="h-4 w-4 mr-2" />
+            Refresh
+          </Button>
+        </div>
+      </div>
+
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">

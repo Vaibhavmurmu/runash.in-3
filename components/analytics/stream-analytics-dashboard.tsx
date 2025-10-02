@@ -16,11 +16,18 @@ import { AnalyticsFilters } from "./analytics-filters"
 import { AnalyticsExport } from "./analytics-export"
 import { AIInsightsPanel } from "./ai-insights-panel"
 import { ComparativeAnalytics } from "./comparative-analytics"
+import useSWR from "swr"
 
 interface StreamAnalyticsDashboardProps {
   streamId?: string
   isLive?: boolean
 }
+
+const fetcher = (url: string) =>
+  fetch(url, { headers: { "x-user-id": "1" } }).then((r) => {
+    if (!r.ok) throw new Error("Failed to load analytics")
+    return r.json()
+  })
 
 export function StreamAnalyticsDashboard({ streamId, isLive = false }: StreamAnalyticsDashboardProps) {
   const [activeTab, setActiveTab] = useState("overview")
@@ -28,6 +35,8 @@ export function StreamAnalyticsDashboard({ streamId, isLive = false }: StreamAna
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [showFilters, setShowFilters] = useState(false)
   const [mounted, setMounted] = useState(false)
+
+  const { data: overview } = useSWR(`/api/analytics/overview?period=${selectedPeriod}`, fetcher)
 
   useEffect(() => {
     setMounted(true)
@@ -43,30 +52,30 @@ export function StreamAnalyticsDashboard({ streamId, isLive = false }: StreamAna
   const quickStats = [
     {
       title: "Total Views",
-      value: "12.4K",
-      change: "+23%",
-      trend: "up" as const,
+      value: overview ? overview.totalViews.toLocaleString() : "—",
+      change: overview ? `${overview.change.views > 0 ? "+" : ""}${overview.change.views}%` : "—",
+      trend: overview && overview.change.views >= 0 ? ("up" as const) : ("down" as const),
       icon: Users,
     },
     {
       title: "Revenue",
-      value: "$3,247",
-      change: "+18%",
-      trend: "up" as const,
+      value: overview ? `$${Number(overview.revenue).toLocaleString()}` : "—",
+      change: overview ? `${overview.change.revenue > 0 ? "+" : ""}${overview.change.revenue}%` : "—",
+      trend: overview && overview.change.revenue >= 0 ? ("up" as const) : ("down" as const),
       icon: DollarSign,
     },
     {
       title: "Avg. Watch Time",
-      value: "8m 42s",
-      change: "+12%",
-      trend: "up" as const,
+      value: overview ? `${Math.round((overview.avgWatchTimeSeconds || 0) / 60)}m` : "—",
+      change: overview ? `${overview.change.watch > 0 ? "+" : ""}${overview.change.watch}%` : "—",
+      trend: overview && overview.change.watch >= 0 ? ("up" as const) : ("down" as const),
       icon: Clock,
     },
     {
       title: "Engagement Rate",
-      value: "7.8%",
-      change: "-2%",
-      trend: "down" as const,
+      value: overview ? `${Number(overview.engagementRate).toFixed(1)}%` : "—",
+      change: overview ? `${overview.change.engagement > 0 ? "+" : ""}${overview.change.engagement}%` : "—",
+      trend: overview && overview.change.engagement >= 0 ? ("up" as const) : ("down" as const),
       icon: TrendingUp,
     },
   ]

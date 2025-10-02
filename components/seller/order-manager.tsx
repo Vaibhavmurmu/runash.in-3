@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import useSWR from "swr"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -34,84 +35,21 @@ import {
   Download,
 } from "lucide-react"
 
-const mockOrders = [
-  {
-    id: "ORD-001",
-    customer: {
-      name: "Sarah Johnson",
-      email: "sarah@example.com",
-      phone: "+1 (555) 123-4567",
-      avatar: "/placeholder.svg?height=40&width=40",
-    },
-    items: [
-      { name: "Organic Tomatoes", quantity: 2, price: 4.99 },
-      { name: "Fresh Spinach", quantity: 1, price: 3.49 },
-    ],
-    total: 13.47,
-    status: "pending",
-    orderDate: "2024-01-15T10:30:00",
-    shippingAddress: "123 Main St, Anytown, ST 12345",
-    paymentMethod: "Credit Card",
-  },
-  {
-    id: "ORD-002",
-    customer: {
-      name: "Mike Chen",
-      email: "mike@example.com",
-      phone: "+1 (555) 987-6543",
-      avatar: "/placeholder.svg?height=40&width=40",
-    },
-    items: [
-      { name: "Mixed Herbs", quantity: 1, price: 6.99 },
-      { name: "Organic Carrots", quantity: 3, price: 2.99 },
-    ],
-    total: 15.96,
-    status: "processing",
-    orderDate: "2024-01-14T14:20:00",
-    shippingAddress: "456 Oak Ave, Another City, ST 67890",
-    paymentMethod: "PayPal",
-  },
-  {
-    id: "ORD-003",
-    customer: {
-      name: "Emily Davis",
-      email: "emily@example.com",
-      phone: "+1 (555) 456-7890",
-      avatar: "/placeholder.svg?height=40&width=40",
-    },
-    items: [{ name: "Organic Tomatoes", quantity: 1, price: 4.99 }],
-    total: 4.99,
-    status: "shipped",
-    orderDate: "2024-01-13T09:15:00",
-    shippingAddress: "789 Pine St, Third Town, ST 13579",
-    paymentMethod: "Credit Card",
-    trackingNumber: "TRK123456789",
-  },
-  {
-    id: "ORD-004",
-    customer: {
-      name: "David Wilson",
-      email: "david@example.com",
-      phone: "+1 (555) 321-0987",
-      avatar: "/placeholder.svg?height=40&width=40",
-    },
-    items: [
-      { name: "Fresh Spinach", quantity: 2, price: 3.49 },
-      { name: "Mixed Herbs", quantity: 1, price: 6.99 },
-    ],
-    total: 13.97,
-    status: "delivered",
-    orderDate: "2024-01-12T16:45:00",
-    shippingAddress: "321 Elm St, Fourth City, ST 24680",
-    paymentMethod: "Credit Card",
-  },
-]
+const fetcher = (url: string) =>
+  fetch(url, { headers: { "x-user-id": "1" } }).then((r) => {
+    if (!r.ok) throw new Error("Failed to load orders")
+    return r.json()
+  })
 
 export function OrderManager() {
-  const [orders, setOrders] = useState(mockOrders)
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedStatus, setSelectedStatus] = useState("all")
   const [selectedOrder, setSelectedOrder] = useState<any>(null)
+
+  const { data: orders = [], mutate } = useSWR(
+    `/api/orders?status=${selectedStatus}&q=${encodeURIComponent(searchTerm)}`,
+    fetcher,
+  )
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -170,8 +108,13 @@ export function OrderManager() {
     return matchesSearch && matchesStatus
   })
 
-  const updateOrderStatus = (orderId: string, newStatus: string) => {
-    setOrders(orders.map((order) => (order.id === orderId ? { ...order, status: newStatus } : order)))
+  const updateOrderStatus = async (orderId: string, newStatus: string) => {
+    await fetch(`/api/orders/${orderId}`, {
+      method: "PUT",
+      headers: { "content-type": "application/json", "x-user-id": "1" },
+      body: JSON.stringify({ status: newStatus }),
+    })
+    await mutate()
   }
 
   return (

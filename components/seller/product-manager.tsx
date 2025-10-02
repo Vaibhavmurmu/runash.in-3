@@ -17,64 +17,26 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Switch } from "@/components/ui/switch"
-import { Plus, Search, Filter, Edit, Trash2, Eye, Package, TrendingUp, Star, ShoppingCart, Upload } from "lucide-react"
+import { Plus, Search, Filter, Edit, Trash2, Package, TrendingUp, Star, ShoppingCart, Upload } from "lucide-react"
+import useSWR from "swr"
 
-const mockProducts = [
-  {
-    id: 1,
-    name: "Organic Tomatoes",
-    description: "Fresh organic tomatoes grown without pesticides",
-    price: 4.99,
-    stock: 150,
-    category: "vegetables",
-    status: "active",
-    rating: 4.8,
-    sales: 245,
-    image: "/placeholder.svg?height=100&width=100",
-  },
-  {
-    id: 2,
-    name: "Fresh Spinach",
-    description: "Nutrient-rich organic spinach leaves",
-    price: 3.49,
-    stock: 89,
-    category: "vegetables",
-    status: "active",
-    rating: 4.6,
-    sales: 189,
-    image: "/placeholder.svg?height=100&width=100",
-  },
-  {
-    id: 3,
-    name: "Organic Carrots",
-    description: "Sweet and crunchy organic carrots",
-    price: 2.99,
-    stock: 0,
-    category: "vegetables",
-    status: "out_of_stock",
-    rating: 4.7,
-    sales: 167,
-    image: "/placeholder.svg?height=100&width=100",
-  },
-  {
-    id: 4,
-    name: "Mixed Herbs",
-    description: "Fresh herb collection for cooking",
-    price: 6.99,
-    stock: 45,
-    category: "herbs",
-    status: "active",
-    rating: 4.9,
-    sales: 134,
-    image: "/placeholder.svg?height=100&width=100",
-  },
-]
+const fetcher = (url: string) =>
+  fetch(url, { headers: { "x-user-id": "1" } }).then((r) => {
+    if (!r.ok) throw new Error("Failed to load products")
+    return r.json()
+  })
 
 export function ProductManager() {
-  const [products, setProducts] = useState(mockProducts)
+  const [products, setProducts] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
+
+  const {
+    data: productsData,
+    mutate,
+    isLoading,
+  } = useSWR(`/api/products?q=${encodeURIComponent(searchTerm)}&category=${selectedCategory}`, fetcher)
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -102,11 +64,40 @@ export function ProductManager() {
     }
   }
 
-  const filteredProducts = products.filter((product) => {
-    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesCategory = selectedCategory === "all" || product.category === selectedCategory
-    return matchesSearch && matchesCategory
-  })
+  const filteredProducts = productsData
+    ? productsData.filter((product) => {
+        const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase())
+        const matchesCategory = selectedCategory === "all" || product.category === selectedCategory
+        return matchesSearch && matchesCategory
+      })
+    : []
+
+  async function handleCreate() {
+    const name = (document.getElementById("product-name") as HTMLInputElement)?.value
+    const description = (document.getElementById("product-description") as HTMLTextAreaElement)?.value
+    const price = Number((document.getElementById("product-price") as HTMLInputElement)?.value || 0)
+    const stock = Number((document.getElementById("product-stock") as HTMLInputElement)?.value || 0)
+    const res = await fetch("/api/products", {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-user-id": "1" },
+      body: JSON.stringify({
+        name,
+        description,
+        price,
+        stock,
+        category: selectedCategory === "all" ? null : selectedCategory,
+      }),
+    })
+    if (res.ok) {
+      await mutate()
+      setIsCreateDialogOpen(false)
+    }
+  }
+
+  async function handleDelete(id: number) {
+    const res = await fetch(`/api/products/${id}`, { method: "DELETE", headers: { "x-user-id": "1" } })
+    if (res.ok) mutate()
+  }
 
   return (
     <div className="space-y-6">
@@ -193,7 +184,9 @@ export function ProductManager() {
                 <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
                   Cancel
                 </Button>
-                <Button className="bg-gradient-to-r from-orange-500 to-amber-500">Add Product</Button>
+                <Button className="bg-gradient-to-r from-orange-500 to-amber-500" onClick={handleCreate}>
+                  Add Product
+                </Button>
               </div>
             </div>
           </DialogContent>
@@ -236,7 +229,7 @@ export function ProductManager() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Total Products</p>
-                <p className="text-2xl font-bold">{products.length}</p>
+                <p className="text-2xl font-bold">{productsData ? productsData.length : 0}</p>
               </div>
               <Package className="h-8 w-8 text-orange-500" />
             </div>
@@ -247,7 +240,9 @@ export function ProductManager() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Active Products</p>
-                <p className="text-2xl font-bold">{products.filter((p) => p.status === "active").length}</p>
+                <p className="text-2xl font-bold">
+                  {productsData ? productsData.filter((p) => p.status === "active").length : 0}
+                </p>
               </div>
               <TrendingUp className="h-8 w-8 text-green-500" />
             </div>
@@ -258,7 +253,9 @@ export function ProductManager() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Out of Stock</p>
-                <p className="text-2xl font-bold">{products.filter((p) => p.status === "out_of_stock").length}</p>
+                <p className="text-2xl font-bold">
+                  {productsData ? productsData.filter((p) => p.status === "out_of_stock").length : 0}
+                </p>
               </div>
               <Package className="h-8 w-8 text-red-500" />
             </div>
@@ -269,7 +266,9 @@ export function ProductManager() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Total Sales</p>
-                <p className="text-2xl font-bold">{products.reduce((sum, p) => sum + p.sales, 0)}</p>
+                <p className="text-2xl font-bold">
+                  {productsData ? productsData.reduce((sum, p) => sum + p.sales, 0) : 0}
+                </p>
               </div>
               <ShoppingCart className="h-8 w-8 text-blue-500" />
             </div>
@@ -279,73 +278,75 @@ export function ProductManager() {
 
       {/* Products Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredProducts.map((product) => (
-          <Card key={product.id} className="border-0 shadow-lg bg-white/80 backdrop-blur overflow-hidden">
-            <div className="aspect-square bg-gray-100 relative">
-              <img
-                src={product.image || "/placeholder.svg"}
-                alt={product.name}
-                className="w-full h-full object-cover"
-              />
-              <Badge className={`absolute top-2 right-2 ${getStatusColor(product.status)} text-white`}>
-                {getStatusText(product.status)}
-              </Badge>
-            </div>
-            <CardContent className="p-4">
-              <div className="space-y-2">
-                <div className="flex items-start justify-between">
-                  <h3 className="font-semibold text-lg">{product.name}</h3>
-                  <div className="flex items-center gap-1">
-                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                    <span className="text-sm">{product.rating}</span>
-                  </div>
-                </div>
-                <p className="text-sm text-muted-foreground line-clamp-2">{product.description}</p>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-2xl font-bold text-orange-600">${product.price}</p>
-                    <p className="text-sm text-muted-foreground">Stock: {product.stock}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm font-medium">{product.sales} sold</p>
-                    <p className="text-xs text-muted-foreground">this month</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 pt-2">
-                  <Button size="sm" variant="outline" className="flex-1 bg-transparent">
-                    <Edit className="h-4 w-4 mr-2" />
-                    Edit
-                  </Button>
-                  <Button size="sm" variant="outline">
-                    <Eye className="h-4 w-4" />
-                  </Button>
-                  <Button size="sm" variant="outline">
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => (
+            <Card key={product.id} className="border-0 shadow-lg bg-white/80 backdrop-blur overflow-hidden">
+              <div className="aspect-square bg-gray-100 relative">
+                <img
+                  src={product.image || "/placeholder.svg"}
+                  alt={product.name}
+                  className="w-full h-full object-cover"
+                />
+                <Badge className={`absolute top-2 right-2 ${getStatusColor(product.status)} text-white`}>
+                  {getStatusText(product.status)}
+                </Badge>
               </div>
+              <CardContent className="p-4">
+                <div className="space-y-2">
+                  <div className="flex items-start justify-between">
+                    <h3 className="font-semibold text-lg">{product.name}</h3>
+                    <div className="flex items-center gap-1">
+                      <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                      <span className="text-sm">{product.rating}</span>
+                    </div>
+                  </div>
+                  <p className="text-sm text-muted-foreground line-clamp-2">{product.description}</p>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-2xl font-bold text-orange-600">${product.price}</p>
+                      <p className="text-sm text-muted-foreground">Stock: {product.stock}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm font-medium">{product.sales} sold</p>
+                      <p className="text-xs text-muted-foreground">this month</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 pt-2">
+                    <Button size="sm" variant="outline" className="flex-1 bg-transparent">
+                      <Edit className="h-4 w-4 mr-2" />
+                      Edit
+                    </Button>
+                    <Button size="sm" variant="outline" onClick={() => handleDelete(product.id)}>
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))
+        ) : (
+          <Card className="border-0 shadow-lg bg-white/80 backdrop-blur">
+            <CardContent className="p-12 text-center">
+              <Package className="h-12 w-12 mx-auto text-gray-400 mb-4" />
+              <h3 className="text-lg font-semibold mb-2">No products found</h3>
+              <p className="text-muted-foreground mb-4">
+                {searchTerm || selectedCategory !== "all"
+                  ? "Try adjusting your search or filters"
+                  : "Start by adding your first product"}
+              </p>
+              <Button
+                className="bg-gradient-to-r from-orange-500 to-amber-500"
+                onClick={() => setIsCreateDialogOpen(true)}
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                Add Product
+              </Button>
             </CardContent>
           </Card>
-        ))}
+        )}
       </div>
-
-      {filteredProducts.length === 0 && (
-        <Card className="border-0 shadow-lg bg-white/80 backdrop-blur">
-          <CardContent className="p-12 text-center">
-            <Package className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-            <h3 className="text-lg font-semibold mb-2">No products found</h3>
-            <p className="text-muted-foreground mb-4">
-              {searchTerm || selectedCategory !== "all"
-                ? "Try adjusting your search or filters"
-                : "Start by adding your first product"}
-            </p>
-            <Button className="bg-gradient-to-r from-orange-500 to-amber-500">
-              <Plus className="h-4 w-4 mr-2" />
-              Add Product
-            </Button>
-          </CardContent>
-        </Card>
-      )}
     </div>
   )
 }

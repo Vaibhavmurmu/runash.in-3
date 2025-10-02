@@ -6,7 +6,8 @@ import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Send, Sparkles, Leaf, Settings, History, Bot, Mic, Info, Video } from "lucide-react"
+import { Card } from "@/components/ui/card"
+import { Send, Sparkles, Leaf, Settings, History, Bot, Mic } from "lucide-react"
 import type { ChatMessage, ChatSession, UserPreferences, QuickAction } from "@/types/runash-chat"
 import ChatMessageComponent from "@/components/chat/chat-message"
 import QuickActions from "@/components/chat/quick-actions"
@@ -14,41 +15,13 @@ import ChatSidebar from "@/components/chat/chat-sidebar"
 import UserPreferencesDialog from "@/components/chat/user-preferences-dialog"
 import CartDrawer from "@/components/cart/cart-drawer"
 import VoiceControls from "@/components/chat/voice-controls"
-import { Separator } from "@/components/ui/separator"
-import { Skeleton } from "@/components/ui/skeleton"
-import { toast } from "sonner"
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
-import { Card, CardContent } from "@/components/ui/card"
-
 
 export default function RunAshChatPage() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: "1",
       content:
-        "Hello! I'm RunAshChat, your AI agent for organic products, sustainable living, recipes, and retailing automation. How can I help you today?",
+        "Hello! I'm RunAshChat, your AI assistant for organic products, sustainable living, recipes, and retailing automation. How can I help you today?",
       role: "assistant",
       timestamp: new Date(),
       type: "text",
@@ -356,25 +329,9 @@ export default function RunAshChatPage() {
                 <h1 className="text-xl font-bold bg-gradient-to-r from-orange-600 to-yellow-500 text-transparent bg-clip-text">
                   RunAshChat
                 </h1>
-                <p className="text-sm text-gray-600 dark:text-gray-400">AI Agent</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">AI Assistant</p>
               </div>
-             <HoverCard>
-                <HoverCardTrigger asChild>
-                 <Button variant="ghost" size="icon" className="ml-2">
-                  <Info className="h-4 w-4" />
-                   </Button>
-               </HoverCardTrigger>
-              <HoverCardContent className="w-80">
-                <div className="space-y-2">
-                  <h4 className="font-medium">About</h4>
-                   <p className="text-sm text-muted-foreground">
-                     Your AI agent for organic products, sustainable living, recipes, and retailing automation.
-                   </p>
-                  </div>
-              </HoverCardContent>
-             </HoverCard>
             </div>
-        
             <div className="flex items-center space-x-2">
               <CartDrawer />
               <Button variant="outline" size="sm" onClick={() => setShowPreferences(true)}>

@@ -144,35 +144,35 @@ export default function ContactPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <OfficeLocation
-              city="New Delhi"
-              address="RunAsh AI Avenue, Connaugt Place, 110001"
-              phone="+91 8987724121"
+              city="Bharat (India)"
+              address="310 RunAsh AI Corporate Avenue, Bokaro, JH 827014"
+              phone="+91 (06542) 253096"
               email="contact@runash.in"
-              image="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmGo4jzCsrE8Em2aVUNQpXWFrqz7HTyivdPk4bc?height=200&width=400"
+              image="/placeholder.svg?height=200&width=400"
               hours="Mon-Fri: 9am-5pm PST"
             />
             <OfficeLocation
-              city="Ranchi | Bokaro"
-              address=" RunAsh AI, Avenue, Bokaro 827014 | Ranchi 834001"
-              phone="+91 (06542) 253096"
+              city="Bharat (India)"
+              address=" RunAsh AI Tech Avenue, Ranchi, JH 834001"
+              phone="+91 8987724121"
               email="contact@runash.in"
-              image="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmGFUNhkoB1m9HraS0L3yeRkDq2JXWg7npQGKiB?height=200&width=400"
+              image="/placeholder.svg?height=200&width=400"
               hours="Mon-Fri: 9am-5pm GMT"
             />
             <OfficeLocation
               city="Singapore (Remote)"
-              address="Singapore"
-              phone="+19044093390 "
+              address="New ton Road 307987"
+              phone="+91 8987724121 "
               email="singapore@runash.in"
-              image="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmG8RR9HCAbMKAItFVy6qg7sljSCmQH98rhkPfb?height=200&width=400"
+              image="/placeholder.svg?height=200&width=400"
               hours="Mon-Fri: 9am-5pm JST"
             />
             <OfficeLocation
               city="San Francisco (Remote)"
-              address="Dalaware San Francisco, CA "
-              phone="+19044093390 "
+              address="Stripe Atlas, Dalaware San Francisco, CA "
+              phone="+91 8987724121 "
               email="sf@runash.in"
-              image="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmGqbu5nYdR6vXFMQ4Jzs58KY2bNOCatdiWceV9?height=200&width=400"
+              image="/placeholder.svg?height=200&width=400"
               hours="Mon-Fri: 9am-5pm JST"
             />
           </div>

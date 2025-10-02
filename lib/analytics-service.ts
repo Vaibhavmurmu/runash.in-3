@@ -42,6 +42,8 @@ export interface AudienceData {
 
 export class AnalyticsService {
   private static instance: AnalyticsService
+  private eventSource: EventSource | null = null
+  private realTimeCallbacks: Map<string, (data: any) => void> = new Map()
 
   private constructor() {}
 
@@ -52,11 +54,45 @@ export class AnalyticsService {
     return AnalyticsService.instance
   }
 
+  public subscribeToRealTimeUpdates(streamId: string, callback: (data: AnalyticsData) => void): () => void {
+    const callbackId = `${streamId}-${Date.now()}`
+    this.realTimeCallbacks.set(callbackId, callback)
+
+    if (!this.eventSource) {
+      this.eventSource = new EventSource(`/api/analytics/realtime/stream?streamId=${streamId}`)
+
+      this.eventSource.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data)
+          this.realTimeCallbacks.forEach((cb) => cb(data))
+        } catch (error) {
+          console.error("Error parsing real-time analytics data:", error)
+        }
+      }
+
+      this.eventSource.onerror = (error) => {
+        console.error("Real-time analytics connection error:", error)
+      }
+    }
+
+    // Return unsubscribe function
+    return () => {
+      this.realTimeCallbacks.delete(callbackId)
+      if (this.realTimeCallbacks.size === 0 && this.eventSource) {
+        this.eventSource.close()
+        this.eventSource = null
+      }
+    }
+  }
+
   // Real-time Analytics
   public async getRealTimeAnalytics(streamId?: string): Promise<AnalyticsData> {
     try {
+      const userId = "1" // Get from auth context
       const endpoint = streamId ? `/api/analytics/realtime/${streamId}` : "/api/analytics/realtime"
-      const response = await fetch(endpoint)
+      const response = await fetch(endpoint, {
+        headers: { "x-user-id": userId },
+      })
 
       if (!response.ok) {
         throw new Error("Failed to fetch real-time analytics")
@@ -82,10 +118,13 @@ export class AnalyticsService {
     watchTime: TimeSeriesData[]
   }> {
     try {
+      const userId = "1" // Get from auth context
       const params = new URLSearchParams({ period })
       if (streamId) params.append("streamId", streamId)
 
-      const response = await fetch(`/api/analytics/historical?${params}`)
+      const response = await fetch(`/api/analytics/historical?${params}`, {
+        headers: { "x-user-id": userId },
+      })
 
       if (!response.ok) {
         throw new Error("Failed to fetch historical analytics")
@@ -101,7 +140,62 @@ export class AnalyticsService {
   // Platform Analytics
   public async getPlatformAnalytics(period: string): Promise<PlatformAnalytics[]> {
     try {
-      const response = await fetch(`/api/analytics/platforms?period=${period}`)
+      const userId = "1" // Get from auth context
+      const response = await fetch(`/api/analytics/platforms?period=${period}`, {
+        headers: { "x-user-id": userId },
+      })
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch platform analytics")
+      }
+
+      const { platforms } = await response.json()
+      return platforms
+    } catch (error) {
+      console.error("Failed to fetch platform analytics:", error)
+      return []
+    }
+  }
+
+  // Historical Analytics
+  public async getHistoricalAnalytics(
+    period: string,
+    streamId?: string,
+  ): Promise<{
+    viewerCounts: TimeSeriesData[]
+    chatActivity: TimeSeriesData[]
+    followerGrowth: TimeSeriesData[]
+    revenue: TimeSeriesData[]
+    engagement: TimeSeriesData[]
+    watchTime: TimeSeriesData[]
+  }> {
+    try {
+      const userId = "1" // Get from auth context
+      const params = new URLSearchParams({ period })
+      if (streamId) params.append("streamId", streamId)
+
+      const response = await fetch(`/api/analytics/historical?${params}`, {
+        headers: { "x-user-id": userId },
+      })
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch historical analytics")
+      }
+
+      return await response.json()
+    } catch (error) {
+      console.error("Failed to fetch historical analytics:", error)
+      throw error
+    }
+  }
+
+  // Platform Analytics
+  public async getPlatformAnalytics(period: string): Promise<PlatformAnalytics[]> {
+    try {
+      const userId = "1" // Get from auth context
+      const response = await fetch(`/api/analytics/platforms?period=${period}`, {
+        headers: { "x-user-id": userId },
+      })
 
       if (!response.ok) {
         throw new Error("Failed to fetch platform analytics")

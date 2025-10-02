@@ -20,6 +20,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { format } from "date-fns"
+import useSWR from "swr"
 import {
   Video,
   Plus,
@@ -35,46 +36,23 @@ import {
   Share2,
 } from "lucide-react"
 
-const mockStreams = [
-  {
-    id: 1,
-    title: "Organic Vegetables Showcase",
-    description: "Fresh organic vegetables from our farm",
-    status: "live",
-    viewers: 1234,
-    revenue: 890,
-    startTime: "2024-01-15T10:00:00",
-    duration: "2h 15m",
-    category: "vegetables",
-  },
-  {
-    id: 2,
-    title: "Fresh Herbs Collection",
-    description: "Aromatic herbs perfect for cooking",
-    status: "scheduled",
-    viewers: 0,
-    revenue: 0,
-    startTime: "2024-01-16T14:00:00",
-    duration: "1h 30m",
-    category: "herbs",
-  },
-  {
-    id: 3,
-    title: "Seasonal Fruits Special",
-    description: "Best seasonal fruits available now",
-    status: "completed",
-    viewers: 1456,
-    revenue: 1234,
-    startTime: "2024-01-13T16:00:00",
-    duration: "1h 45m",
-    category: "fruits",
-  },
-]
+const fetcher = (url: string) =>
+  fetch(url, { headers: { "x-user-id": "1" } }).then((r) => {
+    if (!r.ok) throw new Error("Failed to load streams")
+    return r.json()
+  })
 
 export function LiveStreamManager() {
-  const [streams, setStreams] = useState(mockStreams)
+  const [streams, setStreams] = useState([])
   const [selectedDate, setSelectedDate] = useState<Date>()
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
+  const { data: fetchedStreams, mutate } = useSWR("/api/streams", fetcher)
+
+  useState(() => {
+    if (fetchedStreams) {
+      setStreams(fetchedStreams)
+    }
+  }, [fetchedStreams])
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -99,6 +77,22 @@ export function LiveStreamManager() {
         return "Completed"
       default:
         return "Unknown"
+    }
+  }
+
+  async function handleSchedule() {
+    const title = (document.getElementById("title") as HTMLInputElement)?.value
+    const description = (document.getElementById("description") as HTMLTextAreaElement)?.value
+    const timeInput = (document.getElementById("time") as HTMLInputElement)?.value
+    const when = selectedDate && timeInput ? new Date(`${format(selectedDate, "yyyy-MM-dd")}T${timeInput}:00`) : null
+    const res = await fetch("/api/streams", {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-user-id": "1" },
+      body: JSON.stringify({ title, description, category: "general", scheduled_for: when?.toISOString() }),
+    })
+    if (res.ok) {
+      await mutate()
+      setIsCreateDialogOpen(false)
     }
   }
 
@@ -171,7 +165,9 @@ export function LiveStreamManager() {
                 <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
                   Cancel
                 </Button>
-                <Button className="bg-gradient-to-r from-orange-500 to-amber-500">Schedule Stream</Button>
+                <Button className="bg-gradient-to-r from-orange-500 to-amber-500" onClick={handleSchedule}>
+                  Schedule Stream
+                </Button>
               </div>
             </div>
           </DialogContent>

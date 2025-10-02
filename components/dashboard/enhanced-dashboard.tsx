@@ -2,12 +2,11 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {
   BarChart3,
   Users,
   Video,
-  TrendingUp,
   Eye,
   Share2,
   Play,
@@ -19,7 +18,6 @@ import {
   Star,
   Award,
   Target,
-  Activity,
 } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -62,6 +60,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
 import { Progress } from "@/components/ui/progress"
 import { toast } from "@/components/ui/use-toast"
+import type { RecentStream } from "@/lib/dashboard-service"
 
 interface StatCardProps {
   title: string
@@ -89,7 +88,7 @@ function StatCard({ title, value, icon, description, trend, className }: StatCar
         {trend && (
           <p className="mt-1 text-xs flex items-center gap-1">
             <span className={`inline-flex items-center ${trend.isPositive ? "text-emerald-500" : "text-rose-500"}`}>
-              {trend.isPositive ? "↗" : "↘"} {Math.abs(trend.value)}%
+              {trend.isPositive ? "↗" : "↘"} {Math.abs(trend.value).toFixed(1)}%
             </span>
             <span className="text-muted-foreground">{description}</span>
           </p>
@@ -100,22 +99,30 @@ function StatCard({ title, value, icon, description, trend, className }: StatCar
   )
 }
 
-function StreamCard({ stream }: { stream: any }) {
+function StreamCard({ stream }: { stream: RecentStream }) {
   const [isPlaying, setIsPlaying] = useState(false)
 
   return (
     <Card className="overflow-hidden border-border/40 bg-card/50 backdrop-blur hover:shadow-lg transition-all duration-200">
       <div className="relative aspect-video bg-gradient-to-br from-orange-500/20 to-amber-400/20">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-12 w-12 rounded-full bg-black/20 backdrop-blur hover:bg-black/40"
-            onClick={() => setIsPlaying(!isPlaying)}
-          >
-            {isPlaying ? <Pause className="h-6 w-6 text-white" /> : <Play className="h-6 w-6 text-white" />}
-          </Button>
-        </div>
+        {stream.thumbnail_url ? (
+          <img
+            src={stream.thumbnail_url || "/placeholder.svg"}
+            alt={stream.title}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-12 w-12 rounded-full bg-black/20 backdrop-blur hover:bg-black/40"
+              onClick={() => setIsPlaying(!isPlaying)}
+            >
+              {isPlaying ? <Pause className="h-6 w-6 text-white" /> : <Play className="h-6 w-6 text-white" />}
+            </Button>
+          </div>
+        )}
         {stream.status === "live" && (
           <Badge className="absolute top-2 left-2 bg-red-500 hover:bg-red-600 text-white">
             <div className="w-2 h-2 bg-white rounded-full mr-1 animate-pulse" />
@@ -209,10 +216,10 @@ function ActivityItem({ activity }: { activity: any }) {
             </Avatar>
             <div className="space-y-1">
               <h4 className="text-sm font-semibold">{activity.user.name}</h4>
-              <p className="text-sm text-muted-foreground">Active viewer since March 2023</p>
+              <p className="text-sm text-muted-foreground">Active viewer</p>
               <div className="flex items-center pt-2">
                 <Calendar className="mr-2 h-4 w-4 opacity-70" />
-                <span className="text-xs text-muted-foreground">Joined March 2023</span>
+                <span className="text-xs text-muted-foreground">Recent activity</span>
               </div>
             </div>
           </div>
@@ -241,107 +248,114 @@ function ActivityItem({ activity }: { activity: any }) {
 }
 
 export function EnhancedDashboard() {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [stats, setStats] = useState<any | null>(null)
+  const [recentStreams, setRecentStreams] = useState<any[]>([])
+  const [activities, setActivities] = useState<any[]>([])
+  const [achievements, setAchievements] = useState<any[]>([])
+  const [monthlyGoals, setMonthlyGoals] = useState<any[]>([])
 
-  const stats = [
-    {
-      title: "Total Views",
-      value: "24.5K",
-      icon: <Eye />,
-      description: "from last month",
-      trend: { value: 12, isPositive: true },
-    },
-    {
-      title: "Followers",
-      value: "2,345",
-      icon: <Users />,
-      description: "from last month",
-      trend: { value: 8, isPositive: true },
-    },
-    {
-      title: "Live Streams",
-      value: "45",
-      icon: <Video />,
-      description: "this month",
-      trend: { value: 5, isPositive: true },
-    },
-    {
-      title: "Revenue",
-      value: "$1,234",
-      icon: <DollarSign />,
-      description: "this month",
-      trend: { value: 15, isPositive: true },
-    },
-  ]
+  useEffect(() => {
+    loadDashboardData()
+  }, [])
 
-  const recentStreams = [
-    {
-      id: "1",
-      title: "Getting Started with RunAsh AI - Complete Tutorial",
-      date: "Today",
-      duration: "2h 15m",
-      viewers: 1245,
-      status: "live",
-    },
-    {
-      id: "2",
-      title: "AI-Powered Content Creation Workshop",
-      date: "Yesterday",
-      duration: "1h 30m",
-      viewers: 876,
-      status: "ended",
-    },
-    {
-      id: "3",
-      title: "Advanced Streaming Techniques & Best Practices",
-      date: "Apr 20, 2023",
-      duration: "2h 45m",
-      viewers: 1532,
-      status: "ended",
-    },
-  ]
+  const loadDashboardData = async () => {
+    try {
+      setIsLoading(true)
 
-  const activities = [
-    {
-      id: "1",
-      user: { name: "Alex Johnson", avatar: "/placeholder.svg" },
-      action: "commented on your stream",
-      target: "Getting Started with RunAsh AI",
-      time: "5 minutes ago",
-      type: "comment",
-    },
-    {
-      id: "2",
-      user: { name: "Sarah Miller" },
-      action: "followed you",
-      target: "",
-      time: "15 minutes ago",
-      type: "follow",
-    },
-    {
-      id: "3",
-      user: { name: "David Chen" },
-      action: "subscribed to your channel",
-      target: "",
-      time: "1 hour ago",
-      type: "subscription",
-    },
-    {
-      id: "4",
-      user: { name: "Emma Wilson" },
-      action: "donated $25 to your stream",
-      target: "AI-Powered Content Creation",
-      time: "3 hours ago",
-      type: "donation",
-    },
-  ]
+      const userId = "1" // Get from your auth context
 
-  const achievements = [
-    { title: "First Stream", description: "Completed your first live stream", icon: <Video />, unlocked: true },
-    { title: "100 Followers", description: "Reached 100 followers", icon: <Users />, unlocked: true },
-    { title: "Viral Content", description: "Stream reached 10K views", icon: <TrendingUp />, unlocked: true },
-    { title: "Super Streamer", description: "Stream for 100 hours total", icon: <Award />, unlocked: false },
-  ]
+      const [statsRes, streamsRes, activityRes] = await Promise.all([
+        fetch("/api/dashboard/stats", {
+          headers: { "x-user-id": userId },
+        }),
+        fetch("/api/dashboard/streams?limit=6", {
+          headers: { "x-user-id": userId },
+        }),
+        fetch("/api/dashboard/activity?limit=10", {
+          headers: { "x-user-id": userId },
+        }),
+      ])
+
+      if (statsRes.ok) {
+        const statsData = await statsRes.json()
+        setStats(statsData)
+      }
+
+      if (streamsRes.ok) {
+        const streamsData = await streamsRes.json()
+        setRecentStreams(streamsData)
+      }
+
+      if (activityRes.ok) {
+        const activityData = await activityRes.json()
+        setActivities(activityData)
+      }
+
+      setAchievements([
+        { title: "First Stream", description: "Completed your first live stream", unlocked: true },
+        {
+          title: "100 Followers",
+          description: "Reached 100 followers",
+          unlocked: stats?.followers ? stats.followers >= 100 : false,
+        },
+        {
+          title: "Viral Content",
+          description: "Stream reached 10K views",
+          unlocked: stats?.totalViews ? stats.totalViews >= 10000 : false,
+        },
+        { title: "Super Streamer", description: "Stream for 100 hours total", unlocked: false },
+      ])
+
+      setMonthlyGoals([
+        { name: "Streaming Hours", current: 45, target: 60, unit: "hours" },
+        { name: "New Followers", current: 234, target: 300, unit: "followers" },
+        { name: "Revenue Goal", current: stats?.revenue || 0, target: 2000, unit: "$" },
+      ])
+    } catch (error) {
+      console.error("Error loading dashboard data:", error)
+      toast({
+        title: "Error",
+        description: "Failed to load dashboard data. Please try again.",
+        variant: "destructive",
+      })
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const statsCards = stats
+    ? [
+        {
+          title: "Total Views",
+          value: stats.totalViews.toLocaleString(),
+          icon: <Eye />,
+          description: "from last month",
+          trend: { value: stats.trends.views, isPositive: stats.trends.views >= 0 },
+        },
+        {
+          title: "Followers",
+          value: stats.followers.toLocaleString(),
+          icon: <Users />,
+          description: "from last month",
+          trend: { value: stats.trends.followers, isPositive: stats.trends.followers >= 0 },
+        },
+        {
+          title: "Live Streams",
+          value: stats.liveStreams.toString(),
+          icon: <Video />,
+          description: "this month",
+          trend: { value: stats.trends.streams, isPositive: stats.trends.streams >= 0 },
+        },
+        {
+          title: "Revenue",
+          value: `$${stats.revenue.toLocaleString()}`,
+          icon: <DollarSign />,
+          description: "this month",
+          trend: { value: stats.trends.revenue, isPositive: stats.trends.revenue >= 0 },
+        },
+      ]
+    : []
 
   return (
     <div className="space-y-6">
@@ -357,7 +371,7 @@ export function EnhancedDashboard() {
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="outline" size="sm">
-                <Activity className="mr-2 h-4 w-4" />
+                <Target className="mr-2 h-4 w-4" />
                 Quick Actions
               </Button>
             </SheetTrigger>
@@ -371,17 +385,17 @@ export function EnhancedDashboard() {
                   <Video className="mr-2 h-4 w-4" />
                   Start New Stream
                 </Button>
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full bg-transparent">
                   <Calendar className="mr-2 h-4 w-4" />
                   Schedule Stream
                 </Button>
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full bg-transparent">
                   <Users className="mr-2 h-4 w-4" />
                   Invite Collaborators
                 </Button>
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full bg-transparent" onClick={loadDashboardData}>
                   <BarChart3 className="mr-2 h-4 w-4" />
-                  View Analytics
+                  Refresh Data
                 </Button>
               </div>
             </SheetContent>
@@ -445,7 +459,7 @@ export function EnhancedDashboard() {
                 </CardContent>
               </Card>
             ))
-          : stats.map((stat) => (
+          : statsCards.map((stat) => (
               <StatCard
                 key={stat.title}
                 title={stat.title}
@@ -502,11 +516,25 @@ export function EnhancedDashboard() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-4 md:grid-cols-2">
-                {recentStreams.slice(0, 4).map((stream) => (
-                  <StreamCard key={stream.id} stream={stream} />
-                ))}
-              </div>
+              {isLoading ? (
+                <div className="grid gap-4 md:grid-cols-2">
+                  {Array.from({ length: 4 }).map((_, i) => (
+                    <Card key={i} className="border-border/40">
+                      <div className="aspect-video bg-gray-200 animate-pulse" />
+                      <CardContent className="p-4">
+                        <Skeleton className="h-4 w-3/4 mb-2" />
+                        <Skeleton className="h-3 w-1/2" />
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              ) : (
+                <div className="grid gap-4 md:grid-cols-2">
+                  {recentStreams.slice(0, 4).map((stream) => (
+                    <StreamCard key={stream.id} stream={stream} />
+                  ))}
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
@@ -516,15 +544,27 @@ export function EnhancedDashboard() {
           <Card className="border-border/40 bg-card/50 backdrop-blur">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Activity className="h-5 w-5" />
+                <Target className="h-5 w-5" />
                 Recent Activity
               </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
               <div className="max-h-96 overflow-y-auto">
-                {activities.map((activity) => (
-                  <ActivityItem key={activity.id} activity={activity} />
-                ))}
+                {isLoading ? (
+                  <div className="space-y-4 p-4">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <div key={i} className="flex items-center gap-3">
+                        <Skeleton className="h-8 w-8 rounded-full" />
+                        <div className="flex-1">
+                          <Skeleton className="h-3 w-3/4 mb-1" />
+                          <Skeleton className="h-2 w-1/2" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  activities.map((activity) => <ActivityItem key={activity.id} activity={activity} />)
+                )}
               </div>
             </CardContent>
           </Card>
@@ -548,7 +588,7 @@ export function EnhancedDashboard() {
                   <div
                     className={`p-2 rounded-lg ${achievement.unlocked ? "bg-gradient-to-r from-orange-500 to-amber-400 text-white" : "bg-muted text-muted-foreground"}`}
                   >
-                    {achievement.icon}
+                    <Award className="h-4 w-4" />
                   </div>
                   <div className="flex-1">
                     <h4 className={`font-medium ${achievement.unlocked ? "text-foreground" : "text-muted-foreground"}`}>
@@ -578,27 +618,19 @@ export function EnhancedDashboard() {
           </CardHeader>
           <CardContent>
             <div className="space-y-6">
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-sm">
-                  <span>Streaming Hours</span>
-                  <span className="text-muted-foreground">45/60 hours</span>
+              {monthlyGoals.map((goal, index) => (
+                <div key={index} className="space-y-2">
+                  <div className="flex items-center justify-between text-sm">
+                    <span>{goal.name}</span>
+                    <span className="text-muted-foreground">
+                      {goal.unit === "$"
+                        ? `$${goal.current}/$${goal.target}`
+                        : `${goal.current}/${goal.target} ${goal.unit}`}
+                    </span>
+                  </div>
+                  <Progress value={(goal.current / goal.target) * 100} className="h-2" />
                 </div>
-                <Progress value={75} className="h-2" />
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-sm">
-                  <span>New Followers</span>
-                  <span className="text-muted-foreground">234/300</span>
-                </div>
-                <Progress value={78} className="h-2" />
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-sm">
-                  <span>Revenue Goal</span>
-                  <span className="text-muted-foreground">$1,234/$2,000</span>
-                </div>
-                <Progress value={62} className="h-2" />
-              </div>
+              ))}
             </div>
           </CardContent>
         </Card>
