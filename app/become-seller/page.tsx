@@ -378,7 +378,7 @@ export default function BecomeSellerPage() {
       </section>
       
         {/* Testimonials */}
-        <section className="py-24 bg-white dark:bg-gray-900">
+      {/*    <section className="py-24 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <div className="inline-block mb-4 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
@@ -428,7 +428,7 @@ export default function BecomeSellerPage() {
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
         </div>
-      </section> 
+      </section> */}
 
       {/* Success Stories */}
       <section className="py-20 bg-gradient-to-b from-orange-50 to-white dark:from-gray-950 dark:to-gray-900">
