@@ -138,7 +138,7 @@ export default function BlogPage() {
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                     <div className="aspect-video overflow-hidden rounded-xl">
                       <img
-                        src="/placeholder.svg?height=400&width=600"
+                        src="https://ik6onq4zse.ufs.sh/f/Z2es6yU4HjmGH6b59uE8j3XVPfqwyF91ABSNMCxigK4LzEca?height=40&width=40"
                         alt="Featured article"
                         className="w-full h-full object-cover"
                       />
@@ -152,7 +152,7 @@ export default function BlogPage() {
                           Featured
                         </span>
                       </div>
-                      <h3 className="text-3xl font-bold mb-4">The Future of AI-Powered Live Streaming</h3>
+                      <h3 className="text-3xl font-bold mb-4">The Future of AI Live Streaming</h3>
                       <p className="text-gray-600 dark:text-gray-400 mb-6 text-lg">
                         Explore how artificial intelligence is revolutionizing the live streaming industry and what it
                         means for content creators worldwide.
@@ -280,7 +280,7 @@ export default function BlogPage() {
               <TabsContent value="ai" className="mt-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   <BlogPost
-                    title="The Future of AI-Powered Live Streaming"
+                    title="The Future of AI Live Streaming"
                     excerpt="Explore how artificial intelligence is revolutionizing the live streaming industry."
                     author="Vaibhav Murmu"
                     date="Jun 06, 2025"
