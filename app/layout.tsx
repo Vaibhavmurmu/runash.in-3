@@ -32,10 +32,11 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Providers>
+            <Banner />
             <Suspense fallback={null}>{children}</Suspense>
             {/* Cookie consent dialog */}
             <CookieConsent />
-            <Banner/>
+            
             <Toaster />
           </Providers>
         </ThemeProvider>
