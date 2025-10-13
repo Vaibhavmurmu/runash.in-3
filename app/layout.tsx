@@ -31,7 +31,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          
+          <Banner />
           <Providers>
             <Suspense fallback={null}>{children}</Suspense>
             {/* Cookie consent dialog */}
