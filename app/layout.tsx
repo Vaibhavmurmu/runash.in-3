@@ -18,7 +18,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "RunAsh AI - Agentic live commerce",
-  description: "AI Deep Agents for live stream video generation model for creating video from text,organic products, sustainable living, recipes, and retail automation",
+  description: "RunAsh AI is an live stream video generation model, creating realistic video from text, organic products, sustainable living, recipes, and retail automation",
   generator: "RunAsh AI Lab",
 }
 
@@ -31,7 +31,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Banner />
+          
           <Providers>
             <Suspense fallback={null}>{children}</Suspense>
             {/* Cookie consent dialog */}
