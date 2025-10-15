@@ -172,7 +172,8 @@ export default function BlogPage() {
                         </div>
                       </div>
                       <Button className="bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-700 hover:to-yellow-700 dark:from-orange-500 dark:to-yellow-500 dark:hover:from-orange-600 dark:hover:to-yellow-600 text-white">
-                        Read Full Article <ArrowRight className="ml-2 h-4 w-4" />
+                        Read Full Article <ArrowRight className="ml-2 h-4 w-4" 
+                         onClick={() => router.push("/blog-post")}   />
                       </Button>
                     </div>
                   </div>
