@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent } from "@/components/ui/card"
 import { useRouter } from 'next/navigation';
 
-const router = useRouter();
+
 const BlogPost = ({
   title,
   excerpt,
@@ -29,6 +29,7 @@ const BlogPost = ({
   image: string
   featured?: boolean
 }) => {
+const router = useRouter();
   return (
     <Card
       className={`overflow-hidden ${featured ? "border-orange-500/50 bg-orange-50/50 dark:bg-orange-950/20" : "border-orange-200/50 dark:border-orange-900/30"}`}
