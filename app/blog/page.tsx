@@ -7,7 +7,9 @@ import { ArrowRight, Calendar, Clock, Search, User } from "lucide-react"
 import ThemeToggle from "@/components/theme-toggle"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent } from "@/components/ui/card"
+import { useRouter } from 'next/navigation';
 
+const router = useRouter();
 const BlogPost = ({
   title,
   excerpt,
@@ -172,7 +174,7 @@ export default function BlogPage() {
                         </div>
                       </div>
                       <Button className="bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-700 hover:to-yellow-700 dark:from-orange-500 dark:to-yellow-500 dark:hover:from-orange-600 dark:hover:to-yellow-600 text-white"
-                        onClick={() => router.push("/blog-post")} >
+                        onClick={() => router.push(`/blog/${slug}`)} >
                         Read Full Article <ArrowRight className="ml-2 h-4 w-4"  />
                       </Button>
                     </div>
