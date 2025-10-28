@@ -7,6 +7,8 @@ import { ArrowRight, Calendar, Clock, Search, User } from "lucide-react"
 import ThemeToggle from "@/components/theme-toggle"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent } from "@/components/ui/card"
+import { useRouter } from 'next/navigation';
+
 
 const BlogPost = ({
   title,
@@ -27,6 +29,7 @@ const BlogPost = ({
   image: string
   featured?: boolean
 }) => {
+const router = useRouter();
   return (
     <Card
       className={`overflow-hidden ${featured ? "border-orange-500/50 bg-orange-50/50 dark:bg-orange-950/20" : "border-orange-200/50 dark:border-orange-900/30"}`}
@@ -171,8 +174,9 @@ export default function BlogPage() {
                           <span>8 min read</span>
                         </div>
                       </div>
-                      <Button className="bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-700 hover:to-yellow-700 dark:from-orange-500 dark:to-yellow-500 dark:hover:from-orange-600 dark:hover:to-yellow-600 text-white">
-                        Read Full Article <ArrowRight className="ml-2 h-4 w-4" />
+                      <Button className="bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-700 hover:to-yellow-700 dark:from-orange-500 dark:to-yellow-500 dark:hover:from-orange-600 dark:hover:to-yellow-600 text-white"
+                        onClick={() => router.push(`/blog/${slug}`)} >
+                        Read Full Article <ArrowRight className="ml-2 h-4 w-4"  />
                       </Button>
                     </div>
                   </div>
