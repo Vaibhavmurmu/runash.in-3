@@ -1,4 +1,4 @@
-"u"use client"
+"use client"
 
 import { useState } from "react"
 import AndroidStatusBar from "@/components/mobile/android-status-bar"
