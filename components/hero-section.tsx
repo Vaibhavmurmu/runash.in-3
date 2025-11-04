@@ -2,7 +2,7 @@
 
 import { ArrowRight, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import Iphone from "@/components/iphone-mockup"
+{/* import Iphone from "@/components/iphone-mockup" */}
 
 export default function HeroSection() {
   return (
@@ -69,7 +69,7 @@ export default function HeroSection() {
         </div>
 
         <div className="flex justify-center lg:justify-end">
-          <Iphone />
+        {/*  <Iphone /> */}
         </div>
       </div>
     </section>
