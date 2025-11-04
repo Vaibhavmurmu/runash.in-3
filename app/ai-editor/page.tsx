@@ -5,7 +5,7 @@ import { useState, useEffect } from "react"
 import HeroSection from "@/components/hero-section"
 import FeaturesSection from "@/components/features-section"
 import DemoSection from "@/components/demo-section"
-import Footer from "@/components/footer"
+{/* import Footer from "@/components/footer" */}
 
 export default function AIEditorPage() {
   {/* const [isDark, setIsDark] = useState(false)
@@ -34,11 +34,11 @@ export default function AIEditorPage() {
 
   return (
     <main className="min-h-screen bg-background text-foreground transition-colors duration-300">
-      <Header isDark={isDark} onToggleTheme={toggleTheme} />
-      {/* <HeroSection /> */}
+      {/* <Header isDark={isDark} onToggleTheme={toggleTheme} />
+      <HeroSection /> */}
       <FeaturesSection />
       <DemoSection />
-      <Footer />
+    {/*  <Footer /> */}
     </main>
   )
  }
