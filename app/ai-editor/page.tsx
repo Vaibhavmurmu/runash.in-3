@@ -9,7 +9,7 @@ import DemoSection from "@/components/demo-section"
 
 export default function AIEditorPage() {
   return (
-    <main className="min-h-screen bg-background text-foreground transition-colors duration-300">
+    <main className="min-h-screen bg-gradient-to-b from-white to-orange-50 dark:from-gray-950 dark:to-gray-900 text-gray-900 dark:text-white text-foreground transition-colors duration-300">
       {/* <Header isDark={isDark} onToggleTheme={toggleTheme} /> */}
       <section className="min-h-screen pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background via-background to-background/50 relative overflow-hidden">
       <div className="absolute inset-0 -z-10">
@@ -21,7 +21,7 @@ export default function AIEditorPage() {
         <div className="flex flex-col justify-center">
           <div className="inline-flex items-center gap-2 mb-6 w-fit bg-muted/50 px-3 py-1 rounded-full border border-border/50 hover:border-primary/30 transition-colors">
             <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-sm text-foreground/70">Powered by advanced AI</span>
+            <span className="text-sm text-foreground/70">Powered by AI</span>
           </div>
 
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-balance leading-tight">
@@ -33,7 +33,7 @@ export default function AIEditorPage() {
           </h1>
 
           <p className="text-lg sm:text-xl text-foreground/70 mb-8 text-balance max-w-xl leading-relaxed">
-            Professional live streaming editor with AI-powered features. Edit, remix, and stream your content in
+            Professional live streaming editor with AI-powered features. Generation, edit, remix, and stream your content in
             real-time from anywhere in the world.
           </p>
 
@@ -67,7 +67,7 @@ export default function AIEditorPage() {
               </div>
             </div>
             <div>
-              <p className="text-2xl font-bold text-foreground">10K+</p>
+              <p className="text-2xl font-bold text-foreground">1K+</p>
               <p className="text-sm text-foreground/60">Active creators</p>
             </div>
           </div>
