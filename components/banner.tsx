@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { Github, Menu, X, Bell } from "lucide-react"
-import Link from "next/link"
+
 
 export default function Banner() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -16,9 +16,9 @@ export default function Banner() {
             <Bell className="w-4 h-4" />
             <span>
               🎉 New AI Video Generation Model Released!{" "}
-              <Link href="/blog/new-model" className="underline font-semibold hover:text-orange-200">
+              <a href="/blog/new-model" className="underline font-semibold hover:text-orange-200">
                 Learn more
-              </Link>
+              </a>
             </span>
           </div>
           <button
