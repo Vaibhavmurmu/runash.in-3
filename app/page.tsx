@@ -49,6 +49,7 @@ export default function Home() {
               </Link>
             </span>
           </div>
+          </div>
         <div className="container relative z-10 mx-auto px-4 text-center">
           <div className="inline-block  mb-4 px-3 py-1 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
             <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">
