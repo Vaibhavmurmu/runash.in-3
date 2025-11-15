@@ -31,7 +31,7 @@ export default function Home() {
     return `$${price}`
   
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(true)
   const [showBanner, setShowBanner] = useState(true)
   }
   return (
@@ -50,11 +50,12 @@ export default function Home() {
             </span>
           </div>
             <button
-            onClick={() => setShowBanner(false)}
+            onClick={() => setShowBanner(true)}
             className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-orange-200"
           >
             <X className="w-4 h-4" />
           </button>
+      </div>
       </div>
        {/* Hero Section with Video Background */}
         <section className="relative h-screen flex items-center justify-center overflow-hidden"> 
@@ -100,7 +101,7 @@ export default function Home() {
             <TechBadge label="Upload & Stream" />
           </div>
         </div>
-         </div>
+         
         <div className="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
           <ChevronRight className="h-8 w-8 transform rotate-90 text-orange-500 dark:text-orange-400" />
         </div>  
