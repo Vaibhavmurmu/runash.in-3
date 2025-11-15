@@ -44,6 +44,7 @@ export default function Home() {
               </a>
             </span>
           </div>
+      </div>
        {/* Hero Section with Video Background */}
         <section className="relative h-screen flex items-center justify-center overflow-hidden"> 
         <VideoBackground />
@@ -87,7 +88,7 @@ export default function Home() {
             <TechBadge label="Multi-platform" />
             <TechBadge label="Upload & Stream" />
           </div>
-        </div>
+        
          </div>
         <div className="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
           <ChevronRight className="h-8 w-8 transform rotate-90 text-orange-500 dark:text-orange-400" />
