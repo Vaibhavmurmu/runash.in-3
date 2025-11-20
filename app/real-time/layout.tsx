@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
-import { Suspense } from 'react'
 import { Analytics } from '@vercel/analytics/next'
-import './globals.css'
+{/* import './globals.css' */}
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
@@ -10,7 +9,7 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: 'RunAsh - Real-Time AI Video Generation',
   description: 'Advanced real-time video generation powered by cutting-edge AI. Generate, stream, and collaborate with intelligent agents.',
-  generator: 'v0.app',
+  generator: 'RunAsh.app',
   icons: {
     icon: [
       {
@@ -30,8 +29,6 @@ export const metadata: Metadata = {
   },
 }
 
-import Loading from './loading'
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -40,9 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`font-sans antialiased`}>
-        <Suspense fallback={<Loading />}>
-          {children}
-        </Suspense>
+        {children}
         <Analytics />
       </body>
     </html>
