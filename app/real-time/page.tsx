@@ -1,26 +1,46 @@
 'use client'
 
-import { useState } from 'react'
-import PlatformLayout from '@/components/video/platform-layout'
-import ChatAgentStudio from '@/components/video/chat-agent-studio'
-import MediaControls from '@/components/video/media-controls'
-import AICapabilities from '@/components/video/ai-capabilities'
-import AdvancedSearch from '@/components/video/advanced-search'
-import UserManagement from '@/components/video/user-management'
-import SettingsPanel from '@/components/video/settings-panel'
+import { useState, useEffect } from 'react'
+import Header from '@/components/video/header'
+import HeroSection from '@/components/video/hero-section'
+import FeaturesSection from '@/components/video/features-section'
+import AICapabilitiesSection from '@/components/video/ai-capabilities-section'
+import ChatBotWidget from '@/components/video/chatbot-widget'
+import Footer from '@/components/video/footer'
+import ThemeToggle from '@/components/video/theme-toggle'
 
 export default function RealTime() {
-  const [activeTab, setActiveTab] = useState('studio')
-  const [isDark, setIsDark] = useState(true)
+  const [isDark, setIsDark] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+    // Check system preference
+    const isDarkMode = document.documentElement.classList.contains('dark') || 
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+    setIsDark(isDarkMode)
+  }, [])
+
+  const toggleTheme = () => {
+    setIsDark(!isDark)
+    if (!isDark) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }
+
+  if (!mounted) return null
 
   return (
-    <PlatformLayout isDark={isDark} onThemeToggle={() => setIsDark(!isDark)}>
-      {activeTab === 'studio' && <ChatAgentStudio />}
-      {activeTab === 'media' && <MediaControls />}
-      {activeTab === 'capabilities' && <AICapabilities />}
-      {activeTab === 'search' && <AdvancedSearch />}
-      {activeTab === 'users' && <UserManagement />}
-      {activeTab === 'settings' && <SettingsPanel />}
-    </PlatformLayout>
+    <main className="min-h-screen bg-background text-foreground overflow-hidden">
+      <ThemeToggle isDark={isDark} onToggle={toggleTheme} />
+      <Header />
+      <HeroSection />
+      <FeaturesSection />
+      <AICapabilitiesSection />
+      <ChatBotWidget />
+      <Footer />
+    </main>
   )
 }
