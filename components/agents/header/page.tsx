@@ -21,7 +21,7 @@ export function Header() {
           <Bell className="h-4 w-4" />
         </Button>
         <ThemeToggle />
-        <div className="text-sm font-medium">RA</div>
+        <div className="text-sm font-medium">R</div>
       </div>
     </header>
   )
