@@ -57,90 +57,90 @@ export function DashboardFooter({ className }: DashboardFooterProps) {
 
           {/* Product */}
           <div className="space-y-4">
-            <h3 className="font-semibold text-sm uppercase tracking-wider">Product</h3>
+            <h3 className="font-semibold text-sm uppercase tracking-wider">Status</h3>
             <div className="space-y-2">
               <Link
-                href="/features"
+                href="/status"
                 className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                Features
+                Status 
               </Link>
               <Link
-                href="/pricing"
+                href="/"
                 className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                Pricing
+                
               </Link>
               <Link
-                href="/integrations"
+                href="/"
                 className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                Integrations
+                
               </Link>
               <Link href="/api" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
-                API
+                
               </Link>
             </div>
           </div>
 
           {/* Resources */}
           <div className="space-y-4">
-            <h3 className="font-semibold text-sm uppercase tracking-wider">Resources</h3>
+            <h3 className="font-semibold text-sm uppercase tracking-wider">API</h3>
             <div className="space-y-2">
               <Link
-                href="/tutorials"
+                href="/api"
                 className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                Documentation
+                API
               </Link>
               <Link
-                href="/support"
+                href="/"
                 className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                Help Center
+                
               </Link>
               <Link
-                href="/blog"
+                href="/"
                 className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                Blog
+                
               </Link>
               <Link
-                href="/status"
+                href="/"
                 className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                Status
+                
               </Link>
             </div>
           </div>
 
           {/* Legal */}
           <div className="space-y-4">
-            <h3 className="font-semibold text-sm uppercase tracking-wider">Legal</h3>
+            <h3 className="font-semibold text-sm uppercase tracking-wider">Help</h3>
             <div className="space-y-2">
               <Link
-                href="/privacy"
+                href="/help"
                 className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                Privacy Policy
+                Help center 
               </Link>
               <Link
-                href="/terms"
+                href="/"
                 className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 Terms of Service
               </Link>
               <Link
-                href="/cookies"
+                href="/"
                 className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                Cookie Policy
+                
               </Link>
               <Link
-                href="/contact"
+                href="/"
                 className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                Contact
+                
               </Link>
             </div>
           </div>
