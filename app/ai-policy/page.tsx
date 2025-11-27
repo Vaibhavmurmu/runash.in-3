@@ -19,7 +19,7 @@ export default function AIPolicyPage() {
               <span className="text-orange-600 dark:text-orange-400">Legal</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
-              Privacy Policy
+              AI Policy
             </h1>
             <p className="text-xl text-gray-700 dark:text-gray-300 mb-8">Last updated: Nov 21, 2025</p>
           </div>
@@ -33,220 +33,157 @@ export default function AIPolicyPage() {
             <div className="space-y-8">
               <div>
                 <h2 className="text-2xl font-bold mb-4">1. Introduction</h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  RunAsh AI ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains
-                  how we collect, use, disclose, and safeguard your information when you use our AI-powered live
-                  streaming platform and related services (the "Service").
+                <p>
+                  This AI Policy explains how RunAsh uses artificial intelligence and machine learning systems to
+                  provide functionality, the types of data involved, the safeguards in place, and your rights and choices.
+                  By using our AI-enabled features, you consent to the practices described in this policy in addition to
+                  our Privacy Policy and Terms of Service.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold mb-4">2. Information We Collect</h2>
-                <h3 className="text-xl font-semibold mb-3">2.1 Information You Provide</h3>
-                <ul className="list-disc pl-6 space-y-2 text-gray-700 dark:text-gray-300">
-                  <li>Account information (name, email address, username)</li>
-                  <li>Profile information and preferences</li>
-                  <li>Payment information (processed by third-party payment processors)</li>
-                  <li>Communications with us (support tickets, feedback)</li>
-                  <li>Content you create or upload (stream metadata, custom backgrounds)</li>
-                </ul>
-
-                <h3 className="text-xl font-semibold mb-3 mt-6">2.2 Information We Collect Automatically</h3>
-                <ul className="list-disc pl-6 space-y-2 text-gray-700 dark:text-gray-300">
-                  <li>Usage data (features used, time spent, interactions)</li>
-                  <li>Device information (IP address, browser type, operating system)</li>
-                  <li>Log data (access times, pages viewed, errors encountered)</li>
-                  <li>Analytics data (performance metrics, user behavior patterns)</li>
-                </ul>
-
-                <h3 className="text-xl font-semibold mb-3 mt-6">2.3 Video and Audio Data</h3>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  We process video and audio streams in real-time to provide AI enhancement features. This data is
-                  processed temporarily and is not stored permanently unless you explicitly choose to record your
-                  streams.
+                <h2 className="text-2xl font-bold mb-4">2. Scope</h2>
+                <p>
+                  This policy covers all AI/ML features provided by RunAsh, including but not limited to real-time
+                  audio/video processing, content moderation, personalization, recommendation, and any automated decision
+                  systems integrated into the Service.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold mb-4">3. How We Use Your Information</h2>
-                <ul className="list-disc pl-6 space-y-2 text-gray-700 dark:text-gray-300">
-                  <li>Provide and maintain our Service</li>
-                  <li>Process AI enhancements for your streams</li>
-                  <li>Improve our algorithms and features</li>
-                  <li>Communicate with you about your account and our services</li>
-                  <li>Provide customer support</li>
-                  <li>Detect and prevent fraud or abuse</li>
-                  <li>Comply with legal obligations</li>
-                  <li>Send you marketing communications (with your consent)</li>
+                <h2 className="text-2xl font-bold mb-4">3. Data Used by AI Systems</h2>
+                <ul>
+                  <li>
+                    <strong>Input data:</strong> Audio, video, text, metadata, and user-provided content required to
+                    operate AI features.
+                  </li>
+                  <li>
+                    <strong>Derived data:</strong> Features, embeddings, transcripts, or summaries generated by our
+                    processing pipelines.
+                  </li>
+                  <li>
+                    <strong>Operational data:</strong> Usage metrics, logs, and performance telemetry used to monitor and
+                    improve AI models.
+                  </li>
+                </ul>
+                <p>
+                  We only process the data necessary to deliver the AI functionality you enable. Streaming audio and
+                  video are processed in real time and are not stored long-term unless you explicitly enable recording.
+                </p>
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-bold mb-4">4. Purpose and Use</h2>
+                <p>
+                  AI is used to:
+                </p>
+                <ul>
+                  <li>Enhance real-time audio/video quality and provide accessibility features (e.g., live captions).</li>
+                  <li>Detect and mitigate harmful content or behavior to keep the platform safe.</li>
+                  <li>Personalize user experience and recommendations where enabled.</li>
+                  <li>Improve models and services through aggregated, anonymized analytics.</li>
                 </ul>
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold mb-4">4. Information Sharing and Disclosure</h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                  We do not sell, trade, or rent your personal information to third parties. We may share your
-                  information in the following circumstances:
+                <h2 className="text-2xl font-bold mb-4">5. Third-Party Models and Services</h2>
+                <p>
+                  We may use third-party AI providers to power some features. When we do, we disclose the provider where
+                  required and ensure contractual safeguards for data handling. Third-party providers may have their own
+                  policies — we encourage you to review them when relevant.
                 </p>
-                <ul className="list-disc pl-6 space-y-2 text-gray-700 dark:text-gray-300">
-                  <li>
-                    <strong>Service Providers:</strong> Third-party companies that help us operate our Service
-                  </li>
-                  <li>
-                    <strong>Legal Requirements:</strong> When required by law or to protect our rights
-                  </li>
-                  <li>
-                    <strong>Business Transfers:</strong> In connection with mergers, acquisitions, or asset sales
-                  </li>
-                  <li>
-                    <strong>Consent:</strong> When you explicitly consent to sharing
-                  </li>
-                  <li>
-                    <strong>Streaming Platforms:</strong> Data necessary to stream to connected platforms
-                  </li>
-                </ul>
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold mb-4">5. Data Security</h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  We implement appropriate technical and organizational security measures to protect your information
-                  against unauthorized access, alteration, disclosure, or destruction. These measures include:
+                <h2 className="text-2xl font-bold mb-4">6. Model Limitations and Risks</h2>
+                <p>
+                  AI models can make errors, produce biased outputs, or fail to understand context. We recommend users
+                  treat AI outputs as assistive and verify critical information independently. We continuously test and
+                  update our models to mitigate risks.
                 </p>
-                <ul className="list-disc pl-6 space-y-2 text-gray-700 dark:text-gray-300 mt-4">
-                  <li>Encryption of data in transit and at rest</li>
-                  <li>Regular security assessments and audits</li>
-                  <li>Access controls and authentication measures</li>
-                  <li>Employee training on data protection</li>
-                  <li>Incident response procedures</li>
-                </ul>
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold mb-4">6. Data Retention</h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  We retain your information for as long as necessary to provide our services and fulfill the purposes
-                  outlined in this Privacy Policy. Specific retention periods include:
-                </p>
-                <ul className="list-disc pl-6 space-y-2 text-gray-700 dark:text-gray-300 mt-4">
+                <h2 className="text-2xl font-bold mb-4">7. User Controls and Choices</h2>
+                <ul>
                   <li>
-                    <strong>Account Data:</strong> Until you delete your account
+                    <strong>Opt-in / Opt-out:</strong> You can enable or disable AI features in your account or stream
+                    settings where applicable.
                   </li>
                   <li>
-                    <strong>Usage Data:</strong> Up to 2 years for analytics purposes
+                    <strong>Recording:</strong> Recording must be explicitly enabled; otherwise, real-time streams are not
+                    stored.
                   </li>
                   <li>
-                    <strong>Video Processing Data:</strong> Processed in real-time and not stored
-                  </li>
-                  <li>
-                    <strong>Support Communications:</strong> Up to 3 years
+                    <strong>Data access and deletion:</strong> You can request access to or deletion of your data under
+                    our account settings or by contacting us.
                   </li>
                 </ul>
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold mb-4">7. Your Rights and Choices</h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                  Depending on your location, you may have the following rights regarding your personal information:
-                </p>
-                <ul className="list-disc pl-6 space-y-2 text-gray-700 dark:text-gray-300">
-                  <li>
-                    <strong>Access:</strong> Request access to your personal information
-                  </li>
-                  <li>
-                    <strong>Correction:</strong> Request correction of inaccurate information
-                  </li>
-                  <li>
-                    <strong>Deletion:</strong> Request deletion of your personal information
-                  </li>
-                  <li>
-                    <strong>Portability:</strong> Request a copy of your data in a portable format
-                  </li>
-                  <li>
-                    <strong>Objection:</strong> Object to certain processing of your information
-                  </li>
-                  <li>
-                    <strong>Restriction:</strong> Request restriction of processing
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h2 className="text-2xl font-bold mb-4">8. Cookies and Tracking Technologies</h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  We use cookies and similar tracking technologies to enhance your experience on our Service. These
-                  technologies help us:
-                </p>
-                <ul className="list-disc pl-6 space-y-2 text-gray-700 dark:text-gray-300 mt-4">
-                  <li>Remember your preferences and settings</li>
-                  <li>Analyze usage patterns and improve our Service</li>
-                  <li>Provide personalized content and features</li>
-                  <li>Ensure security and prevent fraud</li>
-                </ul>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed mt-4">
-                  You can control cookies through your browser settings. However, disabling cookies may affect the
-                  functionality of our Service.
+                <h2 className="text-2xl font-bold mb-4">8. Safety, Moderation, and Abuse Prevention</h2>
+                <p>
+                  We use automated systems and human review where necessary to detect policy violations, harmful content,
+                  or abuse. These systems prioritize user safety and compliance with applicable laws. Suspected
+                  violations may result in action on the account, including restrictions or termination.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold mb-4">9. International Data Transfers</h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  Your information may be transferred to and processed in countries other than your own. We ensure that
-                  such transfers comply with applicable data protection laws and implement appropriate safeguards to
-                  protect your information.
+                <h2 className="text-2xl font-bold mb-4">9. Data Retention</h2>
+                <p>
+                  Unless you opt into recording, AI processing is real-time and transient. Logs and aggregated metrics
+                  used for improving services may be retained in anonymized or pseudonymized form for analytics and model
+                  training according to our retention schedules.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold mb-4">10. Children's Privacy</h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  Our Service is not intended for children under 13 years of age. We do not knowingly collect personal
-                  information from children under 13. If you are a parent or guardian and believe your child has
-                  provided us with personal information, please contact us.
+                <h2 className="text-2xl font-bold mb-4">10. Security and Access</h2>
+                <p>
+                  We protect AI-related data using industry-standard security measures including encryption in transit
+                  and at rest, access controls, and monitoring. Only authorized personnel and systems may access data
+                  according to least-privilege principles.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold mb-4">11. Changes to This Privacy Policy</h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  We may update this Privacy Policy from time to time. We will notify you of any changes by posting the
-                  new Privacy Policy on this page and updating the "Last updated" date. We encourage you to review this
-                  Privacy Policy periodically.
+                <h2 className="text-2xl font-bold mb-4">11. Transparency and Explainability</h2>
+                <p>
+                  We strive to provide clear information about when AI is being used and the nature of automated
+                  decisions. For decisions that have significant effects, we will provide meaningful information about
+                  the logic involved where feasible.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold mb-4">12. Contact Us</h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  If you have any questions about this Privacy Policy or our privacy practices, please contact us at:
+                <h2 className="text-2xl font-bold mb-4">12. Children</h2>
+                <p>
+                  Our Service is not intended for children under 13. We do not knowingly provide AI features to children
+                  under the applicable age without parental consent.
                 </p>
-                <div className="mt-4 p-4 bg-orange-50 dark:bg-orange-950/20 rounded-lg border border-orange-200 dark:border-orange-800/30">
-                  <p className="text-gray-700 dark:text-gray-300">
-                    <strong>Email:</strong> admin@runash.in
-                    <br />
-                    <strong>Address:</strong> Runash Digital Innovation Technologies Pvt Ltd.
-                    <br />
-                    310 RunAsh Tech Avenue
-                    <br />
-                    Bokaro, Jharkhand, 827014
-                    <br />
-                    Bharat (India)
-                  </p>
-                </div>
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-bold mb-4">13. Changes to this Policy</h2>
+                <p>
+                  We may update this AI Policy as our technology and practices evolve. Material changes will be posted
+                  with an updated "Last updated" date.
+                </p>
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-bold mb-4">14. Contact</h2>
+                <p>
+                  If you have questions about our AI Policy, contact us at legal@runash.in or through the support channels
+                  in your account.
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="py-12 bg-white dark:bg-gray-950 border-t border-orange-200/50 dark:border-orange-900/30">
-        <div className="container mx-auto px-4">
-          <div className="text-center text-gray-500">
-            <p>© {new Date().getFullYear()} RunAsh AI. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
     </div>
   )
       }
