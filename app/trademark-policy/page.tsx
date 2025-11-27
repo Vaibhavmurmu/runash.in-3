@@ -19,7 +19,7 @@ export default function TrademarkPolicyPage() {
               <span className="text-orange-600 dark:text-orange-400">Legal</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
-              Trademark Policy
+              Trademark & DMCA Policy
             </h1>
             <p className="text-xl text-gray-700 dark:text-gray-300 mb-8">Last updated: Nov 27, 2025</p>
           </div>
@@ -34,121 +34,144 @@ export default function TrademarkPolicyPage() {
               <div>
                 <h2 className="text-2xl font-bold mb-4">1. Introduction</h2>
                 <p>
-                  RunAsh respects the intellectual property rights of others and expects users of our services to do the same.
-                  This Trademark Policy explains how we handle trademark complaints, permitted and prohibited uses of trademarks,
-                  and how trademark owners can report alleged infringements.
+                  RunAsh respects the intellectual property rights of others and expects users of the Service to do the same.
+                  This page describes our approach to trademarks and provides a DMCA takedown procedure for copyright
+                  owners to report infringing content. It also explains how to submit counter-notifications and how we handle repeat
+                  infringers.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold mb-4">2. Scope</h2>
+                <h2 className="text-2xl font-bold mb-4">2. Trademark Use</h2>
                 <p>
-                  This policy applies to trademarks (including service marks and logos) used in connection with content hosted on
-                  or distributed through RunAsh services, including user profiles, uploaded content, and listings. It supplements our
-                  Terms of Service and other legal notices.
+                  Trademarks (including logos and brand names) identify the source of goods or services. Unauthorized use can
+                  cause confusion. Unless you have permission from the trademark owner, do not use trademarks in a way that implies
+                  endorsement, affiliation, or sponsorship by the trademark owner.
+                </p>
+                <p>
+                  If you believe someone is using your trademark in a way that infringes your rights, please contact us with the
+                  details described in Section 4 (Reporting Infringement). For trademark-related notices, use: trademark@runash.in.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold mb-4">3. What Is a Trademark?</h2>
+                <h2 className="text-2xl font-bold mb-4">3. What We Will Do</h2>
                 <p>
-                  A trademark is a word, phrase, symbol, design, or combination that identifies and distinguishes the source of goods
-                  or services of one party from those of others. Trademark rights may be established through registration or by use.
-                </p>
-              </div>
-
-              <div>
-                <h2 className="text-2xl font-bold mb-4">4. Permitted Uses</h2>
-                <ul>
-                  <li>Non-confusing use of a trademark to accurately identify products, services, or affiliations (nominative fair use).</li>
-                  <li>Descriptive references that do not create a likelihood of confusion about source, sponsorship, or endorsement.</li>
-                  <li>Use of trademarks in commentary, criticism, news reporting, or educational contexts where allowed by applicable law.</li>
-                </ul>
-              </div>
-
-              <div>
-                <h2 className="text-2xl font-bold mb-4">5. Prohibited Uses</h2>
-                <ul>
-                  <li>Using another party's trademark in a manner likely to cause confusion about affiliation, sponsorship, or endorsement.</li>
-                  <li>Impersonating a trademark owner or falsely implying ownership or authorization.</li>
-                  <li>Using a trademark in product listings, domain names, profile names, or metadata with the intent to divert users or misrepresent origin.</li>
-                </ul>
-              </div>
-
-              <div>
-                <h2 className="text-2xl font-bold mb-4">6. Reporting Alleged Trademark Infringement</h2>
-                <p>
-                  Trademark owners (or authorized agents) may submit a trademark complaint to RunAsh. To help us process your request,
-                  please provide the following information:
+                  When we receive a valid trademark or copyright report, we will review the notice and may take actions such as:
                 </p>
                 <ul>
-                  <li>Your name, company name (if applicable), and contact information (email, phone).</li>
-                  <li>A clear identification of the trademark claimed to be infringed (word mark, logo, registration number, and country if available).</li>
-                  <li>A description of the location of the allegedly infringing material on RunAsh (URL or account/profile location).</li>
-                  <li>A statement that you have a good faith belief that use of the trademark is not authorized by the owner, its agent, or the law.</li>
-                  <li>A statement, under penalty of perjury where applicable, that the information in the notice is accurate and that you are authorized to act on behalf of the trademark owner.</li>
-                  <li>A physical or electronic signature of the trademark owner or authorized agent.</li>
+                  <li>Removing or disabling access to the allegedly infringing content;</li>
+                  <li>Notifying the user who posted the content;</li>
+                  <li>Suspending or terminating accounts of repeat infringers;</li>
+                  <li>Requesting a counter-notification if the user disputes the claim.</li>
                 </ul>
                 <p>
-                  Send notices to: <a href="mailto:legal@runash.in">legal@runash.in</a>. Including complete information up front speeds review.
+                  We process notices in accordance with applicable law and our policies. Submitting a false or fraudulent notice may carry legal penalties.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold mb-4">7. Our Response Process</h2>
+                <h2 className="text-2xl font-bold mb-4">4. Reporting Infringement</h2>
                 <p>
-                  Upon receiving a valid complaint, we will review the notice and may take action consistent with our Terms of Service,
-                  which may include removing or disabling access to the allegedly infringing content, notifying the account holder, or
-                  suspending accounts for repeat infringers. We may also request additional information to verify the claim.
+                  To report alleged trademark misuse or copyright infringement (DMCA), provide a written notice containing the information below.
+                  For DMCA/copyright takedowns, send notices to: dmca@runash.in. For trademark-specific claims, send notices to: trademark@runash.in.
+                </p>
+                <h3 className="text-xl font-semibold mt-4">Information to include in a DMCA Takedown Notice</h3>
+                <p>
+                  A proper DMCA notice should include the following elements (17 U.S.C. §512(c)):
+                </p>
+                <ol>
+                  <li>A physical or electronic signature of the copyright owner or a person authorized to act on their behalf.</li>
+                  <li>Identification of the copyrighted work claimed to have been infringed. If multiple works are claimed, provide a representative list.</li>
+                  <li>Identification of the material that is claimed to be infringing and where it is located on the Service (provide URLs or other precise location information).</li>
+                  <li>Contact information for the complaining party (name, address, telephone number, and email address).</li>
+                  <li>A statement that the complaining party has a good faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law.</li>
+                  <li>A statement, under penalty of perjury, that the information in the notice is accurate, and that the complaining party is authorized to act on behalf of the copyright owner.</li>
+                </ol>
+
+                <p className="mt-4">
+                  Sample DMCA notice template (include all required elements above):
+                </p>
+                <pre className="bg-gray-100 dark:bg-gray-800 p-4 rounded text-sm">
+{`[Your Name]
+[Your Company (if applicable)]
+[Your Address]
+[Your Phone]
+[Your Email]
+
+Date: [Date]
+
+To: RunAsh DMCA Agent (dmca@runash.in)
+
+I am the owner (or an agent authorized to act on behalf of the owner) of certain copyrighted material that is being infringed.
+
+1. Description of the copyrighted work: [Describe the copyrighted work(s) you claim are being infringed]
+
+2. Location of the infringing material on the RunAsh Service: [Provide precise URLs or other identifying information]
+
+3. I have a good faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law.
+
+4. I declare, under penalty of perjury, that the information in this notice is accurate and that I am authorized to act on behalf of the copyright owner.
+
+Signature: [Electronic or physical signature]`}
+                </pre>
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-bold mb-4">5. Counter-Notification</h2>
+                <p>
+                  If you submitted content that was removed in response to a DMCA notice and you believe it was removed by mistake or
+                  misidentification, you may submit a counter-notification. A proper counter-notice must include:
+                </p>
+                <ol>
+                  <li>Your physical or electronic signature;</li>
+                  <li>Identification of the material removed and its previous location;</li>
+                  <li>A statement, under penalty of perjury, that you have a good faith belief the material was removed as a result of mistake or misidentification;</li>
+                  <li>Your name, address, and telephone number, and a statement consenting to the jurisdiction of the federal district court for your address (or if outside the U.S., consenting to a U.S. jurisdiction) and consenting to accept service of process from the person who provided the original DMCA notice.</li>
+                </ol>
+                <p>
+                  Send counter-notifications to dmca@runash.in. After receiving a valid counter-notice, we may restore the material in accordance with the DMCA.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold mb-4">8. Counter-Notices</h2>
+                <h2 className="text-2xl font-bold mb-4">6. Repeat Infringer Policy</h2>
                 <p>
-                  If you believe your content was removed or disabled in error (for example, because you have rights to use the trademark or
-                  because the use is lawful), you may submit a counter-notice. A valid counter-notice should include:
-                </p>
-                <ul>
-                  <li>Your contact details and a description of the material that was removed and its location before removal.</li>
-                  <li>A statement under penalty of perjury that you have a good faith belief the material was removed by mistake or misidentification.</li>
-                  <li>A consent to local jurisdiction (where required) and agreement to accept service of process.</li>
-                </ul>
-                <p>
-                  We will evaluate counter-notices and, where appropriate, may restore content in accordance with applicable law.
+                  We terminate accounts of users who are repeat infringers in appropriate circumstances. Repeat infringement
+                  is assessed on a case-by-case basis and may result in suspension or termination of access to the Service.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold mb-4">9. Repeat Infringer Policy</h2>
+                <h2 className="text-2xl font-bold mb-4">7. Good Faith & Misuse</h2>
                 <p>
-                  Accounts that repeatedly post infringing content or fail to comply with lawful takedown requests may be suspended
-                  or terminated in accordance with our Terms of Service.
+                  We expect notices and counter-notices to be submitted in good faith. Misrepresentations in a notice or
+                  counter-notice may expose the submitter to liability, including damages and attorneys’ fees under applicable law.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold mb-4">10. Limitations</h2>
+                <h2 className="text-2xl font-bold mb-4">8. Privacy of Notices</h2>
                 <p>
-                  RunAsh is not a legal adviser and cannot resolve disputes between private parties. We do not adjudicate trademark
-                  ownership; submission of a complaint is not a determination of infringement. Trademark owners should consider pursuing
-                  their rights through courts or trademark offices when appropriate.
+                  We may disclose information contained in takedown or counter-notifications to the user who posted the content and
+                  relevant third parties (including the complaining party) as necessary to resolve the claim or as required by law.
                 </p>
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold mb-4">11. Contact</h2>
+                <h2 className="text-2xl font-bold mb-4">9. Contact</h2>
                 <p>
-                  To report alleged trademark infringement or send counter-notices, contact us at <a href="mailto:legal@runash.in">legal@runash.in</a>.
-                  For additional questions about this policy, reach out to the same address.
+                  For trademark-related inquiries: <a href="mailto:trademark@runash.in">trademark@runash.in</a><br />
+                  For DMCA / Copyright takedown notices and counter-notices: <a href="mailto:dmca@runash.in">dmca@runash.in</a><br />
+                  For general legal inquiries: <a href="mailto:legal@runash.in">legal@runash.in</a>
                 </p>
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold mb-4">12. Changes to this Policy</h2>
+                <h2 className="text-2xl font-bold mb-4">10. Changes to this Policy</h2>
                 <p>
-                  We may update this Trademark Policy to reflect changes in law or our practices. Material changes will be posted with an
-                  updated "Last updated" date.
+                  We may update this Trademark & DMCA Policy periodically. Material changes will be posted with an updated
+                  "Last updated" date at the top of this page.
                 </p>
               </div>
             </div>
@@ -157,4 +180,4 @@ export default function TrademarkPolicyPage() {
       </section>
     </div>
   )
-}
+ }
