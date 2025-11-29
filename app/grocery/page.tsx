@@ -34,7 +34,7 @@ function GroceryStoreContent() {
   
   // Mock products data
  // const mockProducts: GroceryProduct[] = [
-     {
+  {/*  {
       id: "1",
       name: "Organic Basmati Rice",
       description: "Premium aged organic basmati rice from the foothills of Himalayas",
@@ -135,7 +135,7 @@ function GroceryStoreContent() {
       tags: ["superfood", "protein", "gluten-free", "vegan"],
       isOnSale: false,
     },
-  ] 
+  ] */}
 
   useEffect(() => {
     // Simulate loading
