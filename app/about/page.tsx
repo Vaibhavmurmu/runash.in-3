@@ -7,8 +7,19 @@ import TeamMember from "@/components/team-member"
 import TechStack from "@/components/tech-stack"
 import Milestone from "@/components/milestone"
 import ThemeToggle from "@/components/theme-toggle"
+import { useRouter } from "next/navigation"
 
 export default function AboutPage() {
+  const router = useRouter()
+
+  const partners = [
+    { name: "MIT", href: "https://www.mit.edu", logo: "https://github.com/rammurmu/runash.in/blob/3569b50db8960d18adc0b767a6780c6881019334/public/mit%20logo.png?size=160" },
+    { name: "Y Combinator", href: "https://www.ycombinator.com", logo: "https://logo.clearbit.com/ycombinator.com?size=160" },
+    { name: "GitHub", href: "https://github.com", logo: "https://logo.clearbit.com/github.com?size=160" },
+    { name: "Vercel", href: "https://vercel.com", logo: "https://logo.clearbit.com/vercel.com?size=160" },
+    { name: "Hugging Face", href: "https://huggingface.co", logo: "https://logo.clearbit.com/huggingface.co?size=160" },
+  ]
+  
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-white">
       {/* Hero Section */}
@@ -140,11 +151,11 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <TeamMember
               name="Ram Murmu"
-              role="Founder & CEO/CTO"
+              role="Founder & CEO"
               image="/rammurmu.jpg?height=300&width=300"
               bio="Led engineering and AI researcher team with 10+ years experience in full-stack,machine learning and computer vision."
               socialLinks={{
-                twitter: "https://twitter.com/rammurmu",
+                twitter: "https://twitter.com/_rammurmu",
                 linkedin: "https://linkedin.com/in/rammurmu",
               }}
               gradient="from-orange-500 to-yellow-500 dark:from-orange-400 dark:to-yellow-400"
@@ -189,8 +200,8 @@ export default function AboutPage() {
               image="/placeholder.svg?height=300&width=300"
               bio="Award-winning designer focused on creating intuitive interfaces for complex AI tools."
               socialLinks={{
-                twitter: "https://twitter.com/",
-                linkedin: "https://linkedin.com/in/",
+                twitter: "https://twitter.com/v0",
+                linkedin: "https://linkedin.com/in/v0",
               }}
               gradient="from-orange-500 to-yellow-500 dark:from-orange-400 dark:to-yellow-400"
             />
@@ -324,8 +335,93 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Partners Section */}
+      {/* Partners Section - Auto Carousel */}
       <section className="py-20 relative overflow-hidden">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
+              Backend By
+            </h2>
+            <p className="text-gray-700 dark:text-gray-300 text-lg">
+              We are proudly backed by a powerhouse collective driving global innovation.
+              From the foundational research and academic excellence provided by MIT, to the critical early-stage mentorship of startup accelerator Y Combinator, our project is grounded in proven success.
+              Development is fueled by the open-source community via GitHub, while cutting-edge AI methodologies stem from our relationship with Hugging Face.
+              The entire experience is then seamlessly deployed and scaled using the modern frontend cloud of Vercel.
+              This unparalleled support network ensures our commitment to excellence, speed, and open innovation at the intersection of academia, venture, and software development.
+            </p>
+          </div>
+
+          {/* Auto-scrolling carousel */}
+          <div className="relative">
+            <style>{`
+              @keyframes scroll-left {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-50%); }
+              }
+              .carousel {
+                overflow: hidden;
+              }
+              .carousel-track {
+                display: flex;
+                gap: 2rem;
+                align-items: center;
+                /* duplicated content width will be 200% so we move -50% to loop */
+                animation: scroll-left 18s linear infinite;
+              }
+              .carousel-item img {
+                max-height: 48px;
+                width: auto;
+                filter: grayscale(100%) opacity(0.85);
+                transition: filter 200ms ease, transform 200ms ease;
+              }
+              .carousel-item img:hover {
+                filter: none;
+                transform: scale(1.05);
+              }
+              /* Pause animation on hover */
+              .carousel-track:hover {
+                animation-play-state: paused;
+              }
+              /* Respect reduced motion */
+              @media (prefers-reduced-motion: reduce) {
+                .carousel-track {
+                  animation: none;
+                }
+              }
+            `}</style>
+
+            <div className="carousel">
+              <div
+                className="carousel-track"
+                aria-hidden="false"
+                role="list"
+                // duplicate items for seamless loop
+              >
+                {partners.concat(partners).map((p, i) => (
+                  <a
+                    key={`${p.name}-${i}`}
+                    role="listitem"
+                    href={p.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="carousel-item flex items-center justify-center bg-white dark:bg-gray-900 border border-orange-200 dark:border-orange-800/30 rounded-xl p-6"
+                    style={{ minWidth: 220 }}
+                  >
+                    <img
+                      src={p.logo}
+                      alt={`${p.name} logo`}
+                      className="object-contain"
+                    />
+                    <span className="sr-only">{p.name}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* Partners Section */}
+      {/* <section className="py-20 relative overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-400 dark:via-orange-300 dark:to-yellow-300 text-transparent bg-clip-text">
@@ -349,7 +445,7 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA Section */}
       <section className="py-20 relative overflow-hidden">
