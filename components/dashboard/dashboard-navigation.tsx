@@ -4,8 +4,8 @@ import type React from "react"
 
 import { useState } from "react"
 import Link from "next/link"
-import Image from "next/image"
 import { usePathname } from "next/navigation"
+import { useSession, signOut } from "next-auth/react"
 import {
   LayoutDashboard,
   Video,
@@ -64,6 +64,11 @@ function NavItem({ href, icon, label, badge, isActive, onClick }: NavItemProps) 
 export function DashboardNavigation() {
   const pathname = usePathname()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [logoAvailable, setLogoAvailable] = useState(true)
+
+  // next-auth session for real user data
+  const { data: session } = useSession()
+  const user = session?.user
 
   const navItems = [
     { href: "/dashboard", icon: <LayoutDashboard className="h-4 w-4" />, label: "Dashboard" },
@@ -85,6 +90,12 @@ export function DashboardNavigation() {
     setIsMobileMenuOpen(false)
   }
 
+  const handleLogout = async (closeMenu?: boolean) => {
+    if (closeMenu) closeMobileMenu()
+    // signOut from next-auth, redirect to homepage
+    await signOut({ callbackUrl: "/" })
+  }
+
   return (
     <>
       {/* Desktop Navigation */}
@@ -92,19 +103,23 @@ export function DashboardNavigation() {
         <div className="flex flex-col flex-grow border-r bg-card/50 backdrop-blur pt-5 overflow-y-auto">
           <div className="flex items-center justify-between px-4">
             <div className="flex items-center">
-              <div className="reletive w-8 h-8 rounded-full bg-gradient-to-r from-orange-500 to-amber-400 flex items-center justify-center text-white font-bold">
-                {/* Insert logo image */}
-                 <Image
-                  src="/runash-logo.png"
-                  alt="runash-logo"
-                  fill
-                  className="object-contain p-1"
-                  sizes="32px"
-                 />
-              </div>
-              <span className="ml-2 text-xl font-bold bg-gradient-to-r from-orange-500 to-amber-400 bg-clip-text text-transparent">
+              {/* Logo: try to show /logo.svg, fallback to gradient "R" */}
+              {logoAvailable ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src="/logo.svg"
+                  alt="RunAsh"
+                  className="h-8 w-8 rounded-full"
+                  onError={() => setLogoAvailable(false)}
+                />
+              ) : (
+                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-orange-500 to-amber-400 flex items-center justify-center text-white font-bold">
+                  R
+                </div>
+              )}
+              <Link href="/" className="ml-2 text-xl font-bold bg-gradient-to-r from-orange-500 to-amber-400 bg-clip-text text-transparent">
                 RunAsh
-              </span>
+              </Link>
             </div>
             <ThemeToggle />
           </div>
@@ -142,16 +157,22 @@ export function DashboardNavigation() {
               <div className="px-3 py-2">
                 <div className="flex items-center gap-3">
                   <Avatar>
-                    <AvatarImage src="/placeholder.svg" />
-                    <AvatarFallback className="bg-gradient-to-r from-orange-500 to-amber-400 text-white">
-                      JS
-                    </AvatarFallback>
+                    {user?.image ? (
+                      <AvatarImage src={user.image} />
+                    ) : (
+                      <>
+                        <AvatarImage src="/placeholder.svg" />
+                        <AvatarFallback className="bg-gradient-to-r from-orange-500 to-amber-400 text-white">
+                          {user?.name ? user.name.split(" ").map((n) => n[0]).slice(0, 2).join("") : "JS"}
+                        </AvatarFallback>
+                      </>
+                    )}
                   </Avatar>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium truncate">Jamie Smith</p>
-                    <p className="text-xs text-muted-foreground truncate">jamie@runash.ai</p>
+                    <p className="text-sm font-medium truncate">{user?.name ?? "Guest User"}</p>
+                    <p className="text-xs text-muted-foreground truncate">{user?.email ?? "guest@runash.ai"}</p>
                   </div>
-                  <Button variant="ghost" size="icon" className="text-muted-foreground">
+                  <Button variant="ghost" size="icon" className="text-muted-foreground" onClick={() => handleLogout()}>
                     <LogOut className="h-4 w-4" />
                   </Button>
                 </div>
@@ -164,19 +185,22 @@ export function DashboardNavigation() {
       {/* Mobile Navigation */}
       <div className="md:hidden flex items-center justify-between p-4 border-b bg-card/50 backdrop-blur">
         <div className="flex items-center">
-          <div className="relative w-8 h-8 rounded-full bg-gradient-to-r from-white to-gray-50 flex items-center justify-center text-white font-bold">
-              {/* Insert logo image */}
-                 <Image
-                  src="/runash-logo.png"
-                  alt="runash-logo"
-                  fill
-                  className="object-contain p-1"
-                  sizes="32px"
-                 />
-          </div>
-          <span className="ml-2 text-xl font-bold bg-gradient-to-r from-orange-500 to-amber-400 bg-clip-text text-transparent">
+          {logoAvailable ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src="/logo.svg"
+              alt="RunAsh"
+              className="h-8 w-8 rounded-full"
+              onError={() => setLogoAvailable(false)}
+            />
+          ) : (
+            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-orange-500 to-amber-400 flex items-center justify-center text-white font-bold">
+              R
+            </div>
+          )}
+          <Link href="/" className="ml-2 text-xl font-bold bg-gradient-to-r from-orange-500 to-amber-400 bg-clip-text text-transparent">
             RunAsh
-          </span>
+          </Link>
         </div>
 
         <div className="flex items-center gap-2">
@@ -192,12 +216,22 @@ export function DashboardNavigation() {
               <div className="flex flex-col h-full">
                 <div className="flex items-center justify-between p-4 border-b">
                   <div className="flex items-center">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-r from-orange-500 to-amber-400 flex items-center justify-center text-white font-bold">
-                     R
-                    </div>
-                    <span className="ml-2 text-xl font-bold bg-gradient-to-r from-orange-500 to-amber-400 bg-clip-text text-transparent">
+                    {logoAvailable ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src="/logo.svg"
+                        alt="RunAsh"
+                        className="h-8 w-8 rounded-full"
+                        onError={() => setLogoAvailable(false)}
+                      />
+                    ) : (
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-orange-500 to-amber-400 flex items-center justify-center text-white font-bold">
+                        R
+                      </div>
+                    )}
+                    <Link href="/" className="ml-2 text-xl font-bold bg-gradient-to-r from-orange-500 to-amber-400 bg-clip-text text-transparent">
                       RunAsh
-                    </span>
+                    </Link>
                   </div>
                   <Button variant="ghost" size="icon" onClick={closeMobileMenu}>
                     <X className="h-5 w-5" />
@@ -238,16 +272,27 @@ export function DashboardNavigation() {
                 <div className="border-t p-4">
                   <div className="flex items-center gap-3">
                     <Avatar>
-                      <AvatarImage src="/placeholder.svg" />
-                      <AvatarFallback className="bg-gradient-to-r from-orange-500 to-amber-400 text-white">
-                        JS
-                      </AvatarFallback>
+                      {user?.image ? (
+                        <AvatarImage src={user.image} />
+                      ) : (
+                        <>
+                          <AvatarImage src="/placeholder.svg" />
+                          <AvatarFallback className="bg-gradient-to-r from-orange-500 to-amber-400 text-white">
+                            {user?.name ? user.name.split(" ").map((n) => n[0]).slice(0, 2).join("") : "JS"}
+                          </AvatarFallback>
+                        </>
+                      )}
                     </Avatar>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium truncate">Jamie Smith</p>
-                      <p className="text-xs text-muted-foreground truncate">jamie@runash.ai</p>
+                      <p className="text-sm font-medium truncate">{user?.name ?? "Guest User"}</p>
+                      <p className="text-xs text-muted-foreground truncate">{user?.email ?? "guest@runash.ai"}</p>
                     </div>
-                    <Button variant="ghost" size="icon" className="text-muted-foreground">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="text-muted-foreground"
+                      onClick={() => handleLogout(true)}
+                    >
                       <LogOut className="h-4 w-4" />
                     </Button>
                   </div>
@@ -259,4 +304,5 @@ export function DashboardNavigation() {
       </div>
     </>
   )
-}
+  }
+  
