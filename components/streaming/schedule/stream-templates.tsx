@@ -7,7 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Plus, MoreHorizontal, Edit, Trash2, Calendar, Loader2 } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import type { StreamTemplate } from "@/types/stream-scheduler"
-import { toast } from "react-hot-toast"
+import { toast } from "@/components/ui/use-toast"
 
 const fetchTemplates = async (): Promise<StreamTemplate[]> => {
   const res = await fetch("/api/templates")
