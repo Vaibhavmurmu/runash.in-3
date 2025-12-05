@@ -8,6 +8,8 @@ import { Plus, MoreHorizontal, Edit, Trash2, Calendar, Loader2 } from "lucide-re
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import type { StreamTemplate } from "@/types/stream-scheduler"
 import { toast } from "@/components/ui/use-toast"
+import { Input } from "@/components/ui/input"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 const fetchTemplates = async (): Promise<StreamTemplate[]> => {
   const res = await fetch("/api/templates")
@@ -84,17 +86,22 @@ export default function StreamTemplates({
       </CardHeader>
       <CardContent className="flex-1 p-0">
         <div className="flex gap-2 px-4 py-2">
-          <input
-            type="text"
-            placeholder="Filter by name..."
-            value={filter}
-            onChange={e => setFilter(e.target.value)}
-            className="border rounded px-2 py-1 text-sm"
-          />
-          <select value={sortKey} onChange={e => setSortKey(e.target.value as any)} className="border rounded px-2 py-1 text-sm">
-            <option value="createdAt">Recent</option>
-            <option value="name">A-Z</option>
-          </select>
+          <Input
+           type="text"
+           placeholder="Filter by name..."
+           value={filter}
+           onChange={e => setFilter(e.target.value)}
+           className="text-sm"
+           aria-label="Filter templates by name"  />
+        <Select value={sortKey} onValueChange={(value) => setSortKey(value as "name" | "createdAt")}>
+         <SelectTrigger className="w-32 text-sm" aria-label="Sort templates">
+          <SelectValue />
+           </SelectTrigger>
+           <SelectContent>
+           <SelectItem value="createdAt">Recent</SelectItem>
+          <SelectItem value="name">A-Z</SelectItem>
+         </SelectContent>
+         </Select>
         </div>
         {loading ? (
           <div className="flex h-40 justify-center items-center">
