@@ -21,7 +21,7 @@ import {
   ExternalLink,
 } from "lucide-react"
 import { useRouter } from "next/navigation"
-import SlideOver from "@/components/SlideOver"
+import SlideOver from "@/components/slide-over"
 import ThemeToggle from "@/components/ThemeToggle"
 import { motion } from "framer-motion"
 
@@ -302,7 +302,7 @@ export default function CommunityPage() {
               <div className="max-w-2xl">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-medium mb-4 border border-orange-100 dark:bg-orange-900/20 dark:text-orange-300">
                   <Heart className="h-4 w-4" />
-                  Join 45K+ creators
+                  Join 1K+ creators
                 </div>
 
                 <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
