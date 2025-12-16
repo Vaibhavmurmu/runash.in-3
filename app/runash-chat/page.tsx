@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useCallback } from "react"
 import { useRouter } from "next/navigation"
 import Hero from "@/components/home/hero"
 import ProductCarousel from "@/components/home/products-carousel"
@@ -21,6 +21,8 @@ export default function RunashChatPage() {
   const [prompt, setPrompt] = useState("")
   const [products, setProducts] = useState<any[]>([])
   const [agents, setAgents] = useState<any[]>([])
+  const [sessions, setSessions] = useState<any[]>([])
+  const [creating, setCreating] = useState(false)
 
   useEffect(() => {
     // load recent session and preview messages
@@ -32,7 +34,9 @@ export default function RunashChatPage() {
         const data = await res.json()
         if (data?.id) {
           setSessionId(data.id)
-          const msgs = await fetch(`/api/messages/session/${data.id}?limit=4`)
+          // populate sessions list (simple UX improvement)
+          setSessions((prev) => [{ id: data.id, title: data.title ?? "Recent session" }, ...prev])
+          const msgs = await fetch(`/api/messages/session/${data.id}?limit=6`)
           if (msgs.ok) {
             const jl = await msgs.json()
             setMessagesPreview(Array.isArray(jl) ? jl : [])
@@ -88,55 +92,75 @@ export default function RunashChatPage() {
     ])
   }, [])
 
-  function startChatWithPrompt(initialPrompt?: string) {
-    // ensure there's a session and navigate into chat with the session id
-    (async () => {
-      try {
-        let sid = sessionId
-        if (!sid) {
-          const res = await fetch("/api/sessions", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ title: "Live Agent" }) })
-          const created = await res.json()
-          sid = created?.id
-          setSessionId(sid ?? null)
-        }
+  const startChatWithPrompt = useCallback(
+    (initialPrompt?: string) => {
+      // ensure there's a session and navigate into chat with the session id
+      ;(async () => {
+        try {
+          setCreating(true)
+          let sid = sessionId
+          if (!sid) {
+            const res = await fetch("/api/sessions", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ title: "Live Agent" }) })
+            const created = await res.json()
+            sid = created?.id
+            setSessionId(sid ?? null)
+            if (sid) {
+              setSessions((prev) => [{ id: sid, title: created?.title ?? "New session" }, ...prev])
+            }
+          }
 
-        if (initialPrompt) {
-          // store in localStorage so chat page picks it up and sends immediately
-          localStorage.setItem("runash_initial_prompt", initialPrompt)
-        }
+          if (initialPrompt) {
+            // store in localStorage so chat page picks it up and sends immediately
+            localStorage.setItem("runash_initial_prompt", initialPrompt)
+          }
 
-        if (sid) {
-          router.push(`/chat?sessionId=${sid}`)
-        } else {
-          // fallback - open chat root
+          if (sid) {
+            router.push(`/chat?sessionId=${sid}`)
+          } else {
+            // fallback - open chat root
+            router.push("/chat")
+          }
+        } catch (err) {
+          console.error("Failed to start chat:", err)
           router.push("/chat")
+        } finally {
+          setCreating(false)
         }
-      } catch (err) {
-        console.error("Failed to start chat:", err)
-        router.push("/chat")
-      }
-    })()
+      })()
+    },
+    [router, sessionId]
+  )
+
+  // keyboard "Enter to send" to align with ChatGPT UX (Shift+Enter for newline)
+  function handleInputKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault()
+      const trimmed = prompt.trim()
+      if (trimmed.length === 0) return
+      localStorage.setItem("runash_initial_prompt", trimmed)
+      startChatWithPrompt(trimmed)
+    }
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-orange-50 dark:from-gray-950 dark:to-gray-900">
       <header className="border-b bg-white/80 dark:bg-gray-950/80 backdrop-blur-md sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-6 flex items-center justify-between">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-gradient-to-r from-orange-600 to-yellow-500 p-3">
+            <div className="rounded-lg bg-gradient-to-r from-orange-600 to-yellow-500 p-3 shadow-md">
               <Bot className="h-6 w-6 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-orange-600 to-yellow-500 text-transparent bg-clip-text">
+              <h1 className="text-lg font-semibold leading-tight bg-gradient-to-r from-orange-600 to-yellow-500 text-transparent bg-clip-text">
                 RunAsh Live Commerce
               </h1>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Agentic shopping experiences — live demos, recommendations, and checkout assist</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">Agentic shopping — live demos, recommendations, and checkout assist</p>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <Button onClick={() => startChatWithPrompt()} className="bg-gradient-to-r from-orange-600 to-yellow-500 text-white">
-              Continue Chat
+            <Button onClick={() => startChatWithPrompt()} className="bg-gradient-to-r from-orange-600 to-yellow-500 text-white" disabled={creating}>
+              {creating ? "Starting..." : "Continue Chat"}
             </Button>
             <Button variant="ghost" onClick={() => router.push("/pricing")}>
               Upgrade
@@ -145,7 +169,50 @@ export default function RunashChatPage() {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-10 grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <main className="container mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-4 gap-6">
+        {/* Left sidebar: sessions — ChatGPT like */}
+        <aside className="hidden lg:block">
+          <div className="flex flex-col gap-3 sticky top-20">
+            <Button variant="ghost" className="justify-start" onClick={() => startChatWithPrompt()}>
+              + New chat
+            </Button>
+
+            <Card className="p-3">
+              <h4 className="font-semibold mb-2">Conversations</h4>
+              <ScrollArea className="h-64">
+                <div className="space-y-2">
+                  {sessions.length === 0 && <div className="text-sm text-gray-500">No conversations yet</div>}
+                  {sessions.map((s) => (
+                    <button
+                      key={s.id}
+                      onClick={() => router.push(`/chat?sessionId=${s.id}`)}
+                      className="w-full text-left p-2 rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-3"
+                    >
+                      <div className="rounded-full bg-orange-100 dark:bg-orange-900 p-2">
+                        <Bot className="h-4 w-4 text-orange-600" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="text-sm font-medium">{s.title ?? "Session"}</div>
+                        <div className="text-xs text-gray-500">Tap to continue</div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </ScrollArea>
+            </Card>
+
+            <Card className="p-3">
+              <h4 className="font-semibold mb-2">Help & Shortcuts</h4>
+              <ul className="text-sm text-gray-600 space-y-1">
+                <li>Press Enter to continue to chat</li>
+                <li>Shift+Enter for newline</li>
+                <li>Use the "New chat" button to start fresh</li>
+              </ul>
+            </Card>
+          </div>
+        </aside>
+
+        {/* Main content (wider): hero, products, agents */}
         <section className="lg:col-span-2 space-y-6">
           <Hero
             title="Turn browsers into buyers with human-like live agents"
@@ -183,44 +250,63 @@ export default function RunashChatPage() {
           />
         </section>
 
-        <aside className="space-y-6">
+        {/* Right aside: compact mini-chat preview + product highlights */}
+        <aside className="space-y-6 lg:col-span-1">
           <Card className="p-4">
-            <h4 className="font-semibold mb-2">Mini Chat Preview</h4>
-            <div className="text-xs text-gray-500 mb-3">Recent conversation (click Continue to open full chat)</div>
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <h4 className="font-semibold">Mini Chat</h4>
+                <div className="text-xs text-gray-500">Preview — continue to full chat</div>
+              </div>
+              <div className="text-xs text-gray-500">{loadingSession ? "…" : `${messagesPreview.length} messages`}</div>
+            </div>
+
             <ScrollArea className="max-h-64">
               <div className="space-y-3">
                 {loadingSession && <div className="text-sm text-gray-500">Loading preview...</div>}
                 {!loadingSession && messagesPreview.length === 0 && <div className="text-sm text-gray-600">No messages yet — start a session to see previews</div>}
                 {messagesPreview.map((m: any) => (
-                  <ChatMessageComponent
-                    key={m.id}
-                    message={{
-                      id: String(m.id),
-                      role: m.role,
-                      content: m.content,
-                      timestamp: m.created_at ? new Date(m.created_at) : new Date(),
-                      type: m.message_type ?? "text",
-                    }}
-                  />
+                  <div key={m.id} className={m.role === "assistant" ? "flex justify-start" : "flex justify-end"}>
+                    <div className={`max-w-[85%] p-3 rounded-lg text-sm leading-snug ${m.role === "assistant" ? "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100" : "bg-gradient-to-r from-orange-600 to-yellow-400 text-white"}`}>
+                      <ChatMessageComponent
+                        message={{
+                          id: String(m.id),
+                          role: m.role,
+                          content: m.content,
+                          timestamp: m.created_at ? new Date(m.created_at) : new Date(),
+                          type: m.message_type ?? "text",
+                        }}
+                      />
+                    </div>
+                  </div>
                 ))}
               </div>
             </ScrollArea>
 
             <div className="mt-4 flex gap-2">
-              <Input value={prompt} onChange={(e) => setPrompt(e.target.value)} placeholder="Ask the agent something..." />
+              <Input
+                value={prompt}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPrompt(e.target.value)}
+                onKeyDown={handleInputKeyDown}
+                placeholder="Ask the agent something... (Enter → continue)"
+                aria-label="Mini chat ask"
+              />
               <Button
                 onClick={() => {
-                  localStorage.setItem("runash_initial_prompt", prompt)
-                  startChatWithPrompt(prompt)
+                  const trimmed = prompt.trim()
+                  if (!trimmed) return
+                  localStorage.setItem("runash_initial_prompt", trimmed)
+                  startChatWithPrompt(trimmed)
                 }}
                 className="bg-gradient-to-r from-orange-600 to-yellow-500 text-white"
+                aria-label="Ask and continue"
               >
-                Ask & Continue
+                Ask
               </Button>
             </div>
 
             <div className="mt-3 text-xs text-gray-500 flex gap-3">
-              <span className="flex items-center"><Leaf className="h-3 w-3 mr-1 text-green-500" /> Organic Focus</span>
+              <span className="flex items-center"><Leaf className="h-3 w-3 mr-1 text-green-500" /> Organic</span>
               <span className="flex items-center"><Sparkles className="h-3 w-3 mr-1 text-orange-500" /> Agentic AI</span>
             </div>
           </Card>
@@ -237,4 +323,4 @@ export default function RunashChatPage() {
       </main>
     </div>
   )
-}
+    }
