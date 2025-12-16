@@ -156,8 +156,8 @@ export default function RunashChatPage() {
               <Bot className="h-5 w-5 text-white" />
             </div>
             <div>
-              <div className="font-semibold">RunAsh Copilot</div>
-              <div className="text-xs text-gray-500 dark:text-gray-400">Contextual assistant for commerce & ops</div>
+              <div className="font-semibold">RunAsh</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">Contextual assistant for agentic live commerce</div>
             </div>
           </div>
 
