@@ -1,3 +1,5 @@
+import type { GroceryProduct } from "@/types/grocery-store"
+
 export interface Product {
   id: string
   name: string
@@ -3520,3 +3522,9 @@ export const groceryProducts: Product[] = [
     reviewCount: 189,
   },
 ]
+
+export async function fetchGroceryProducts(delay = 1000): Promise<GroceryProduct[]> {
+  return new Promise((resolve) => setTimeout(() => resolve(GroceryProducts), delay))
+}
+
+export default GroceryProducts
