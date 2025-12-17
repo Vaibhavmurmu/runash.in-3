@@ -15,26 +15,19 @@ import FeaturedProducts from "@/components/grocery/featured-products"
 import CartDrawer from "@/components/cart/cart-drawer"
 import type { GroceryProduct, GroceryCategory, GroceryFilter } from "@/types/grocery-store"
 import FloatingLiveShoppingButton from "@/components/grocery/floating-live-shopping-button"
-import type { Product, groceryProducts } from "@/lib/grocery-products"
-// or adjust the path as per your file structure, e.g.
-// import { Product, groceryProducts } from './lib/grocery-products';
 
 function GroceryStoreContent() {
   const { currency, formatPrice, convertPrice } = useCurrency()
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategory, setSelectedCategory] = useState<GroceryCategory | "all">("all")
   const [filters, setFilters] = useState<Partial<GroceryFilter>>({})
- // 👇 USE Product (from grocery-products.ts) INSTEAD OF GroceryProduct
   const [products, setProducts] = useState<GroceryProduct[]>([])
-  
- // const [products, setProducts] = useState<GroceryProduct[]>([])
   const [loading, setLoading] = useState(true)
   const [showFilters, setShowFilters] = useState(false)
 
-  
   // Mock products data
- // const mockProducts: GroceryProduct[] = [
-  {/*  {
+  const mockProducts: GroceryProduct[] = [
+    {
       id: "1",
       name: "Organic Basmati Rice",
       description: "Premium aged organic basmati rice from the foothills of Himalayas",
@@ -135,12 +128,12 @@ function GroceryStoreContent() {
       tags: ["superfood", "protein", "gluten-free", "vegan"],
       isOnSale: false,
     },
-  ] */}
+  ]
 
   useEffect(() => {
     // Simulate loading
     setTimeout(() => {
-      setProducts(groceryProducts)
+      setProducts(mockProducts)
       setLoading(false)
     }, 1000)
   }, [])
@@ -168,7 +161,7 @@ function GroceryStoreContent() {
                 </div>
                 <div>
                   <h1 className="text-xl font-bold bg-gradient-to-r from-green-600 to-emerald-500 text-transparent bg-clip-text">
-                    RunAsh
+                    RunAsh Store
                   </h1>
                   <p className="text-sm text-gray-600 dark:text-gray-400">Fresh • Organic </p>
                 </div>
