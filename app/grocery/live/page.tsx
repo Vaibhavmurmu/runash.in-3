@@ -13,6 +13,7 @@ import LiveStreamInfo from "@/components/grocery/live-shopping/live-stream-info"
 import LiveStreamMetricsDisplay from "@/components/grocery/live-shopping/live-stream-metrics-display"
 import UpcomingStreams from "@/components/grocery/live-shopping/upcoming-streams"
 import type { LiveStream, LiveStreamStats } from "@/types/live-shopping"
+import { CurrencyProvider } from "@/contexts/currency-context"
 
 export default function LiveShoppingPage() {
   const [currentStream, setCurrentStream] = useState<LiveStream | null>(null)
@@ -129,6 +130,7 @@ export default function LiveShoppingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-pink-50 dark:from-gray-950 dark:to-gray-900">
       {/* Header */}
+      <CurrencyProvider>
       <div className="border-b bg-white/80 dark:bg-gray-950/80 backdrop-blur-md sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
@@ -352,6 +354,7 @@ export default function LiveShoppingPage() {
           </div>
         </div>
       </div>
+     </CurrencyProvider>
     </div>
   )
 }
