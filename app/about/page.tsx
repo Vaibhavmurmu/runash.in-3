@@ -344,10 +344,10 @@ export default function AboutPage() {
             </h2>
             <p className="text-gray-700 dark:text-gray-300 text-lg">
               We are proudly backed by a powerhouse collective driving global innovation.
-              From the foundational research and academic excellence provided by MIT, to the critical early-stage mentorship of startup accelerator Y Combinator, our project is grounded in proven success.
+              {/* From the foundational research and academic excellence provided by MIT, to the critical early-stage mentorship of startup accelerator Y Combinator, our project is grounded in proven success.
               Development is fueled by the open-source community via GitHub, while cutting-edge AI methodologies stem from our relationship with Hugging Face.
               The entire experience is then seamlessly deployed and scaled using the modern frontend cloud of Vercel.
-              This unparalleled support network ensures our commitment to excellence, speed, and open innovation at the intersection of academia, venture, and software development.
+              This unparalleled support network ensures our commitment to excellence, speed, and open innovation at the intersection of academia, venture, and software development. */}
             </p>
           </div>
 
