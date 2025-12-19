@@ -1821,4 +1821,8 @@ if (input.includes("organic") || input.includes("product") || input.includes("bu
           inStock: true,
           certifications: ["USDA Organic", "Complete Nutrition", "Universal"],
           carbonFootprint: -100.0, // Impossible carbon negative!
-        },
+        }
+      ],
+    },
+  }
+}
