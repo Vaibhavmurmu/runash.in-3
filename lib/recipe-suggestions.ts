@@ -731,5 +731,10 @@
   },
   carbonFootprint: "0.6 kg CO2e",
   wasteReductionTip: "Use blueberry stems and imperfect berries to make infused water",
-},
-    
+   },
+    },
+   ],
+  },
+ }
+}
+          
