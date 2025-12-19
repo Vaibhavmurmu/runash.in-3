@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { supabase } from "@/lib/neon/client"
+import { neon } from "@/lib/neon/client"
 import { useAuth } from "@/lib/auth/auth-context"
 
 export function useRealtimeTransactions() {
