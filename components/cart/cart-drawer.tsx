@@ -12,7 +12,7 @@ import CartSummary from "./cart-summary"
 import SustainabilityMetrics from "./sustainability-metrics"
 import CouponInput from "./coupon-input"
 import ShippingOptions from "./shipping-options"
-import { useRouter } from "next/navigation"
+import { useRouter, useState } from "next/navigation"
 import { useState } from "react"
 
 export default function CartDrawer() {
@@ -95,9 +95,9 @@ export default function CartDrawer() {
 
             {/* Checkout Button */}
             <div className="space-y-2">
-              <Button className="w-full bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white">
+              <Button className="w-full bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white"
+                onClick={() => router.push("/checkout")}>
                 <CreditCard className="h-4 w-4 mr-2" />
-                onClick={() => router.push("/checkout")}
                 Proceed to Checkout
               </Button>
               <Button variant="outline" className="w-full" onClick={toggleCart}>
