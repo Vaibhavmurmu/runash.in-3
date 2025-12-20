@@ -29,10 +29,10 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 import { toast } from "sonner"
-import { InstallPrompt } from "@/components/pwa/install-prompt"
-import { useI18n } from "@/lib/i18n/context"
+import { InstallPrompt } from "@/components/pwa/install-prompt" 
+{/* import { useI18n } from "@/lib/i18n/context" */}
 import { useCurrencyConverter } from "@/lib/hooks/use-exchange-rates"
-import { useAuth } from "@/lib/auth/auth-context"
+{/* import { useAuth } from "@/lib/auth/auth-context" */}
 import { useRouter } from "next/navigation"
 
 interface Transaction {
