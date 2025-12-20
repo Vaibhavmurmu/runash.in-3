@@ -63,9 +63,9 @@ export default function RunashPayPage() {
   const [balanceVisible, setBalanceVisible] = useState(true)
   const [loading, setLoading] = useState(false)
 
-  const { t, currentLanguage } = useI18n()
+  // const { t, currentLanguage } = useI18n()
   const { formatCurrency } = useCurrencyConverter()
-  const { user } = useAuth()
+ // const { user } = useAuth()
   const router = useRouter()
 
   useEffect(() => {
@@ -410,7 +410,7 @@ export default function RunashPayPage() {
       </div>
 
       {/* PWA Install Prompt */}
-      <InstallPrompt />
+      {/* <InstallPrompt /> */}
 
       {/* Bottom Navigation */}
       <div className="fixed bottom-0 left-0 right-0 z-50">
