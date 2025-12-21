@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -14,6 +15,7 @@ import SustainabilityMetrics from "@/components/cart/sustainability-metrics"
 import Link from "next/link"
 
 export default function CheckoutPage() {
+  const router = useRouter()
   const [mounted, setMounted] = useState(false)
   const { state } = useCart()
   const { cart, totals } = state
@@ -32,19 +34,88 @@ export default function CheckoutPage() {
     nameOnCard: "",
   })
 
+  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [processing, setProcessing] = useState(false)
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false)
+
   // Ensure component is mounted before accessing cart
   useEffect(() => {
     setMounted(true)
+
+    // Try to prefill with saved profile data (if any)
+    try {
+      const saved = typeof window !== "undefined" ? localStorage.getItem("userProfile") : null
+      if (saved) {
+        const parsed = JSON.parse(saved)
+        setFormData((prev) => ({ ...prev, ...parsed }))
+      }
+    } catch (e) {
+      // ignore
+    }
   }, [])
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
+    setErrors((prev) => ({ ...prev, [field]: "" }))
+  }
+
+  const validate = () => {
+    const newErrors: Record<string, string> = {}
+    if (!formData.email) newErrors.email = "Email is required"
+    if (!formData.firstName) newErrors.firstName = "First name is required"
+    if (!formData.lastName) newErrors.lastName = "Last name is required"
+    if (!formData.address) newErrors.address = "Address is required"
+    if (!formData.city) newErrors.city = "City is required"
+    if (!formData.zipCode) newErrors.zipCode = "ZIP code is required"
+    if (!formData.cardNumber) newErrors.cardNumber = "Card number is required"
+    if (!formData.expiryDate) newErrors.expiryDate = "Expiry date is required"
+    if (!formData.cvv) newErrors.cvv = "CVV is required"
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
   }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle checkout submission
-    console.log("Checkout submitted:", formData)
+    // Validate form
+    if (!validate()) return
+
+    // Build order payload from real data (cart + form)
+    const order = {
+      id: `order_${Date.now()}`,
+      createdAt: new Date().toISOString(),
+      customer: {
+        email: formData.email,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        address: formData.address,
+        city: formData.city,
+        state: formData.state,
+        zipCode: formData.zipCode,
+      },
+      payment: {
+        cardNumber: formData.cardNumber ? `**** **** **** ${formData.cardNumber.slice(-4)}` : "",
+        nameOnCard: formData.nameOnCard,
+      },
+      items: cart.items,
+      totals,
+    }
+
+    // Persist pending order so the payment page can pick it up
+    try {
+      sessionStorage.setItem("pendingOrder", JSON.stringify(order))
+    } catch (err) {
+      console.error("Failed to save pending order:", err)
+    }
+
+    // Show confirmation dialog (add dialog UI design)
+    setShowConfirmDialog(true)
+  }
+
+  const proceedToPayment = () => {
+    setProcessing(true)
+    // Here you could call an API to create an order on the backend and get a payment session.
+    // For now we navigate to the payment page and the payment page should read `pendingOrder` from sessionStorage.
+    router.push("/payment")
   }
 
   // Show loading state during hydration
@@ -122,6 +193,7 @@ export default function CheckoutPage() {
                     placeholder="your@email.com"
                     required
                   />
+                  {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email}</p>}
                 </div>
               </CardContent>
             </Card>
@@ -140,6 +212,7 @@ export default function CheckoutPage() {
                       onChange={(e) => handleInputChange("firstName", e.target.value)}
                       required
                     />
+                    {errors.firstName && <p className="text-xs text-red-500 mt-1">{errors.firstName}</p>}
                   </div>
                   <div>
                     <Label htmlFor="lastName">Last Name</Label>
@@ -149,6 +222,7 @@ export default function CheckoutPage() {
                       onChange={(e) => handleInputChange("lastName", e.target.value)}
                       required
                     />
+                    {errors.lastName && <p className="text-xs text-red-500 mt-1">{errors.lastName}</p>}
                   </div>
                 </div>
                 <div>
@@ -160,6 +234,7 @@ export default function CheckoutPage() {
                     placeholder="123 Main Street"
                     required
                   />
+                  {errors.address && <p className="text-xs text-red-500 mt-1">{errors.address}</p>}
                 </div>
                 <div className="grid grid-cols-3 gap-4">
                   <div>
@@ -170,6 +245,7 @@ export default function CheckoutPage() {
                       onChange={(e) => handleInputChange("city", e.target.value)}
                       required
                     />
+                    {errors.city && <p className="text-xs text-red-500 mt-1">{errors.city}</p>}
                   </div>
                   <div>
                     <Label htmlFor="state">State</Label>
@@ -190,6 +266,7 @@ export default function CheckoutPage() {
                       placeholder="12345"
                       required
                     />
+                    {errors.zipCode && <p className="text-xs text-red-500 mt-1">{errors.zipCode}</p>}
                   </div>
                 </div>
               </CardContent>
@@ -213,6 +290,7 @@ export default function CheckoutPage() {
                     placeholder="1234 5678 9012 3456"
                     required
                   />
+                  {errors.cardNumber && <p className="text-xs text-red-500 mt-1">{errors.cardNumber}</p>}
                 </div>
                 <div className="grid grid-cols-3 gap-4">
                   <div className="col-span-2">
@@ -224,6 +302,7 @@ export default function CheckoutPage() {
                       placeholder="MM/YY"
                       required
                     />
+                    {errors.expiryDate && <p className="text-xs text-red-500 mt-1">{errors.expiryDate}</p>}
                   </div>
                   <div>
                     <Label htmlFor="cvv">CVV</Label>
@@ -234,6 +313,7 @@ export default function CheckoutPage() {
                       placeholder="123"
                       required
                     />
+                    {errors.cvv && <p className="text-xs text-red-500 mt-1">{errors.cvv}</p>}
                   </div>
                 </div>
                 <div>
@@ -298,10 +378,10 @@ export default function CheckoutPage() {
                 <form onSubmit={handleSubmit}>
                   <Button
                     type="submit"
+                    disabled={processing}
                     className="w-full bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white"
-                    onClick={() => router.push("/payment")}
                   >
-                    Complete Order - ${totals.total.toFixed(2)}
+                    {processing ? "Processing..." : `Complete Order - $${totals.total.toFixed(2)}`}
                   </Button>
                 </form>
 
@@ -319,6 +399,45 @@ export default function CheckoutPage() {
             </Card>
           </div>
         </div>
+
+        {/* Confirmation Dialog (simple UI) */}
+        {showConfirmDialog && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center">
+            <div className="absolute inset-0 bg-black/40" onClick={() => setShowConfirmDialog(false)} />
+            <div className="relative bg-white dark:bg-gray-900 rounded-lg shadow-lg max-w-lg w-full p-6 z-10">
+              <h3 className="text-lg font-semibold mb-2">Confirm Your Order</h3>
+              <p className="text-sm text-gray-600 mb-4">You're about to complete your order. Proceed to secure payment?</p>
+
+              <div className="space-y-2 mb-4">
+                <div className="flex justify-between text-sm">
+                  <span>Items</span>
+                  <span>{cart.items.length}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span>Subtotal</span>
+                  <span>${totals.subtotal.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span>Shipping</span>
+                  <span>${totals.shipping.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between font-medium">
+                  <span>Total</span>
+                  <span>${totals.total.toFixed(2)}</span>
+                </div>
+              </div>
+
+              <div className="flex justify-end space-x-2">
+                <Button variant="ghost" onClick={() => setShowConfirmDialog(false)}>
+                  Edit
+                </Button>
+                <Button onClick={proceedToPayment}>
+                  {processing ? "Please wait..." : "Proceed to Payment"}
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
