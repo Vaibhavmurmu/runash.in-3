@@ -1,64 +1,46 @@
 "use client"
 
-import React, { createContext, useContext, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 
-type Accent = "orange" | "teal" | "violet" | "red" | "green"
+const ACCENT_MAP: Record<string, string> = {
+  blue: "#3b82f6", // bg-blue-500
+  purple: "#8b5cf6", // bg-purple-500
+  green: "#10b981", // bg-green-500
+  orange: "#f97316", // bg-orange-500
+  red: "#ef4444", // bg-red-500
+  pink: "#ec4899", // bg-pink-500
+}
 
-const AccentContext = createContext({
-  accent: "orange" as Accent,
-  setAccent: (a: Accent) => {},
-})
-
-export function AccentThemeProvider({ children }: { children: React.ReactNode }) {
-  const [accent, setAccent] = useState<Accent>(() => {
-    if (typeof window === "undefined") return "orange"
-    return (localStorage.getItem("accent") as Accent) || "orange"
-  })
+export function AccentThemeProvider() {
+  const [accent, setAccent] = useState<string>("orange")
 
   useEffect(() => {
-    // Apply CSS variables or classes for accent
-    const root = document.documentElement
-    root.dataset.accent = accent
+    // Read saved accent from localStorage or from data-accent attribute,
+    // ensure documentElement has the attribute set so CSS can react.
     try {
-      localStorage.setItem("accent", accent)
-    } catch (e) {}
-  }, [accent])
+      const savedAccent = typeof window !== "undefined" ? localStorage.getItem("accent-color") : null
+      const attrAccent = typeof document !== "undefined" ? document.documentElement.getAttribute("data-accent") : null
+      const initial = savedAccent || attrAccent || "orange"
+      setAccent(initial)
+      if (typeof document !== "undefined") {
+        document.documentElement.setAttribute("data-accent", initial)
+      }
+    } catch (e) {
+      // ignore - defensive for SSR or private mode
+      setAccent("orange")
+    }
+  }, [])
 
-  return <AccentContext.Provider value={{ accent, setAccent }}>{children}</AccentContext.Provider>
-}
+  const color = ACCENT_MAP[accent] ?? ACCENT_MAP["orange"]
 
-export function useAccent() {
-  return useContext(AccentContext)
-}
-
-export function AccentThemeToggle() {
-  const { accent, setAccent } = useAccent()
-  const accents: Accent[] = ["orange", "teal", "violet", "red", "green"]
+  // Render a small circle that visually indicates the currently selected accent.
+  // Keep it very small so it fits inline in buttons (used by ThemeSelector).
   return (
-    <div className="flex items-center gap-2">
-      <div className="text-sm text-gray-600 dark:text-gray-300 mr-2">Accent</div>
-      <div className="flex items-center gap-2">
-        {accents.map((a) => (
-          <button
-            key={a}
-            onClick={() => setAccent(a)}
-            aria-pressed={accent === a}
-            className={`h-6 w-6 rounded-full ring-2 ring-offset-1 ${accent === a ? "ring-black/20 dark:ring-white/20" : "opacity-70" }`}
-            style={{
-              background:
-                a === "orange"
-                  ? "linear-gradient(45deg,#fb923c,#f59e0b)"
-                  : a === "teal"
-                  ? "linear-gradient(45deg,#06b6d4,#14b8a6)"
-                  : a === "violet"
-                  ? "linear-gradient(45deg,#8b5cf6,#a78bfa)"
-                  : a === "red"
-                  ? "linear-gradient(45deg,#ef4444,#f97316)"
-                  : "linear-gradient(45deg,#10b981,#34d399)",
-            }}
-          />
-        ))}
-      </div>
-    </div>
+    <span className="ml-2 inline-block align-middle" aria-hidden>
+      <span
+        className="inline-block w-3 h-3 rounded-full ring-1 ring-inset"
+        style={{ backgroundColor: color }}
+      />
+    </span>
   )
 }
