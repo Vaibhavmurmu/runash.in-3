@@ -12,12 +12,31 @@ import CartSummary from "./cart-summary"
 import SustainabilityMetrics from "./sustainability-metrics"
 import CouponInput from "./coupon-input"
 import ShippingOptions from "./shipping-options"
+import { useRouter } from "next/navigation"
 
 export default function CartDrawer() {
   const { state, toggleCart, getItemCount, clearCart } = useCart()
   const { cart, isOpen, totals } = state
 
   const itemCount = getItemCount()
+  const router = useRouter()
+
+  const handleCheckout = () => {
+    // Close the drawer explicitly then navigate to checkout.
+    // toggleCart accepts a boolean to set open state (false = close).
+    try {
+      toggleCart(false)
+    } catch {
+      // Fallback to toggling if toggleCart doesn't accept a boolean.
+      try {
+        // @ts-ignore
+        toggleCart()
+      } catch {
+        // noop
+      }
+    }
+    router.push("/checkout")
+  }
 
   return (
     <Sheet open={isOpen} onOpenChange={toggleCart}>
@@ -58,7 +77,7 @@ export default function CartDrawer() {
                 Start adding some organic products to get started!
               </p>
             </div>
-            <Button onClick={toggleCart} className="bg-gradient-to-r from-orange-600 to-yellow-500 text-white">
+            <Button onClick={() => toggleCart(false)} className="bg-gradient-to-r from-orange-600 to-yellow-500 text-white">
               Continue Shopping
             </Button>
           </div>
@@ -93,12 +112,14 @@ export default function CartDrawer() {
 
             {/* Checkout Button */}
             <div className="space-y-2">
-              <Button className="w-full bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white"
-                onClick={checkout}>
+              <Button
+                className="w-full bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 text-white"
+                onClick={handleCheckout}
+              >
                 <CreditCard className="h-4 w-4 mr-2" />
                 Proceed to Checkout
               </Button>
-              <Button variant="outline" className="w-full" onClick={toggleCart}>
+              <Button variant="outline" className="w-full" onClick={() => toggleCart(false)}>
                 Continue Shopping
               </Button>
             </div>
