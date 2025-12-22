@@ -57,12 +57,12 @@ export default function EnhancedNewsletterSignup({ location }: Props) {
 
   return (
     <div className="w-full bg-white dark:bg-gray-900/40 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-800">
-      <h4 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Get product updates & invites</h4>
+      <h4 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Get product updates & invits</h4>
       <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-        Join our newsletter for release notes, early access invites, and pricing alerts. We send occasional emails only.
+        Join our newsletter for release notes, early access invites
       </p>
 
-      <form onSubmit={handleSubmit} className="flex gap-2">
+      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2">
         <input
           placeholder="you@company.com"
           value={email}
@@ -73,7 +73,7 @@ export default function EnhancedNewsletterSignup({ location }: Props) {
         <button
           type="submit"
           disabled={submitting}
-          className="px-4 py-2 rounded-md bg-orange-500 text-white hover:bg-orange-600 disabled:opacity-60"
+          className="px-3 py-2 rounded-md bg-orange-500 text-white hover:bg-orange-600 disabled:opacity-60"
         >
           {submitting ? "Subscribing..." : "Subscribe"}
         </button>
@@ -82,7 +82,7 @@ export default function EnhancedNewsletterSignup({ location }: Props) {
       <div className="flex items-center gap-2 mt-3 text-sm">
         <input id="consent" checked={consent} onChange={(e) => setConsent(e.target.checked)} type="checkbox" />
         <label className="text-gray-600 dark:text-gray-300" htmlFor="consent">
-          I agree to receive occasional product emails
+          I agree to receive product emails
         </label>
       </div>
 
