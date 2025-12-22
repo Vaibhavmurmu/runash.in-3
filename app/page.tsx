@@ -544,7 +544,7 @@ export default function Home() {
 
             {/* Newsletter Signup */}
             <div className="lg:col-span-2">
-              <EnhancedNewsletterSignup location={location} />
+              <EnhancedNewsletterSignup />
 
               {/* Social Media */}
               <div className="mt-6">
