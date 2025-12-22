@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Monitor, Moon, Sun, Palette } from "lucide-react"
 import { useTheme } from "next-themes"
+import { AccentThemeProvider } from "@/components/accent/AccentThemeProvider" 
 
 const themes = [
   { name: "Light", value: "light", icon: Sun },
@@ -52,6 +53,7 @@ export function ThemeSelector() {
     return (
       <Button variant="ghost" size="sm">
         <Palette className="h-4 w-4" />
+        <AccentThemeProvider />
       </Button>
     )
   }
