@@ -57,9 +57,9 @@ export default function EnhancedNewsletterSignup({ location }: Props) {
 
   return (
     <div className="w-full bg-white dark:bg-gray-900/40 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-800">
-      <h4 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Get product updates & invites</h4>
+      <h4 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Subscribe to our newsletter</h4>
       <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-        Join our newsletter for release notes, early access invites, and pricing alerts. We send occasional emails only.
+        Get the latest news and updates delivered to your inbox
       </p>
 
       <form onSubmit={handleSubmit} className="flex gap-2">
@@ -67,13 +67,13 @@ export default function EnhancedNewsletterSignup({ location }: Props) {
           placeholder="you@company.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="flex-1 rounded-md px-3 py-2 border border-gray-200 dark:border-gray-700 bg-transparent text-sm text-gray-900 dark:text-white"
+          className="flex-1 rounded-md px-3 py-2 border border-gray-200 dark:border-gray-700 bg-transparent text-sm sm:flex-row gap-2 text-gray-900 dark:text-white"
           aria-label="Email address"
         />
         <button
           type="submit"
           disabled={submitting}
-          className="px-4 py-2 rounded-md bg-orange-500 text-white hover:bg-orange-600 disabled:opacity-60"
+          className="px-3 py-2 rounded-md bg-orange-500 text-white hover:bg-orange-600 sm:flex-row gap-2 disabled:opacity-60"
         >
           {submitting ? "Subscribing..." : "Subscribe"}
         </button>
