@@ -35,12 +35,13 @@ export default function Home() {
       
       <Navbar />
       <div className="container relative z-10 mx-auto px-4 text-center">
-          <div className="inline-block  mt-16 mb-0 px-3 py-3 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
+          <div className="inline-block mt-16 mb-0 px-3 py-3 rounded-full bg-orange-100/80 dark:bg-orange-900/30 backdrop-blur-sm border border-orange-200 dark:border-orange-800/50">
             <div className="flex items-center justify-center space-x-2">
               <Bell className="w-4 h-4" />
+              <Badge varient="secondary" className="bg-orange-600 text-white gap-2 space-x-1 dark:bg-orange-500 animate-pulse text-xs">New</Badge>  
               <span className="text-orange-600 dark:text-orange-400 font-medium text-sm">
-               🎉 Pre-releasing real-time AI Video Generation Model!{" "}
-               <a href="/blog/new-model" className="underline font-semibold hover:text-orange-200">
+               🎉 Pre Release Real Time AI Video Generation Model!{" "}
+               <a href="/blog/real-time-model" className="underline font-semibold hover:text-orange-200">
                 Learn more
               </a>
             </span>
@@ -543,7 +544,7 @@ export default function Home() {
 
             {/* Newsletter Signup */}
             <div className="lg:col-span-2">
-              <EnhancedNewsletterSignup />
+              <EnhancedNewsletterSignup location={location} />
 
               {/* Social Media */}
               <div className="mt-6">
