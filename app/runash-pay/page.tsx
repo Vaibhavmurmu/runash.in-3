@@ -72,10 +72,10 @@ export default function RunashPayPage() {
     setMounted(true)
 
     // Redirect to login if not authenticated
-    {/*  if (mounted && !user) {
+      if (mounted && !user) {
       router.push("/auth/login")
     }
-  }, [mounted, user, router]) */}
+  }, [mounted, user, router]) 
 
   const recentTransactions: Transaction[] = [
     {
