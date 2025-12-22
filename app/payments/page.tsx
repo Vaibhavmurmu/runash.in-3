@@ -17,7 +17,7 @@ type CartSummary = {
   breakdown?: { label: string; amount: number }[]
 }
 
-export default function PaymentPage() {
+export default function PaymentsPage() {
   const [step, setStep] = useState<"amount" | "method" | "processing" | "success">("amount")
 
   // amount & currency come from real cart summary API
