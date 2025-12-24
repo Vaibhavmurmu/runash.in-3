@@ -2,7 +2,7 @@
 
 import { SidebarTrigger } from "@/components/ui/sidebar"
 import { Button } from "@/components/ui/button"
-import { ThemeToggle } from "@/components/theme-toggle"
+import { ThemeToggle } from "@/components/agents/theme-toggle"
 import { Bell, Search } from "lucide-react"
 import { Input } from "@/components/ui/input"
 
