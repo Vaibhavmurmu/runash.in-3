@@ -14,7 +14,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 import { Button } from "@/components/ui/button"
-import { Logo } from "@/components/logo"
+import { Logo } from "@/components/agents/logo"
 import {
   LayoutDashboard,
   BarChart3,
