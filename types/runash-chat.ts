@@ -125,3 +125,25 @@ export interface QuickAction {
   action: () => void
   category: "product" | "recipe" | "tip" | "automation"
 }
+
+export type Message = {
+  role: "user" | "assistant" | "system"
+  content: string
+  createdAt: string | Date
+}
+
+export type ChatSession = {
+  id: string
+  title: string
+  messages: Message[]
+  createdAt: Date | string
+  updatedAt: Date | string
+  context: {
+    preferences?: Record<string, any>
+    currentCart?: any[]
+    recentSearches?: string[]
+  }
+  // optional UI fields persisted locally
+  favorite?: boolean
+  model?: string
+  }
