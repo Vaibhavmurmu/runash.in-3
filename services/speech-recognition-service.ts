@@ -1,64 +1,75 @@
-"use client"
+// Minimal wrapper for Web Speech API (SpeechRecognition)
+// Exposes: isSupported(), startListening(onResult, onError), stopListening()
 
-export interface SpeechRecognitionResult {
-  transcript: string
-  confidence: number
-  isFinal: boolean
-}
+type RecognitionResult = { transcript: string; isFinal: boolean }
 
 export class SpeechRecognitionService {
-  private recognition: any = null
-  private isSupported = false
+  private recognition: SpeechRecognition | null = null
+  private active = false
 
   constructor() {
-    if (typeof window !== "undefined") {
-      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
-      if (SpeechRecognition) {
-        this.recognition = new SpeechRecognition()
-        this.isSupported = true
-        this.setupRecognition()
-      }
-    }
-  }
-
-  private setupRecognition() {
-    if (!this.recognition) return
-
-    this.recognition.continuous = true
-    this.recognition.interimResults = true
-    this.recognition.lang = "en-US"
-    this.recognition.maxAlternatives = 1
-  }
-
-  startListening(onResult: (result: SpeechRecognitionResult) => void, onError: (error: string) => void) {
-    if (!this.isSupported) {
-      onError("Speech recognition is not supported in this browser")
+    const win = typeof window !== "undefined" ? window : (globalThis as any)
+    const Rec = (win as any).SpeechRecognition || (win as any).webkitSpeechRecognition
+    if (!Rec) {
+      this.recognition = null
       return
     }
 
-    this.recognition.onresult = (event: any) => {
-      const result = event.results[event.results.length - 1]
-      onResult({
-        transcript: result[0].transcript,
-        confidence: result[0].confidence,
-        isFinal: result.isFinal,
-      })
-    }
-
-    this.recognition.onerror = (event: any) => {
-      onError(`Speech recognition error: ${event.error}`)
-    }
-
-    this.recognition.start()
-  }
-
-  stopListening() {
-    if (this.recognition) {
-      this.recognition.stop()
-    }
+    this.recognition = new Rec()
+    this.recognition.continuous = true
+    this.recognition.interimResults = true
+    this.recognition.lang = "en-US"
   }
 
   isSupported() {
-    return this.isSupported
+    return !!this.recognition
   }
-}
+
+  startListening(onResult: (r: RecognitionResult) => void, onError?: (e: any) => void) {
+    if (!this.recognition) throw new Error("SpeechRecognition not supported")
+
+    if (this.active) {
+      // already listening
+      return
+    }
+
+    this.recognition.onresult = (ev: SpeechRecognitionEvent) => {
+      try {
+        for (let i = ev.resultIndex; i < ev.results.length; i++) {
+          const res = ev.results[i]
+          const transcript = Array.from(res).map((r: any) => r.transcript).join("")
+          const isFinal = res.isFinal
+          onResult({ transcript, isFinal })
+        }
+      } catch (e) {
+        console.error("Recognition onresult error", e)
+      }
+    }
+
+    this.recognition.onerror = (ev: any) => {
+      if (onError) onError(ev)
+    }
+
+    try {
+      this.recognition.start()
+      this.active = true
+    } catch (e) {
+      // Some browsers throw if start called too quickly; surface to caller
+      if (onError) onError(e)
+      throw e
+    }
+  }
+
+  stopListening() {
+    if (!this.recognition) return
+    try {
+      this.recognition.onresult = null
+      this.recognition.onerror = null
+      this.recognition.stop()
+    } catch (e) {
+      // ignore
+    } finally {
+      this.active = false
+    }
+  }
+      }
