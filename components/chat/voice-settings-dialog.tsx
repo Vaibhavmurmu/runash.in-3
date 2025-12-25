@@ -1,156 +1,122 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Slider } from "@/components/ui/slider"
-import { Switch } from "@/components/ui/switch"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { X, Volume2 } from "lucide-react"
-import type { TextToSpeechService } from "@/services/text-to-speech-service"
 
-interface VoiceSettings {
+type Settings = {
   rate: number
   pitch: number
   volume: number
   autoSpeak: boolean
-  voice: SpeechSynthesisVoice | null
+  voice?: SpeechSynthesisVoice | null
 }
 
-interface VoiceSettingsDialogProps {
-  settings: VoiceSettings
-  onSave: (settings: VoiceSettings) => void
+interface Props {
+  settings: Settings
+  availableVoices?: SpeechSynthesisVoice[]
+  onSave: (s: Settings) => void
   onClose: () => void
-  ttsService: TextToSpeechService | null
+  ttsService?: any
 }
 
-export default function VoiceSettingsDialog({ settings, onSave, onClose, ttsService }: VoiceSettingsDialogProps) {
-  const [localSettings, setLocalSettings] = useState<VoiceSettings>(settings)
-  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([])
-
-  useEffect(() => {
-    if (ttsService) {
-      const availableVoices = ttsService.getVoices()
-      setVoices(availableVoices)
-
-      // If no voice is selected, use the first English voice
-      if (!localSettings.voice && availableVoices.length > 0) {
-        const englishVoice = availableVoices.find((voice) => voice.lang.startsWith("en")) || availableVoices[0]
-        setLocalSettings((prev) => ({ ...prev, voice: englishVoice }))
-      }
-    }
-  }, [ttsService, localSettings.voice])
-
-  const handleTestVoice = () => {
-    if (ttsService) {
-      ttsService.speak("This is a test of your voice settings for RunAsh Chat AI assistant.", localSettings)
-    }
-  }
-
-  const handleSave = () => {
-    onSave(localSettings)
-    onClose()
-  }
+export default function VoiceSettingsDialog({ settings, availableVoices = [], onSave, onClose }: Props) {
+  const [rate, setRate] = useState(settings.rate ?? 1)
+  const [pitch, setPitch] = useState(settings.pitch ?? 1)
+  const [volume, setVolume] = useState(settings.volume ?? 0.8)
+  const [autoSpeak, setAutoSpeak] = useState(settings.autoSpeak ?? true)
+  const [voice, setVoice] = useState<SpeechSynthesisVoice | null>(settings.voice ?? null)
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <Card className="w-full max-w-md p-6 space-y-6">
-        <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold">Voice Settings</h3>
-          <Button variant="ghost" size="sm" onClick={onClose}>
-            <X className="h-4 w-4" />
-          </Button>
-        </div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-black/40" onClick={onClose} />
+      <Card className="z-10 w-full max-w-lg p-4">
+        <h3 className="text-lg font-semibold mb-2">Voice Settings</h3>
 
-        <div className="space-y-4">
-          {/* Voice Selection */}
-          <div className="space-y-2">
-            <Label>Voice</Label>
-            <Select
-              value={localSettings.voice?.name || ""}
-              onValueChange={(value) => {
-                const selectedVoice = voices.find((voice) => voice.name === value)
-                setLocalSettings((prev) => ({ ...prev, voice: selectedVoice || null }))
+        <div className="space-y-3">
+          <div>
+            <label className="block text-sm font-medium">Voice</label>
+            <select
+              className="w-full mt-1 p-2 border rounded"
+              value={voice?.voiceURI || voice?.name || ""}
+              onChange={(e) => {
+                const val = e.target.value
+                const v = availableVoices.find((vv) => vv.voiceURI === val || vv.name === val) || null
+                setVoice(v)
               }}
             >
-              <SelectTrigger>
-                <SelectValue placeholder="Select a voice" />
-              </SelectTrigger>
-              <SelectContent>
-                {voices.map((voice) => (
-                  <SelectItem key={voice.name} value={voice.name}>
-                    {voice.name} ({voice.lang})
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              {availableVoices.length === 0 && <option value="">Default</option>}
+              {availableVoices.map((v) => (
+                <option key={v.voiceURI || v.name} value={v.voiceURI || v.name}>
+                  {v.name} ({v.lang})
+                </option>
+              ))}
+            </select>
           </div>
 
-          {/* Speech Rate */}
-          <div className="space-y-2">
-            <Label>Speech Rate: {localSettings.rate.toFixed(1)}x</Label>
-            <Slider
-              value={[localSettings.rate]}
-              onValueChange={([value]) => setLocalSettings((prev) => ({ ...prev, rate: value }))}
-              min={0.5}
-              max={2}
-              step={0.1}
-              className="w-full"
+          <div>
+            <label className="block text-sm font-medium">Rate: {rate.toFixed(1)}</label>
+            <input
+              type="range"
+              min="0.5"
+              max="2"
+              step="0.1"
+              value={rate}
+              onChange={(e) => setRate(Number(e.target.value))}
             />
           </div>
 
-          {/* Pitch */}
-          <div className="space-y-2">
-            <Label>Pitch: {localSettings.pitch.toFixed(1)}</Label>
-            <Slider
-              value={[localSettings.pitch]}
-              onValueChange={([value]) => setLocalSettings((prev) => ({ ...prev, pitch: value }))}
-              min={0.5}
-              max={2}
-              step={0.1}
-              className="w-full"
+          <div>
+            <label className="block text-sm font-medium">Pitch: {pitch.toFixed(1)}</label>
+            <input
+              type="range"
+              min="0"
+              max="2"
+              step="0.1"
+              value={pitch}
+              onChange={(e) => setPitch(Number(e.target.value))}
             />
           </div>
 
-          {/* Volume */}
-          <div className="space-y-2">
-            <Label>Volume: {Math.round(localSettings.volume * 100)}%</Label>
-            <Slider
-              value={[localSettings.volume]}
-              onValueChange={([value]) => setLocalSettings((prev) => ({ ...prev, volume: value }))}
-              min={0}
-              max={1}
-              step={0.1}
-              className="w-full"
+          <div>
+            <label className="block text-sm font-medium">Volume: {volume.toFixed(2)}</label>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value={volume}
+              onChange={(e) => setVolume(Number(e.target.value))}
             />
           </div>
 
-          {/* Auto Speak */}
-          <div className="flex items-center justify-between">
-            <Label>Auto-speak AI responses</Label>
-            <Switch
-              checked={localSettings.autoSpeak}
-              onCheckedChange={(checked) => setLocalSettings((prev) => ({ ...prev, autoSpeak: checked }))}
-            />
+          <div className="flex items-center space-x-2">
+            <input id="autospeak" type="checkbox" checked={autoSpeak} onChange={(e) => setAutoSpeak(e.target.checked)} />
+            <label htmlFor="autospeak" className="text-sm">
+              Auto speak AI responses
+            </label>
           </div>
 
-          {/* Test Voice */}
-          <Button variant="outline" onClick={handleTestVoice} className="w-full" disabled={!ttsService?.isSupported()}>
-            <Volume2 className="h-4 w-4 mr-2" />
-            Test Voice
-          </Button>
-        </div>
-
-        <div className="flex space-x-2">
-          <Button variant="outline" onClick={onClose} className="flex-1">
-            Cancel
-          </Button>
-          <Button onClick={handleSave} className="flex-1">
-            Save Settings
-          </Button>
+          <div className="flex justify-end space-x-2 mt-4">
+            <Button variant="outline" onClick={onClose}>
+              Cancel
+            </Button>
+            <Button
+              onClick={() =>
+                onSave({
+                  rate,
+                  pitch,
+                  volume,
+                  autoSpeak,
+                  voice,
+                })
+              }
+            >
+              Save
+            </Button>
+          </div>
         </div>
       </Card>
     </div>
   )
-}
+    }
