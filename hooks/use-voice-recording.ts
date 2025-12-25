@@ -1,141 +1,109 @@
-"use client"
+import { useEffect, useRef, useState } from "react"
 
-import { useState, useRef, useCallback } from "react"
-
-export interface VoiceRecordingState {
-  isRecording: boolean
-  isProcessing: boolean
-  audioLevel: number
-  duration: number
-  error: string | null
-}
+// Hook that provides minimal recording indicators: isRecording, audioLevel (0..1), duration (seconds)
+// startRecording() attempts to get microphone and creates an AudioContext/Analyser to compute level.
+// stopRecording() stops tracks and cleans up.
 
 export function useVoiceRecording() {
-  const [state, setState] = useState<VoiceRecordingState>({
-    isRecording: false,
-    isProcessing: false,
-    audioLevel: 0,
-    duration: 0,
-    error: null,
-  })
+  const [isRecording, setIsRecording] = useState(false)
+  const [audioLevel, setAudioLevel] = useState(0)
+  const [duration, setDuration] = useState(0)
 
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null)
-  const audioContextRef = useRef<AudioContext | null>(null)
+  const mediaStreamRef = useRef<MediaStream | null>(null)
+  const audioCtxRef = useRef<AudioContext | null>(null)
   const analyserRef = useRef<AnalyserNode | null>(null)
-  const streamRef = useRef<MediaStream | null>(null)
-  const animationFrameRef = useRef<number | null>(null)
-  const startTimeRef = useRef<number>(0)
-  const durationIntervalRef = useRef<NodeJS.Timeout | null>(null)
+  const rafRef = useRef<number | null>(null)
+  const startTsRef = useRef<number | null>(null)
 
-  const updateAudioLevel = useCallback(() => {
-    if (!analyserRef.current) return
-
-    const dataArray = new Uint8Array(analyserRef.current.frequencyBinCount)
-    analyserRef.current.getByteFrequencyData(dataArray)
-
-    const average = dataArray.reduce((sum, value) => sum + value, 0) / dataArray.length
-    const normalizedLevel = Math.min(average / 128, 1)
-
-    setState((prev) => ({ ...prev, audioLevel: normalizedLevel }))
-
-    if (state.isRecording) {
-      animationFrameRef.current = requestAnimationFrame(updateAudioLevel)
+  useEffect(() => {
+    return () => {
+      // cleanup if component unmounts
+      stopRecordingInternal()
     }
-  }, [state.isRecording])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-  const startRecording = useCallback(async () => {
+  const stopRecordingInternal = () => {
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current)
+      rafRef.current = null
+    }
+    if (analyserRef.current) {
+      analyserRef.current.disconnect()
+      analyserRef.current = null
+    }
+    if (audioCtxRef.current) {
+      try {
+        audioCtxRef.current.close()
+      } catch (e) {
+        // ignore
+      }
+      audioCtxRef.current = null
+    }
+    if (mediaStreamRef.current) {
+      mediaStreamRef.current.getTracks().forEach((t) => t.stop())
+      mediaStreamRef.current = null
+    }
+    startTsRef.current = null
+    setIsRecording(false)
+    setAudioLevel(0)
+    setDuration(0)
+  }
+
+  const updateLevel = () => {
     try {
-      setState((prev) => ({ ...prev, error: null, isProcessing: true }))
-
-      const stream = await navigator.mediaDevices.getUserMedia({
-        audio: {
-          echoCancellation: true,
-          noiseSuppression: true,
-          autoGainControl: true,
-        },
-      })
-
-      streamRef.current = stream
-
-      // Set up audio analysis
-      audioContextRef.current = new AudioContext()
-      const source = audioContextRef.current.createMediaStreamSource(stream)
-      analyserRef.current = audioContextRef.current.createAnalyser()
-      analyserRef.current.fftSize = 256
-      source.connect(analyserRef.current)
-
-      // Set up media recorder
-      mediaRecorderRef.current = new MediaRecorder(stream)
-      const audioChunks: Blob[] = []
-
-      mediaRecorderRef.current.ondataavailable = (event) => {
-        audioChunks.push(event.data)
+      const analyser = analyserRef.current
+      if (!analyser) return
+      const bufferLength = analyser.frequencyBinCount
+      const data = new Uint8Array(bufferLength)
+      analyser.getByteFrequencyData(data)
+      let sum = 0
+      for (let i = 0; i < bufferLength; i++) {
+        sum += data[i]
       }
-
-      mediaRecorderRef.current.onstop = () => {
-        const audioBlob = new Blob(audioChunks, { type: "audio/wav" })
-        // Here you would typically send the audio to a speech-to-text service
-        console.log("Audio recorded:", audioBlob)
+      const avg = sum / bufferLength
+      const norm = Math.min(1, avg / 128) // 0..1
+      setAudioLevel(norm)
+      if (startTsRef.current) {
+        const sec = Math.floor((Date.now() - startTsRef.current) / 1000)
+        setDuration(sec)
       }
-
-      mediaRecorderRef.current.start()
-      startTimeRef.current = Date.now()
-
-      // Start duration tracking
-      durationIntervalRef.current = setInterval(() => {
-        const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000)
-        setState((prev) => ({ ...prev, duration: elapsed }))
-      }, 1000)
-
-      setState((prev) => ({
-        ...prev,
-        isRecording: true,
-        isProcessing: false,
-        duration: 0,
-      }))
-
-      updateAudioLevel()
-    } catch (error) {
-      setState((prev) => ({
-        ...prev,
-        error: "Failed to access microphone. Please check permissions.",
-        isProcessing: false,
-      }))
+    } catch (e) {
+      // ignore analysis errors
+    } finally {
+      rafRef.current = requestAnimationFrame(updateLevel)
     }
-  }, [updateAudioLevel])
+  }
 
-  const stopRecording = useCallback(() => {
-    if (mediaRecorderRef.current && state.isRecording) {
-      mediaRecorderRef.current.stop()
-
-      if (streamRef.current) {
-        streamRef.current.getTracks().forEach((track) => track.stop())
-      }
-
-      if (audioContextRef.current) {
-        audioContextRef.current.close()
-      }
-
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current)
-      }
-
-      if (durationIntervalRef.current) {
-        clearInterval(durationIntervalRef.current)
-      }
-
-      setState((prev) => ({
-        ...prev,
-        isRecording: false,
-        audioLevel: 0,
-        duration: 0,
-      }))
+  const startRecording = async () => {
+    if (isRecording) return
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+      mediaStreamRef.current = stream
+      const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)()
+      audioCtxRef.current = audioCtx
+      const source = audioCtx.createMediaStreamSource(stream)
+      const analyser = audioCtx.createAnalyser()
+      analyser.fftSize = 256
+      source.connect(analyser)
+      analyserRef.current = analyser
+      startTsRef.current = Date.now()
+      setIsRecording(true)
+      updateLevel()
+    } catch (e) {
+      console.warn("Unable to start recording", e)
     }
-  }, [state.isRecording])
+  }
+
+  const stopRecording = () => {
+    stopRecordingInternal()
+  }
 
   return {
-    ...state,
+    isRecording,
+    audioLevel,
+    duration,
     startRecording,
     stopRecording,
   }
-}
+    }
