@@ -1,90 +1,63 @@
-"use client"
+// Simple TTS service wrapper around window.speechSynthesis
+// Methods: isSupported(), getVoices(), speak(text, settings, onEnd, onError), stop()
 
-export interface TTSSettings {
-  voice?: SpeechSynthesisVoice
-  rate: number
-  pitch: number
-  volume: number
+type TTSSettings = {
+  rate?: number
+  pitch?: number
+  volume?: number
+  voice?: SpeechSynthesisVoice | null
+  autoSpeak?: boolean
 }
 
 export class TextToSpeechService {
-  private synth: SpeechSynthesis | null = null
-  private isSupported = false
-  private currentUtterance: SpeechSynthesisUtterance | null = null
+  private utterances: SpeechSynthesisUtterance[] = []
 
-  constructor() {
-    if (typeof window !== "undefined" && "speechSynthesis" in window) {
-      this.synth = window.speechSynthesis
-      this.isSupported = true
-    }
+  isSupported() {
+    return typeof window !== "undefined" && !!window.speechSynthesis
   }
 
   getVoices(): SpeechSynthesisVoice[] {
-    if (!this.synth) return []
-    return this.synth.getVoices()
+    if (!this.isSupported()) return []
+    return window.speechSynthesis.getVoices() || []
   }
 
-  speak(
-    text: string,
-    settings: TTSSettings = { rate: 1, pitch: 1, volume: 1 },
-    onEnd?: () => void,
-    onError?: (error: string) => void,
-  ) {
-    if (!this.synth) {
-      onError?.("Text-to-speech is not supported in this browser")
+  speak(text: string, settings: TTSSettings = {}, onEnd?: () => void, onError?: (e: any) => void) {
+    if (!this.isSupported()) {
+      if (onError) onError(new Error("TTS not supported"))
       return
     }
 
-    // Stop any current speech
-    this.stop()
+    const utter = new SpeechSynthesisUtterance(text)
+    if (settings.voice) utter.voice = settings.voice
+    if (typeof settings.rate === "number") utter.rate = settings.rate
+    if (typeof settings.pitch === "number") utter.pitch = settings.pitch
+    if (typeof settings.volume === "number") utter.volume = settings.volume
 
-    const utterance = new SpeechSynthesisUtterance(text)
-    utterance.rate = settings.rate
-    utterance.pitch = settings.pitch
-    utterance.volume = settings.volume
-
-    if (settings.voice) {
-      utterance.voice = settings.voice
+    utter.onend = () => {
+      this.utterances = this.utterances.filter((u) => u !== utter)
+      if (onEnd) onEnd()
+    }
+    utter.onerror = (e) => {
+      this.utterances = this.utterances.filter((u) => u !== utter)
+      if (onError) onError(e)
     }
 
-    utterance.onend = () => {
-      this.currentUtterance = null
-      onEnd?.()
+    this.utterances.push(utter)
+    try {
+      window.speechSynthesis.speak(utter)
+    } catch (e) {
+      if (onError) onError(e)
     }
-
-    utterance.onerror = (event) => {
-      this.currentUtterance = null
-      onError?.(`Speech synthesis error: ${event.error}`)
-    }
-
-    this.currentUtterance = utterance
-    this.synth.speak(utterance)
   }
 
   stop() {
-    if (this.synth) {
-      this.synth.cancel()
-      this.currentUtterance = null
+    if (!this.isSupported()) return
+    try {
+      window.speechSynthesis.cancel()
+    } catch (e) {
+      // ignore
+    } finally {
+      this.utterances = []
     }
   }
-
-  pause() {
-    if (this.synth) {
-      this.synth.pause()
-    }
-  }
-
-  resume() {
-    if (this.synth) {
-      this.synth.resume()
-    }
-  }
-
-  isSpeaking(): boolean {
-    return this.synth ? this.synth.speaking : false
-  }
-
-  isSupported(): boolean {
-    return this.isSupported
-  }
-}
+        }
