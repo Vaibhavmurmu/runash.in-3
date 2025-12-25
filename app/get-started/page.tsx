@@ -2,7 +2,7 @@
 
 import type React from "react"
 import Image from "next/image"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -22,6 +22,8 @@ import { OTPForm } from "@/components/auth/otp-form"
 import { PasskeyLoginForm } from "@/components/auth/passkey-form"
 import { Building2, Smartphone, Shield, KeyRound } from "lucide-react"
 
+type Role = "creator" | "seller" | "buyer" | "enterprise" | null
+
 export default function GetStartedPage() {
   const [step, setStep] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
@@ -35,13 +37,17 @@ export default function GetStartedPage() {
     platforms: [] as string[],
     contentTypes: [] as string[],
   })
+  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [successMessage, setSuccessMessage] = useState<string | null>(null)
+  const [selectedRole, setSelectedRole] = useState<Role>(null)
+  const [usernameAvailable, setUsernameAvailable] = useState<boolean | null>(null)
+  const usernameCheckTimer = useRef<number | null>(null)
   const router = useRouter()
-  const [selectedRole, setSelectedRole] = useState<"creator" | "seller" | "buyer" | "enterprise" | null>(null)
 
   useEffect(() => {
     const stored = typeof window !== "undefined" ? window.localStorage.getItem("runash_user_type") : null
     if (stored && !selectedRole) {
-      setSelectedRole(stored as any)
+      setSelectedRole(stored as Role)
     }
   }, [])
 
@@ -53,8 +59,43 @@ export default function GetStartedPage() {
     }
   }, [selectedRole])
 
+  const validateStep1 = () => {
+    const e: Record<string, string> = {}
+    if (!formData.name.trim()) e.name = "Please enter your full name."
+    if (!formData.email.trim()) e.email = "Please enter your email."
+    else if (!/^\S+@\S+\.\S+$/.test(formData.email)) e.email = "Please enter a valid email."
+    if (!formData.password) e.password = "Please enter a password."
+    else if (formData.password.length < 8) e.password = "Password must be at least 8 characters."
+    if (formData.password !== formData.confirmPassword) e.confirmPassword = "Passwords do not match."
+    setErrors(e)
+    return Object.keys(e).length === 0
+  }
+
+  const validateStep2 = () => {
+    const e: Record<string, string> = {}
+    if (!formData.username.trim()) e.username = "Please choose a username."
+    else if (!/^[a-zA-Z0-9\-_]{3,30}$/.test(formData.username)) e.username = "Username must be 3-30 characters (letters, numbers, - or _)."
+    if (usernameAvailable === false) e.username = "This username is already taken."
+    setErrors(e)
+    return Object.keys(e).length === 0
+  }
+
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
+    setErrors((prev) => {
+      const copy = { ...prev }
+      delete copy[field]
+      return copy
+    })
+    if (field === "username") {
+      setUsernameAvailable(null)
+      if (usernameCheckTimer.current) {
+        window.clearTimeout(usernameCheckTimer.current)
+      }
+      usernameCheckTimer.current = window.setTimeout(() => {
+        checkUsernameAvailability(value)
+      }, 600)
+    }
   }
 
   const handleCheckboxChange = (field: string, value: string, checked: boolean) => {
@@ -66,38 +107,117 @@ export default function GetStartedPage() {
     }))
   }
 
+  const checkUsernameAvailability = async (username: string) => {
+    const trimmed = username.trim()
+    if (!trimmed || trimmed.length < 3) {
+      setUsernameAvailable(null)
+      return
+    }
+    try {
+      const res = await fetch(`/api/auth/check-username?username=${encodeURIComponent(trimmed)}`)
+      if (res.ok) {
+        const data = await res.json()
+        setUsernameAvailable(!data.taken)
+      } else {
+        setUsernameAvailable(null)
+      }
+    } catch {
+      setUsernameAvailable(null)
+    }
+  }
+
+  const passwordStrength = (pwd: string) => {
+    let score = 0
+    if (pwd.length >= 8) score++
+    if (/[A-Z]/.test(pwd)) score++
+    if (/[0-9]/.test(pwd)) score++
+    if (/[^A-Za-z0-9]/.test(pwd)) score++
+    return score
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setIsLoading(true)
-
-    try {
-      if (step === 1) {
-        // Create account
+    setSuccessMessage(null)
+    if (step === 1) {
+      if (!validateStep1()) return
+      setIsLoading(true)
+      try {
         const response = await fetch("/api/auth/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            email: formData.email,
+            email: formData.email.trim(),
             password: formData.password,
-            name: formData.name,
+            name: formData.name.trim(),
           }),
         })
 
         if (response.ok) {
+          try {
+            const data = await response.json()
+            if (data?.message) setSuccessMessage(data.message)
+          } catch {}
+          try {
+            window.localStorage.setItem("runash_registered_email", formData.email.trim())
+          } catch {}
           setStep(2)
         } else {
-          const error = await response.json()
-          console.error("Registration error:", error)
+          let errorBody = null
+          try {
+            errorBody = await response.json()
+          } catch {}
+          const serverMessage =
+            (errorBody && (errorBody.error || errorBody.message || JSON.stringify(errorBody))) ||
+            `Registration failed with status ${response.status}`
+          setErrors({ form: serverMessage })
+          console.error("Registration error:", serverMessage)
         }
-      } else if (step === 2) {
-        // Complete profile setup
-        await new Promise((resolve) => setTimeout(resolve, 1500))
-        setStep(3)
+      } catch (error) {
+        console.error("Error:", error)
+        setErrors({ form: "Network error. Please try again." })
+      } finally {
+        setIsLoading(false)
       }
-    } catch (error) {
-      console.error("Error:", error)
-    } finally {
-      setIsLoading(false)
+    } else if (step === 2) {
+      if (!validateStep2()) return
+      setIsLoading(true)
+      try {
+        const registeredEmail =
+          (typeof window !== "undefined" ? window.localStorage.getItem("runash_registered_email") : null) ||
+          formData.email ||
+          ""
+
+        const response = await fetch("/api/profile/setup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: formData.username.trim(),
+            platforms: formData.platforms,
+            contentTypes: formData.contentTypes,
+            role: selectedRole,
+            email: registeredEmail,
+          }),
+        })
+
+        if (response.ok) {
+          setStep(3)
+        } else {
+          let errorBody = null
+          try {
+            errorBody = await response.json()
+          } catch {}
+          const serverMessage =
+            (errorBody && (errorBody.error || errorBody.message || JSON.stringify(errorBody))) ||
+            `Profile setup failed with status ${response.status}`
+          setErrors({ form: serverMessage })
+          console.error("Profile setup error:", serverMessage)
+        }
+      } catch (error) {
+        console.error("Error:", error)
+        setErrors({ form: "Network error. Please try again." })
+      } finally {
+        setIsLoading(false)
+      }
     }
   }
 
@@ -107,6 +227,7 @@ export default function GetStartedPage() {
       await signIn(provider, { callbackUrl: "/dashboard" })
     } catch (error) {
       console.error("OAuth error:", error)
+      setErrors({ form: "OAuth sign-in failed. Please try again." })
     } finally {
       setIsLoading(false)
     }
@@ -117,19 +238,9 @@ export default function GetStartedPage() {
       {/* Header */}
       <header className="w-full py-6 px-6 flex justify-between items-center">
         <Link href="/" className="flex items-center group">
-      {/* <div className="relative mr-3 h-10 w-10 overflow-hidden rounded-xl bg-gradient-to-br from-orange-500 to-amber-400 shadow-lg group-hover:shadow-xl transition-all duration-300">
-            <div className="absolute inset-0 flex items-center justify-center text-white font-bold text-lg">R</div>
-          </div> */}
           <div className="relative mr-3 h-10 w-10 overflow-hidden rounded-xl bg-gradient-to-br from-orange-500 to-amber-400 shadow-lg group-hover:shadow-xl transition-all duration-300">
-          {/* Insert logo image */}
-          <Image
-            src="/RunAsh Logo.png"
-            alt="RunAsh Logo"
-            fill
-            className="object-contain p-1"
-            sizes="40px"
-          />
-        </div>
+            <Image src="/RunAsh Logo.png" alt="RunAsh Logo" fill className="object-contain p-1" sizes="40px" />
+          </div>
           <span className="text-2xl font-bold bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 dark:from-orange-400 dark:via-orange-300 dark:to-amber-300 text-transparent bg-clip-text">
             RunAsh
           </span>
@@ -152,7 +263,7 @@ export default function GetStartedPage() {
           <div className="mb-12">
             <div className="flex items-center justify-between max-w-md mx-auto">
               {[1, 2, 3].map((stepNumber) => (
-                <div key={stepNumber} className="flex flex-col items-center">
+                <div key={stepNumber} className="flex flex-col items-center relative">
                   <div
                     className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
                       step >= stepNumber
@@ -290,6 +401,13 @@ export default function GetStartedPage() {
                   </CollapsibleContent>
                 </Collapsible>
 
+                {errors.form && (
+                  <div className="text-sm text-red-600 dark:text-red-400">{errors.form}</div>
+                )}
+                {successMessage && (
+                  <div className="text-sm text-green-600 dark:text-green-400">{successMessage}</div>
+                )}
+
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="name">Full Name</Label>
@@ -300,7 +418,10 @@ export default function GetStartedPage() {
                       onChange={(e) => handleInputChange("name", e.target.value)}
                       required
                       className="h-12 border-orange-200 focus:border-orange-400 dark:border-orange-800"
+                      aria-invalid={!!errors.name}
+                      aria-describedby={errors.name ? "error-name" : undefined}
                     />
+                    {errors.name && <div id="error-name" className="text-sm text-red-600 dark:text-red-400">{errors.name}</div>}
                   </div>
 
                   <div className="space-y-2">
@@ -313,7 +434,10 @@ export default function GetStartedPage() {
                       onChange={(e) => handleInputChange("email", e.target.value)}
                       required
                       className="h-12 border-orange-200 focus:border-orange-400 dark:border-orange-800"
+                      aria-invalid={!!errors.email}
+                      aria-describedby={errors.email ? "error-email" : undefined}
                     />
+                    {errors.email && <div id="error-email" className="text-sm text-red-600 dark:text-red-400">{errors.email}</div>}
                   </div>
 
                   <div className="space-y-2">
@@ -327,6 +451,8 @@ export default function GetStartedPage() {
                         onChange={(e) => handleInputChange("password", e.target.value)}
                         required
                         className="h-12 pr-12 border-orange-200 focus:border-orange-400 dark:border-orange-800"
+                        aria-invalid={!!errors.password}
+                        aria-describedby={errors.password ? "error-password" : undefined}
                       />
                       <Button
                         type="button"
@@ -334,10 +460,24 @@ export default function GetStartedPage() {
                         size="icon"
                         className="absolute right-0 top-0 h-12 w-12"
                         onClick={() => setShowPassword(!showPassword)}
+                        aria-label={showPassword ? "Hide password" : "Show password"}
                       >
-                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                          {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </Button>
                     </div>
+                    <div className="flex items-center gap-2">
+                      <div className="flex-1 h-2 bg-gray-200 rounded overflow-hidden">
+                        <div
+                          style={{ width: `${(passwordStrength(formData.password) / 4) * 100}%` }}
+                          className={`h-full transition-all ${passwordStrength(formData.password) <= 1 ? "bg-red-400" : passwordStrength(formData.password) === 2 ? "bg-amber-400" : "bg-green-500"}`}
+                          aria-hidden
+                        />
+                      </div>
+                      <span className="text-xs text-muted-foreground">
+                        {formData.password ? ["Weak", "Weak", "Fair", "Good", "Strong"][passwordStrength(formData.password)] : "—"}
+                      </span>
+                    </div>
+                    {errors.password && <div id="error-password" className="text-sm text-red-600 dark:text-red-400">{errors.password}</div>}
                   </div>
 
                   <div className="space-y-2">
@@ -350,7 +490,10 @@ export default function GetStartedPage() {
                       onChange={(e) => handleInputChange("confirmPassword", e.target.value)}
                       required
                       className="h-12 border-orange-200 focus:border-orange-400 dark:border-orange-800"
+                      aria-invalid={!!errors.confirmPassword}
+                      aria-describedby={errors.confirmPassword ? "error-confirmPassword" : undefined}
                     />
+                    {errors.confirmPassword && <div id="error-confirmPassword" className="text-sm text-red-600 dark:text-red-400">{errors.confirmPassword}</div>}
                   </div>
 
                   <div className="flex items-start space-x-3 pt-2">
@@ -376,7 +519,7 @@ export default function GetStartedPage() {
                   <Button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full h-12 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300"
+                    className="w-full h-12 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-200"
                   >
                     {isLoading ? (
                       <>
@@ -430,7 +573,7 @@ export default function GetStartedPage() {
                           desc: "Shop groceries, track orders, chat for help",
                           href: "/grocery",
                         },
-                        {
+                       {
                           key: "enterprise",
                           title: "Enterprise",
                           desc: "SSO, admin controls, org analytics",
@@ -456,11 +599,15 @@ export default function GetStartedPage() {
                   </div>
                 </div>
 
+                {errors.form && (
+                  <div className="text-sm text-red-600 dark:text-red-400">{errors.form}</div>
+                )}
+
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-2">
                     <Label htmlFor="username">Username</Label>
                     <div className="flex">
-                      <span className="inline-flex items-center px-4 rounded-l-lg border border-r-0 border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-950/20 text-gray-600 dark:text-gray-400 text-sm">
+                      <span className="inline-flex items-center px-4 rounded-l-lg border border-r-0 border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-950/20 text-gray-600 dark:text-gray-300">
                         runash.ai/
                       </span>
                       <Input
@@ -470,8 +617,19 @@ export default function GetStartedPage() {
                         onChange={(e) => handleInputChange("username", e.target.value)}
                         required
                         className="rounded-l-none border-orange-200 focus:border-orange-400 dark:border-orange-800"
+                        aria-invalid={!!errors.username}
+                        aria-describedby={errors.username ? "error-username" : undefined}
                       />
                     </div>
+                    <div className="flex items-center justify-between mt-1">
+                      <div className="text-sm text-muted-foreground">
+                        {usernameAvailable === true && <span className="text-green-600">Username available</span>}
+                        {usernameAvailable === false && <span className="text-red-600">Already taken</span>}
+                        {usernameAvailable === null && <span className="text-gray-500">Enter a username to check availability</span>}
+                      </div>
+                      <div className="text-xs text-muted-foreground">3-30 chars, letters, numbers, - or _</div>
+                    </div>
+                    {errors.username && <div id="error-username" className="text-sm text-red-600 dark:text-red-400">{errors.username}</div>}
                   </div>
 
                   <div className="space-y-3">
@@ -517,7 +675,7 @@ export default function GetStartedPage() {
                   <Button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full h-12 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300"
+                    className="w-full h-12 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-200"
                   >
                     {isLoading ? (
                       <>
@@ -538,7 +696,7 @@ export default function GetStartedPage() {
 
           {/* Step 3: Complete */}
           {step === 3 && (
-            <Card className="max-w-3xl mx-auto shadow-2xl border-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
+             <Card className="max-w-3xl mx-auto shadow-2xl border-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
               <CardContent className="pt-8">
                 <div className="text-center mb-8">
                   <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-amber-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
@@ -635,7 +793,7 @@ export default function GetStartedPage() {
                             : "/dashboard"
                     router.push(route)
                   }}
-                  className="w-full h-12 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="w-full h-12 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-200"
                 >
                   Continue
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -679,3 +837,4 @@ export default function GetStartedPage() {
     </div>
   )
 }
+                    
