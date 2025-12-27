@@ -262,15 +262,22 @@ export function EnhancedDashboard() {
   const [scheduleDialogOpen, setScheduleDialogOpen] = useState(false)
   const [inviteDialogOpen, setInviteDialogOpen] = useState(false)
 
+  // Confirm step for start action (two-step to avoid accidental go-live)
+  const [startConfirm, setStartConfirm] = useState(false)
+
   // Forms
   const [startTitle, setStartTitle] = useState("")
   const [startCategory, setStartCategory] = useState("Gaming")
+  const [startError, setStartError] = useState<string | null>(null)
 
   const [scheduleTitle, setScheduleTitle] = useState("")
   const [scheduleCategory, setScheduleCategory] = useState("Gaming")
   const [scheduleDate, setScheduleDate] = useState("")
+  const [scheduleError, setScheduleError] = useState<string | null>(null)
 
   const [inviteEmails, setInviteEmails] = useState("")
+  const [inviteError, setInviteError] = useState<string | null>(null)
+  const [invalidInviteEmails, setInvalidInviteEmails] = useState<string[]>([])
 
   const getGreeting = useCallback(() => {
     const hour = new Date().getHours()
@@ -364,7 +371,7 @@ export function EnhancedDashboard() {
         setMonthlyGoals(goals)
       } else {
         setMonthlyGoals([
-          { name: "Streaming Hours", current: 45, target: 60, unit: "hours" },
+          { name: "Streaming Hours", current: 0, target: 60, unit: "hours" },
           { name: "New Followers", current: stats?.followers || 0, target: 300, unit: "followers" },
           { name: "Revenue Goal", current: stats?.revenue || 0, target: 2000, unit: "$" },
         ])
@@ -384,9 +391,15 @@ export function EnhancedDashboard() {
   }
 
   // Actions
-  const handleStartStreaming = async () => {
+  const startStreamingRequest = async () => {
     try {
       setIsLoading(true)
+      // basic validation
+      if (startTitle.length > 200) {
+        setStartError("Title is too long (max 200 chars).")
+        setIsLoading(false)
+        return
+      }
       const payload = { title: startTitle || "Untitled Stream", category: startCategory }
       const res = await fetch("/api/streams/start", {
         method: "POST",
@@ -396,6 +409,8 @@ export function EnhancedDashboard() {
       if (res.ok) {
         toast({ title: "Stream started", description: "Your stream is now live." })
         setStartDialogOpen(false)
+        setStartConfirm(false)
+        setStartTitle("")
         // optimistic refresh
         await loadDashboardData()
       } else {
@@ -409,8 +424,30 @@ export function EnhancedDashboard() {
     }
   }
 
+  const handleStartStreaming = async () => {
+    // two-step: user must confirm in-dialog before the request is made
+    if (!startConfirm) {
+      setStartConfirm(true)
+      setStartError(null)
+      return
+    }
+    await startStreamingRequest()
+  }
+
   const handleScheduleStream = async () => {
     try {
+      setScheduleError(null)
+      // validation: date required and in future
+      if (!scheduleDate) {
+        setScheduleError("Please pick a date and time.")
+        return
+      }
+      const when = new Date(scheduleDate)
+      if (isNaN(when.getTime()) || when.getTime() <= Date.now()) {
+        setScheduleError("Please select a future date & time.")
+        return
+      }
+
       setIsLoading(true)
       const payload = { title: scheduleTitle || "Scheduled Stream", category: scheduleCategory, when: scheduleDate }
       const res = await fetch("/api/streams/schedule", {
@@ -421,6 +458,8 @@ export function EnhancedDashboard() {
       if (res.ok) {
         toast({ title: "Scheduled", description: "Stream scheduled successfully." })
         setScheduleDialogOpen(false)
+        setScheduleTitle("")
+        setScheduleDate("")
         await loadDashboardData()
       } else {
         const err = await res.text()
@@ -435,17 +474,33 @@ export function EnhancedDashboard() {
 
   const handleInviteCollaborators = async () => {
     try {
-      setIsLoading(true)
+      setInviteError(null)
       const emails = inviteEmails.split(",").map((e) => e.trim()).filter(Boolean)
+      // validate
+      const invalid: string[] = []
+      const valid: string[] = []
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      for (const e of emails) {
+        if (re.test(e)) valid.push(e)
+        else invalid.push(e)
+      }
+      setInvalidInviteEmails(invalid)
+      if (valid.length === 0) {
+        setInviteError("Provide at least one valid email address.")
+        return
+      }
+
+      setIsLoading(true)
       const res = await fetch("/api/collaborators/invite", {
         method: "POST",
         headers: { "Content-Type": "application/json", ...(user?.id ? { "x-user-id": String(user.id) } : {}) },
-        body: JSON.stringify({ emails }),
+        body: JSON.stringify({ emails: valid }),
       })
       if (res.ok) {
-        toast({ title: "Invites sent", description: `${emails.length} collaborator(s) invited.` })
+        toast({ title: "Invites sent", description: `${valid.length} collaborator(s) invited.` })
         setInviteDialogOpen(false)
         setInviteEmails("")
+        setInvalidInviteEmails([])
       } else {
         const err = await res.text()
         toast({ title: "Invite failed", description: err || "Unknown error", variant: "destructive" })
@@ -561,10 +616,15 @@ export function EnhancedDashboard() {
                           onChange={(e) => setStartCategory(e.target.value)}
                           className="w-full px-3 py-2 border rounded-md"
                         >
-                          <option>Gaming</option>
+                          <option>Organic Products</option>
+                          <option>Sustainable Living</option>
+                          <option>Sustainable Recipes</option>
+                          <option>Sustainable Tips</option>
+                          <option>Organic Recipes</option>
+                          <option>Organic Grocery</option>
                           <option>Education</option>
                           <option>Technology</option>
-                          <option>Entertainment</option>
+                          <option>Retail Automation</option>
                         </select>
                       </div>
                       <Button
@@ -606,11 +666,16 @@ export function EnhancedDashboard() {
                           onChange={(e) => setScheduleCategory(e.target.value)}
                           className="w-full px-3 py-2 border rounded-md"
                         >
-                          <option>Gaming</option>
+                          <option>Organic Products</option>
+                          <option>Sustainable Living</option>
+                          <option>Sustainable Recipes</option>
+                          <option>Sustainable Tips</option>
+                          <option>Organic Recipes</option>
+                          <option>Organic Grocery</option>
                           <option>Education</option>
                           <option>Technology</option>
-                          <option>Entertainment</option>
-                        </select>
+                          <option>Retail Automation</option>  
+                      </select>
                       </div>
                       <div className="space-y-2">
                         <label className="text-sm font-medium">Date & Time</label>
@@ -669,7 +734,7 @@ export function EnhancedDashboard() {
             <DialogTrigger asChild>
               <Button className="bg-gradient-to-r from-orange-500 to-amber-400 hover:from-orange-600 hover:to-amber-500">
                 <Video className="mr-2 h-4 w-4" />
-                Quick Go Live
+                Go Live
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-md">
@@ -694,10 +759,15 @@ export function EnhancedDashboard() {
                     onChange={(e) => setStartCategory(e.target.value)}
                     className="w-full px-3 py-2 border rounded-md"
                   >
-                    <option>Gaming</option>
-                    <option>Education</option>
-                    <option>Technology</option>
-                    <option>Entertainment</option>
+                          <option>Organic Products</option>
+                          <option>Sustainable Living</option>
+                          <option>Sustainable Recipes</option>
+                          <option>Sustainable Tips</option>
+                          <option>Organic Recipes</option>
+                          <option>Organic Grocery</option>
+                          <option>Education</option>
+                          <option>Technology</option>
+                          <option>Retail Automation</option>
                   </select>
                 </div>
                 <Button
