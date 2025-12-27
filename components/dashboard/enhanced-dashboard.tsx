@@ -616,12 +616,15 @@ export function EnhancedDashboard() {
                           onChange={(e) => setStartCategory(e.target.value)}
                           className="w-full px-3 py-2 border rounded-md"
                         >
-                          <option>Organic Product</option>
-                          <option>Sustainable living</option>
-                          <option>Organic Recipe</option>
+                          <option>Organic Products</option>
+                          <option>Sustainable Living</option>
+                          <option>Sustainable Recipes</option>
+                          <option>Sustainable Tips</option>
+                          <option>Organic Recipes</option>
                           <option>Organic Grocery</option>
                           <option>Education</option>
                           <option>Technology</option>
+                          <option>Retail Automation</option>
                         </select>
                       </div>
                       <Button
@@ -663,13 +666,16 @@ export function EnhancedDashboard() {
                           onChange={(e) => setScheduleCategory(e.target.value)}
                           className="w-full px-3 py-2 border rounded-md"
                         >
-                          <option>Organic Product</option>
-                          <option>Sustainable living</option>
-                          <option>Organic Recipe</option>
+                          <option>Organic Products</option>
+                          <option>Sustainable Living</option>
+                          <option>Sustainable Recipes</option>
+                          <option>Sustainable Tips</option>
+                          <option>Organic Recipes</option>
                           <option>Organic Grocery</option>
                           <option>Education</option>
                           <option>Technology</option>
-                        </select>
+                          <option>Retail Automation</option>  
+                      </select>
                       </div>
                       <div className="space-y-2">
                         <label className="text-sm font-medium">Date & Time</label>
@@ -753,12 +759,15 @@ export function EnhancedDashboard() {
                     onChange={(e) => setStartCategory(e.target.value)}
                     className="w-full px-3 py-2 border rounded-md"
                   >
-                    <option>Organic Product</option>
-                    <option>Sustainable living</option>
-                    <option>Organic Recipe</option>
-                    <option>Organic Grocery</option>
-                    <option>Education</option>
-                    <option>Technology</option>
+                          <option>Organic Products</option>
+                          <option>Sustainable Living</option>
+                          <option>Sustainable Recipes</option>
+                          <option>Sustainable Tips</option>
+                          <option>Organic Recipes</option>
+                          <option>Organic Grocery</option>
+                          <option>Education</option>
+                          <option>Technology</option>
+                          <option>Retail Automation</option>
                   </select>
                 </div>
                 <Button
