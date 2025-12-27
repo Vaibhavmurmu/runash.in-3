@@ -371,7 +371,7 @@ export function EnhancedDashboard() {
         setMonthlyGoals(goals)
       } else {
         setMonthlyGoals([
-          { name: "Streaming Hours", current: 45, target: 60, unit: "hours" },
+          { name: "Streaming Hours", current: 0, target: 60, unit: "hours" },
           { name: "New Followers", current: stats?.followers || 0, target: 300, unit: "followers" },
           { name: "Revenue Goal", current: stats?.revenue || 0, target: 2000, unit: "$" },
         ])
@@ -616,9 +616,11 @@ export function EnhancedDashboard() {
                           onChange={(e) => setStartCategory(e.target.value)}
                           className="w-full px-3 py-2 border rounded-md"
                         >
-                          <option>Grocery</option>
+                          <option>Organic Product</option>
                           <option>Sustainable living</option>
-                          <option>Recipe</option>
+                          <option>Organic Recipe</option>
+                          <option>Organic Grocery</option>
+                          <option>Education</option>
                           <option>Technology</option>
                         </select>
                       </div>
@@ -661,9 +663,11 @@ export function EnhancedDashboard() {
                           onChange={(e) => setScheduleCategory(e.target.value)}
                           className="w-full px-3 py-2 border rounded-md"
                         >
-                          <option>Grocery</option>
+                          <option>Organic Product</option>
                           <option>Sustainable living</option>
-                          <option>Recipe</option>
+                          <option>Organic Recipe</option>
+                          <option>Organic Grocery</option>
+                          <option>Education</option>
                           <option>Technology</option>
                         </select>
                       </div>
@@ -749,9 +753,11 @@ export function EnhancedDashboard() {
                     onChange={(e) => setStartCategory(e.target.value)}
                     className="w-full px-3 py-2 border rounded-md"
                   >
-                    <option>Grocery</option>
+                    <option>Organic Product</option>
                     <option>Sustainable living</option>
-                    <option>Recipe</option>
+                    <option>Organic Recipe</option>
+                    <option>Organic Grocery</option>
+                    <option>Education</option>
                     <option>Technology</option>
                   </select>
                 </div>
