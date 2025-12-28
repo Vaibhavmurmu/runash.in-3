@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { useCart } from "@/contexts/cart-context"
 
-export default function PaymentPage() {
+export default function PaymentRedirectPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { state, clearCart } = useCart()
