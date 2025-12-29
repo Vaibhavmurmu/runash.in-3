@@ -1,0 +1,5 @@
+;!function(){try { var e="undefined"!=typeof globalThis?globalThis:"undefined"!=typeof global?global:"undefined"!=typeof window?window:"undefined"!=typeof self?self:{},n=(new e.Error).stack;n&&((e._debugIds|| (e._debugIds={}))[n]="ca173bfb-7819-fa2a-bffc-1643916bb89f")}catch(e){}}();
+module.exports=[33405,(a,b,c)=>{b.exports=a.x("child_process",()=>require("child_process"))},54799,(a,b,c)=>{b.exports=a.x("crypto",()=>require("crypto"))},27699,(a,b,c)=>{b.exports=a.x("events",()=>require("events"))},9152,a=>{"use strict";a.s(["PRODUCTS",0,[{id:"basic-plan",name:"Basic Plan",description:"Perfect for small businesses starting out.",priceInCents:2900,category:"subscription"},{id:"pro-plan",name:"Pro Plan",description:"Advanced features for growing teams.",priceInCents:7900,category:"subscription"},{id:"enterprise-plan",name:"Enterprise Plan",description:"Custom solutions for large scale organizations.",priceInCents:19900,category:"subscription"}]])}];
+
+//# debugId=ca173bfb-7819-fa2a-bffc-1643916bb89f
+//# sourceMappingURL=%5Broot-of-the-server%5D__b280f55b._.js.map

@@ -1,0 +1,50 @@
+{
+  "node": {
+    "00ab754ef3be4f7c832f55fdff8b76314a47afd334": {
+      "workers": {
+        "app/dashboard/settings/billing/page": {
+          "moduleId": 88109,
+          "async": false,
+          "exportedName": "logout",
+          "filename": "app/actions/auth.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/settings/billing/page": "action-browser"
+      },
+      "exportedName": "logout",
+      "filename": "app/actions/auth.ts"
+    },
+    "f0e1f0a94bd87b9580a73b033af204726f6d84ecb0": {
+      "workers": {
+        "app/dashboard/settings/billing/page": {
+          "moduleId": 88109,
+          "async": false,
+          "exportedName": "$$RSC_SERVER_CACHE_0",
+          "filename": "lib/db.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/settings/billing/page": "rsc"
+      },
+      "exportedName": "$$RSC_SERVER_CACHE_0",
+      "filename": "lib/db.ts"
+    },
+    "40ae972bed8bb635c06fe27a5604f8a4f91486cd9d": {
+      "workers": {
+        "app/dashboard/settings/billing/page": {
+          "moduleId": 88109,
+          "async": false,
+          "exportedName": "createCheckoutSession",
+          "filename": "app/actions/stripe.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/settings/billing/page": "action-browser"
+      },
+      "exportedName": "createCheckoutSession",
+      "filename": "app/actions/stripe.ts"
+    }
+  },
+  "edge": {}
+}

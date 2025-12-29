@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "debugId": "ca173bfb-7819-fa2a-bffc-1643916bb89f",
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["../../../../lib/products.ts"],"sourcesContent":["export interface StripeProduct {\n  id: string\n  name: string\n  description: string\n  priceInCents: number\n  category: \"subscription\" | \"one-time\"\n}\n\nexport const PRODUCTS: StripeProduct[] = [\n  {\n    id: \"basic-plan\",\n    name: \"Basic Plan\",\n    description: \"Perfect for small businesses starting out.\",\n    priceInCents: 2900,\n    category: \"subscription\",\n  },\n  {\n    id: \"pro-plan\",\n    name: \"Pro Plan\",\n    description: \"Advanced features for growing teams.\",\n    priceInCents: 7900,\n    category: \"subscription\",\n  },\n  {\n    id: \"enterprise-plan\",\n    name: \"Enterprise Plan\",\n    description: \"Custom solutions for large scale organizations.\",\n    priceInCents: 19900,\n    category: \"subscription\",\n  },\n]\n"],"names":[],"mappings":"mQAQyC,CACvC,CACE,GAAI,aACJ,KAAM,aACN,YAAa,6CACb,aAAc,KACd,SAAU,cACZ,EACA,CACE,GAAI,WACJ,KAAM,WACN,YAAa,uCACb,aAAc,KACd,SAAU,cACZ,EACA,CACE,GAAI,kBACJ,KAAM,kBACN,YAAa,kDACb,aAAc,MACd,SAAU,cACZ,EACD"}}]
+}

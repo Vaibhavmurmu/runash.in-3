@@ -1,0 +1,65 @@
+{
+  "node": {
+    "00ab754ef3be4f7c832f55fdff8b76314a47afd334": {
+      "workers": {
+        "app/register/page": {
+          "moduleId": 4663,
+          "async": false,
+          "exportedName": "logout",
+          "filename": "app/actions/auth.ts"
+        }
+      },
+      "layer": {
+        "app/register/page": "rsc"
+      },
+      "exportedName": "logout",
+      "filename": "app/actions/auth.ts"
+    },
+    "4005946794a8aae25a09fd9b58dc5a153959c9a12e": {
+      "workers": {
+        "app/register/page": {
+          "moduleId": 4663,
+          "async": false,
+          "exportedName": "login",
+          "filename": "app/actions/auth.ts"
+        }
+      },
+      "layer": {
+        "app/register/page": "rsc"
+      },
+      "exportedName": "login",
+      "filename": "app/actions/auth.ts"
+    },
+    "40b88ed9ab565527d42c07da7b522bd69abe107f43": {
+      "workers": {
+        "app/register/page": {
+          "moduleId": 4663,
+          "async": false,
+          "exportedName": "signup",
+          "filename": "app/actions/auth.ts"
+        }
+      },
+      "layer": {
+        "app/register/page": "rsc"
+      },
+      "exportedName": "signup",
+      "filename": "app/actions/auth.ts"
+    },
+    "f0e1f0a94bd87b9580a73b033af204726f6d84ecb0": {
+      "workers": {
+        "app/register/page": {
+          "moduleId": 4663,
+          "async": false,
+          "exportedName": "$$RSC_SERVER_CACHE_0",
+          "filename": "lib/db.ts"
+        }
+      },
+      "layer": {
+        "app/register/page": "rsc"
+      },
+      "exportedName": "$$RSC_SERVER_CACHE_0",
+      "filename": "lib/db.ts"
+    }
+  },
+  "edge": {}
+}
