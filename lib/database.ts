@@ -320,6 +320,68 @@ export class DatabaseService {
       WHERE id = ${recordingId}
     `
   }
+
+  static async searchProducts(query: string, limit = 5): Promise<Product[]> {
+    const result = await sql`
+      SELECT * FROM grocery_products 
+      WHERE name ILIKE ${`%${query}%`} OR description ILIKE ${`%${query}%`}
+      ORDER BY sustainability_score DESC
+      LIMIT ${limit}
+    `
+
+    return result.map((row) => ({
+      id: row.id,
+      name: row.name,
+      description: row.description,
+      price: Number(row.price),
+      category: row.category,
+      image: row.images?.[0] || "/placeholder.svg",
+      inStock: row.in_stock,
+      isOrganic: row.is_organic,
+      isLocal: !!row.origin,
+      sustainabilityScore: Number(row.sustainability_score),
+      nutritionalInfo: row.farm_info?.nutritionalInfo || {
+        calories: 0,
+        protein: 0,
+        carbohydrates: 0,
+        fat: 0,
+        fiber: 0,
+        sugar: 0,
+      },
+      certifications: row.certifications || [],
+      supplier: row.brand || "Unknown",
+      carbonFootprint: Number(row.carbon_footprint || 0),
+      rating: Number(row.average_rating || 0),
+      reviewCount: row.total_reviews || 0,
+      tags: row.tags || [],
+    }))
+  }
+
+  static async getSustainabilityTips(category?: string, limit = 3): Promise<any[]> {
+    // This could be from a dedicated tips table or hardcoded for now
+    const tips = [
+      {
+        id: "1",
+        title: "Compost Scraps",
+        description: "Turn your kitchen waste into nutrient-rich soil.",
+        category: "waste",
+        impact: "high",
+        difficulty: "easy",
+        estimatedSavings: 15,
+      },
+      {
+        id: "2",
+        title: "LED Lighting",
+        description: "Switch to LED bulbs to save energy and money.",
+        category: "energy",
+        impact: "medium",
+        difficulty: "easy",
+        estimatedSavings: 25,
+      },
+    ]
+
+    return category ? tips.filter((t) => t.category === category).slice(0, limit) : tips.slice(0, limit)
+  }
 }
 
 // Legacy Database class for backward compatibility

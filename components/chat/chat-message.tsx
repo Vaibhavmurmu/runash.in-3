@@ -6,6 +6,8 @@ import ProductCard from "./product-card"
 import RecipeCard from "./recipe-card"
 import SustainabilityTip from "./sustainability-tip"
 import AutomationSuggestion from "./automation-suggestion"
+import AgentThought from "./agent-thought"
+import AgentActionLog from "./agent-action-log"
 
 interface ChatMessageProps {
   message: ChatMessage
@@ -37,9 +39,17 @@ export default function ChatMessageComponent({ message }: ChatMessageProps) {
 
         {/* Message Content */}
         <div className={`flex-1 ${isUser ? "text-right" : "text-left"}`}>
+          {!isUser && message.metadata?.thoughts && (
+            <AgentThought thought={message.metadata.thoughts} steps={message.metadata.thoughtSteps} />
+          )}
+
+          {!isUser && message.metadata?.actions && <AgentActionLog actions={message.metadata.actions} />}
+
           <div
             className={`rounded-lg p-3 ${
-              isUser ? "bg-gradient-to-r from-orange-600 to-yellow-500 text-white" : "bg-white dark:bg-gray-800 border"
+              isUser
+                ? "bg-gradient-to-r from-orange-600 to-yellow-500 text-white shadow-md"
+                : "bg-white dark:bg-gray-800 border shadow-sm"
             }`}
           >
             <p className="text-sm leading-relaxed">{message.content}</p>

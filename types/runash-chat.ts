@@ -9,6 +9,14 @@ export interface ChatMessage {
     recipes?: Recipe[]
     tips?: SustainabilityTip[]
     automationSuggestions?: AutomationSuggestion[]
+    thoughts?: string
+    thoughtSteps?: string[]
+    actions?: {
+      type: "search" | "database" | "cart" | "web"
+      label: string
+      status: "pending" | "complete" | "error"
+      result?: string
+    }[]
   }
 }
 
@@ -107,6 +115,9 @@ export interface ChatSession {
     currentCart: Product[]
     recentSearches: string[]
   }
+  // optional UI fields persisted locally
+  favorite?: boolean
+  model?: string
 }
 
 export interface UserPreferences {
@@ -131,19 +142,3 @@ export type Message = {
   content: string
   createdAt: string | Date
 }
-
-export type ChatSession = {
-  id: string
-  title: string
-  messages: Message[]
-  createdAt: Date | string
-  updatedAt: Date | string
-  context: {
-    preferences?: Record<string, any>
-    currentCart?: any[]
-    recentSearches?: string[]
-  }
-  // optional UI fields persisted locally
-  favorite?: boolean
-  model?: string
-  }
